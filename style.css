@@ -78,3 +78,28 @@ footer {
   background: #eee;
   margin-top: 40px;
 }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+label {
+  font-weight: 600;
+}
+
+input[type="email"],
+textarea {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical; /* allows resizing vertically only */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 150px;
+}

@@ -63,24 +63,29 @@
     
     <section id="contact">
       <h2>Contact</h2>
-      <!-- <form id="contact-form">
-        <input type="text" id="name" placeholder="Your Name" required />
-        <input type="email" id="email" placeholder="Your Email" required />
-        <textarea id="message" placeholder="Your Message" required></textarea>
-        <button type="submit">Send</button>
-      </form> -->
+
+
+
+
+
       <form
           action="https://formspree.io/f/mnnvjpre"
           method="POST"
+          id="contact-form"
         >
-          <label>
+
+          <label for="email">Your email:</label>
+          <input type="email" name="email" id="email" required />
+          <!-- <label>
             Your email:
             <input type="email" name="email">
-          </label>
-          <label>
+          </label> -->
+          <!-- <label>
             Your message:
             <textarea name="message"></textarea>
-          </label>
+          </label> -->
+          <label for="message">Your message:</label>
+          <textarea name="message" id="message" rows="6" required></textarea>
           <!-- your other form fields go here -->
           <button type="submit">Send</button>
         </form>
