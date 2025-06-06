@@ -103,3 +103,31 @@ textarea {
 textarea {
   min-height: 150px;
 }
+/* Education section layout */
+#education {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.edu-entry {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.edu-entry h3 {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+
+.edu-entry p {
+  margin: 8px 0;
+}
+nav a.active {
+  color: #007acc;
+  font-weight: bold;
+  border-bottom: 2px solid #007acc;
+}
