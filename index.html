@@ -8,24 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- <header>
-    <h1>Bota Duisenbay</h1>
-    <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header> -->
-
   <header>
     <h1>Bota Duisenbay</h1>
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="nlp-projects.html">NLP Projects</a></li>
         <li><a href="education.html">Education</a></li>
         <li><a href="publications.html">Publications</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -36,9 +24,8 @@
   <main>
     <section id="about">
       <h2>About Me</h2>
-
       <p>
-        I'm Bota Duisenbay, an AI and Robotics Engineer with a experience in both research and industry. My passion lies in transforming complex AI concepts into deployable solutions—whether it's enabling drones to autonomously navigate tomato fields in southern Italy, or training end-to-end pipelines for information extraction from unstructured documents.
+        I'm an AI and Robotics Engineer with experience in both research and industry. My passion lies in transforming complex AI concepts into deployable solutions—whether it's enabling drones to autonomously navigate tomato fields in southern Italy, or training end-to-end pipelines for information extraction from unstructured documents.
       </p>
       <p>
         I've worked on real-world systems involving UAVs, robotic manipulators (UR10), and advanced perception tasks using Python, C++, ROS, and deep learning frameworks. During my time as a Research Fellow at CNR and an AI Engineer at Botshelf.ai, I've contributed to open-field drone missions, developed novel path planning strategies, and optimized document intelligence systems by fusing OCR, layout models, and LLMs.
@@ -51,44 +38,25 @@
     <section id="projects">
       <h2>Projects</h2>
       <div class="project">
-        <!-- <h3>Areas of expertise</h3> -->
-        <li><a href="nlp-projects.html">NLP Projects</a></li>
-
-        <!-- <p>NLP projects done for Sapienza .</p> -->
+        <h3><a href="nlp-projects.html">NLP Projects</a></h3>
+        <p>Natural Language Processing coursework at Sapienza University including NER, SRL, and Coreference Resolution tasks.</p>
       </div>
-      <!-- Add more project divs here -->
+      <!-- Add more project blocks if needed -->
     </section>
-    <!-- <li><a href="#education">Education</a></li>
-    <li><a href="#publications">Publications</a></li> -->
-    
+
     <section id="contact">
       <h2>Contact</h2>
-
-
-
-
-
       <form
-          action="https://formspree.io/f/mnnvjpre"
-          method="POST"
-          id="contact-form"
-        >
-
-          <label for="email">Your email:</label>
-          <input type="email" name="email" id="email" required />
-          <!-- <label>
-            Your email:
-            <input type="email" name="email">
-          </label> -->
-          <!-- <label>
-            Your message:
-            <textarea name="message"></textarea>
-          </label> -->
-          <label for="message">Your message:</label>
-          <textarea name="message" id="message" rows="6" required></textarea>
-          <!-- your other form fields go here -->
-          <button type="submit">Send</button>
-        </form>
+        action="https://formspree.io/f/mnnvjpre"
+        method="POST"
+        id="contact-form"
+      >
+        <label for="email">Your email:</label>
+        <input type="email" name="email" id="email" required />
+        <label for="message">Your message:</label>
+        <textarea name="message" id="message" rows="6" required></textarea>
+        <button type="submit">Send</button>
+      </form>
       <div id="form-status"></div>
     </section>
   </main>

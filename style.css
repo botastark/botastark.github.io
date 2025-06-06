@@ -1,4 +1,6 @@
 /* style.css */
+
+/* Base layout */
 body {
   font-family: 'Inter', sans-serif;
   margin: 0;
@@ -25,6 +27,8 @@ nav ul {
   list-style: none;
   display: flex;
   gap: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 nav a {
@@ -33,13 +37,24 @@ nav a {
   font-weight: 600;
 }
 
-section {
+nav a.active {
+  color: #007acc;
+  font-weight: bold;
+  border-bottom: 2px solid #007acc;
+}
+
+main {
   max-width: 800px;
   margin: 40px auto;
   padding: 0 20px;
 }
 
-.project {
+section {
+  margin-bottom: 40px;
+}
+
+/* Cards (Projects, Education, etc.) */
+.project, .edu-entry, article {
   background: #fff;
   padding: 20px;
   margin: 20px 0;
@@ -47,17 +62,48 @@ section {
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
+.project h3,
+.edu-entry h3,
+article h3 {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+
+.edu-entry p,
+article p {
+  margin: 8px 0;
+}
+
+/* Forms */
 form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
+  margin-top: 20px;
 }
 
-input, textarea, button {
+label {
+  font-weight: 600;
+}
+
+input,
+textarea,
+button {
   padding: 10px;
   font-size: 1em;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+input[type="email"],
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+textarea {
+  min-height: 150px;
 }
 
 button {
@@ -77,57 +123,4 @@ footer {
   padding: 20px;
   background: #eee;
   margin-top: 40px;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-label {
-  font-weight: 600;
-}
-
-input[type="email"],
-textarea {
-  padding: 12px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: vertical; /* allows resizing vertically only */
-  width: 100%;
-  box-sizing: border-box;
-}
-
-textarea {
-  min-height: 150px;
-}
-/* Education section layout */
-#education {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-.edu-entry {
-  background: #fff;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.edu-entry h3 {
-  margin-top: 0;
-  font-size: 1.25rem;
-}
-
-.edu-entry p {
-  margin: 8px 0;
-}
-nav a.active {
-  color: #007acc;
-  font-weight: bold;
-  border-bottom: 2px solid #007acc;
 }
