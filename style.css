@@ -168,3 +168,9 @@ footer {
   opacity: 1;
   transform: scale(1.1);
 }
+.pub-links a {
+  margin-right: 12px;
+  text-decoration: none;
+  color: #007acc;
+  font-weight: 500;
+}
