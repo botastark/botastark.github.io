@@ -1,20 +1,63 @@
-/* style.css – custom overrides for Bootstrap */
+/* ============================================
+   Global Theme & Overrides
+   ============================================ */
 
 :root {
   --accent-color: #007acc;
 }
 
-/* Typography and color */
+/* Body Typography */
 body {
-  font-family: 'Inter', sans-serif;
-  background: #f9f9f9;
-  color: #333;
-  line-height: 1.6;
+  font-family: 'MyCustomFont', Georgia, serif;  /* fallback works even if custom font disabled */
+  font-size: 18px;
+  letter-spacing: 0em;
+  font-weight: 400;
+  color: #222;
 }
 
+/* Headings */
 h1, h2, h3 {
-  font-weight: 600;
+  font-weight: 500;
 }
+
+/* Academic-style section headings */
+#about h2 {
+  font-family: "Merriweather", Georgia, serif;
+  font-weight: 500;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* ============================================
+   Academic Layout: Narrow Column
+   ============================================ */
+
+.narrow {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Paragraph Style */
+#about p {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0rem;
+  line-height: 1.7;
+  text-align: justify;
+  hyphens: auto;
+  color: #333;
+  margin-bottom: 1.3rem;
+}
+
+#about {
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+/* ============================================
+   Links
+   ============================================ */
 
 a,
 .nav-link {
@@ -27,7 +70,10 @@ a:hover,
   color: #005f99;
 }
 
-/* Buttons */
+/* ============================================
+   Buttons
+   ============================================ */
+
 .btn-primary {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
@@ -38,14 +84,20 @@ a:hover,
   border-color: #005f99;
 }
 
-/* Cards */
+/* ============================================
+   Cards
+   ============================================ */
+
 .card {
   border: none;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-/* News section layout */
+/* ============================================
+   News Section
+   ============================================ */
+
 .news-list {
   list-style: none;
   padding-left: 0;
@@ -71,7 +123,10 @@ a:hover,
   flex: 1;
 }
 
-/* Social Icons */
+/* ============================================
+   Social Icons
+   ============================================ */
+
 .social-icons img {
   width: 24px;
   height: 24px;
@@ -84,7 +139,10 @@ a:hover,
   transform: scale(1.1);
 }
 
-/* Footer font size */
+/* ============================================
+   Footer
+   ============================================ */
+
 footer {
   font-size: 0.95rem;
 }
