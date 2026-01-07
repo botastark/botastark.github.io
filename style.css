@@ -159,3 +159,16 @@ a:hover,
 footer {
   font-size: 0.95rem;
 }
+
+.project-figure {
+  margin: 0;
+}
+
+.project-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  background: #f3f3f3;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  object-fit: cover;
+}
