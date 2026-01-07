@@ -5,6 +5,7 @@
 :root {
   --accent-color: #007acc;
 }
+
 @font-face {
   font-family: 'MyFont';
   src: url('fonts/unicredit-regular.ttf') format('truetype');
@@ -25,7 +26,9 @@ body {
 }
 
 /* Headings */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 600;
 }
 
@@ -169,6 +172,21 @@ footer {
   height: auto;
   border-radius: 12px;
   background: #f3f3f3;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   object-fit: cover;
+}
+
+.gallery-thumb {
+  border-radius: 12px;
+  background: #f3f3f3;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  display: block;
+}
+
+.gallery-full {
+  max-height: 80vh;
+  /* keeps it in a “window”, not full page */
+  object-fit: contain;
+  background: #111;
+  border-radius: 10px;
 }
