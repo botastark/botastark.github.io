@@ -6,12 +6,14 @@
   --accent-color: #007acc;
 }
 
+/* Temporarily disabled custom font due to rendering issues.
 @font-face {
   font-family: 'MyFont';
   src: url('fonts/unicredit-regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+*/
 
 
 
@@ -19,7 +21,8 @@
 /* Body Typography */
 
 body {
-  font-family: 'MyFont', sans-serif;
+  /* Use a standard system font stack for now */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, Noto Sans, sans-serif;
   font-size: 18px;
   font-weight: 400;
   color: #222;
