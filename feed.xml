@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Bota Duisenbay — News</title>
+    <link>https://your-site.example/</link>
+    <description>Latest news and updates from Bota Duisenbay</description>
+    <language>en-us</language>
+    <item>
+      <title>Research visit - Odense, Denmark</title>
+      <link>https://your-site.example/</link>
+      <pubDate>Wed, 01 Dec 2025 00:00:00 +0000</pubDate>
+      <description>Research visit to the University of Southern Denmark (SDU); visited the UAS Center and gave a seminar on swarm drones for agriculture.</description>
+    </item>
+    <item>
+      <title>IAS 19 Conference - Genoa, Italy</title>
+      <link>https://your-site.example/</link>
+      <pubDate>Tue, 01 Jul 2025 00:00:00 +0000</pubDate>
+      <description>Presented during the Special Session on Field Robotics empowered by AI.</description>
+    </item>
+    <item>
+      <title>IEEE RAS Summer School on MRS - Prague</title>
+      <link>https://your-site.example/</link>
+      <pubDate>Sat, 01 Aug 2025 00:00:00 +0000</pubDate>
+      <description>Attended Summer School on Multi-Robot Systems focused on autonomous drone coordination.</description>
+    </item>
+  </channel>
+</rss>
