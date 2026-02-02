@@ -1,0 +1,539 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Training Methodology</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Roboto+Mono:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+      integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+      integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+      integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #fafafa;
+      }
+      .header-bar {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .main-content {
+        flex: 1;
+        display: flex;
+        padding: 16px 40px 10px;
+        gap: 16px;
+        overflow: hidden;
+      }
+      .left-col {
+        flex: 1.1;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .right-col {
+        flex: 0.9;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .section-card {
+        background: white;
+        border-radius: 12px;
+        padding: 12px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        border: 1px solid #e5e7eb;
+        display: flex;
+        flex-direction: column;
+      }
+      .math-block {
+        font-family: "Roboto Mono", monospace;
+        background: #f8fafc;
+        border-left: 4px solid #2563eb;
+        padding: 12px 16px;
+        border-radius: 0 8px 8px 0;
+        color: #334155;
+        font-size: 0.85rem;
+        margin: 8px 0;
+        overflow-x: auto;
+      }
+      .math-inline {
+        font-family: "Roboto Mono", monospace;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.95em;
+      }
+      .insight-box {
+        background: #1e3a8a; /* Dark blue */
+        color: white;
+        border-radius: 12px;
+        padding: 12px;
+        position: relative;
+        overflow: hidden;
+      }
+      .insight-box::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 150px;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        transform: skewX(-20deg);
+      }
+      .chart-container {
+        width: 100%;
+        height: 180px;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .bullet-point {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 8px;
+        align-items: flex-start;
+      }
+      .bullet-icon {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eff6ff;
+        color: #2563eb;
+        border-radius: 50%;
+        flex-shrink: 0;
+        margin-top: 2px;
+        font-size: 10px;
+      }
+      .data-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-right: 6px;
+        margin-bottom: 6px;
+      }
+      .equation-annotation {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-top: 4px;
+        font-style: italic;
+      }
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+      @media print {
+        body,
+        .slide-container {
+          width: 1280px !important;
+          height: 720px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <!-- Header -->
+      <div class="header-bar">
+        <div class="flex items-center gap-4">
+          <div
+            class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center font-bold font-mono text-xl shadow-md"
+          >
+            7
+          </div>
+          <h1 class="text-2xl font-bold text-gray-900 font-poppins">
+            Training Methodology
+          </h1>
+        </div>
+        <div class="ml-auto flex items-center gap-2 text-gray-500 text-sm">
+          <i class="fas fa-chalkboard-teacher"></i>
+          <span>Teacher-Student Paradigm &amp; Objectives</span>
+        </div>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Left Column: Paradigm & Data -->
+        <div class="left-col">
+          <!-- Teacher-Student Concept -->
+          <div class="section-card">
+            <h2
+              class="text-base font-bold mb-2 flex items-center gap-2 text-blue-900"
+            >
+              <i class="fas fa-user-graduate text-blue-600"></i> Teacher-Student
+              Paradigm
+            </h2>
+
+            <!-- Architecture Comparison -->
+            <div class="grid grid-cols-2 gap-2 mb-3">
+              <div class="bg-blue-50 p-2 rounded border border-blue-200">
+                <p class="text-xs font-bold text-blue-900 mb-1">
+                  <i class="fas fa-chalkboard-teacher mr-1"></i>Teacher:
+                  DINOv2+DPT
+                </p>
+                <ul class="text-[10px] text-blue-800 space-y-0.5">
+                  <li>• <strong>Monocular only</strong> (single images)</li>
+                  <li>• Standard DPT decoder</li>
+                  <li>• No multi-view / No camera tokens</li>
+                  <li>• Trained on synthetic data only</li>
+                </ul>
+              </div>
+              <div class="bg-green-50 p-2 rounded border border-green-200">
+                <p class="text-xs font-bold text-green-900 mb-1">
+                  <i class="fas fa-user-graduate mr-1"></i>Student: DA3
+                </p>
+                <ul class="text-[10px] text-green-800 space-y-0.5">
+                  <li>• <strong>Multi-view</strong> (2-18 images)</li>
+                  <li>• Dual-DPT + cross-view attention</li>
+                  <li>• Camera tokens + camera head</li>
+                  <li>• Trained on mixed real+synthetic</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Visual Flow Diagram -->
+            <div class="bg-gray-50 p-2 rounded border border-gray-200">
+              <!-- Teacher Path -->
+              <div class="flex items-center gap-1.5 mb-1.5">
+                <div
+                  class="bg-purple-100 border border-purple-300 rounded px-2 py-0.5 text-[10px] font-semibold text-purple-800"
+                >
+                  Synthetic
+                </div>
+                <div class="text-gray-400 text-xs">→</div>
+                <div
+                  class="bg-blue-100 border border-blue-300 rounded px-2 py-0.5 text-[10px] font-semibold text-blue-800"
+                >
+                  Teacher
+                </div>
+                <div class="text-gray-400 text-xs">→</div>
+                <div
+                  class="bg-gray-200 border border-gray-400 rounded px-2 py-0.5 text-[10px] font-semibold text-gray-800"
+                >
+                  Relative Depth
+                </div>
+              </div>
+
+              <!-- RANSAC -->
+              <div class="flex justify-center my-0.5">
+                <div
+                  class="bg-blue-100 border border-blue-500 rounded px-2 py-0.5"
+                >
+                  <p class="text-[9px] font-bold text-blue-900">
+                    RANSAC align (s,t) → cached pseudo-labels
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex justify-center my-0.5">
+                <div class="text-blue-500">↓</div>
+              </div>
+
+              <!-- Student Path -->
+              <div class="flex items-center gap-1.5">
+                <div
+                  class="bg-green-100 border border-green-300 rounded px-2 py-0.5 text-[10px] font-semibold text-green-800"
+                >
+                  Real+Noisy
+                </div>
+                <div class="text-gray-400 text-xs">→</div>
+                <div
+                  class="bg-yellow-100 border border-yellow-300 rounded px-2 py-0.5 text-[10px] font-semibold text-yellow-800"
+                >
+                  Pseudo-Labels
+                </div>
+                <div class="text-gray-400 text-xs">→</div>
+                <div
+                  class="bg-green-100 border border-green-400 rounded px-2 py-0.5 text-[10px] font-bold text-green-900"
+                >
+                  Student (DA3)
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Training Data Mix -->
+          <div class="section-card">
+            <h2
+              class="text-base font-bold mb-2 flex items-center gap-2 text-blue-900"
+            >
+              <i class="fas fa-database text-purple-600"></i> Mixed Data
+              Strategy
+            </h2>
+            <div class="flex flex-wrap gap-2">
+              <span class="data-badge bg-green-100 text-green-800"
+                ><i class="fas fa-camera mr-1"></i> Real Depth</span
+              >
+              <span class="data-badge bg-blue-100 text-blue-800"
+                ><i class="fas fa-cubes mr-1"></i> 3D Recon</span
+              >
+              <span class="data-badge bg-purple-100 text-purple-800"
+                ><i class="fas fa-vr-cardboard mr-1"></i> Synthetic</span
+              >
+            </div>
+            <p class="text-xs text-gray-600 mt-2">
+              ~40% synthetic, ~30% real (ScanNet++), ~30% reconstructed (DL3DV)
+            </p>
+          </div>
+          <!-- Training Details -->
+          <div class="bg-gray-100 rounded-lg p-3 border border-gray-200">
+            <div class="flex justify-between items-center mb-2">
+              <p class="text-xs font-bold text-gray-600 uppercase">
+                Key Details
+              </p>
+              <p class="text-xs text-gray-500">200k steps on 128 H100 GPUs</p>
+            </div>
+            <div class="grid grid-cols-2 gap-x-4 gap-y-1.5">
+              <div class="flex items-center gap-2">
+                <i class="fas fa-expand text-gray-400 text-xs"></i>
+                <p class="text-xs text-gray-700">Base res 504² (varied AR)</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fas fa-random text-gray-400 text-xs"></i>
+                <p class="text-xs text-gray-700">Pose cond prob p=0.2</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fas fa-clock text-gray-400 text-xs"></i>
+                <p class="text-xs text-gray-700">Wall-clock: ~5-7 days</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fas fa-bolt text-gray-400 text-xs"></i>
+                <p class="text-xs text-gray-700">
+                  Camera head D<sub>C</sub>: ~1ms
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right Column: Objectives -->
+        <div class="right-col">
+          <!-- Overall Objective -->
+          <div class="insight-box">
+            <h2
+              class="text-base font-bold mb-2 text-white flex items-center gap-2"
+            >
+              <i class="fas fa-function text-yellow-300"></i> Student Training
+              Objective
+            </h2>
+            <div
+              class="math-block bg-opacity-20 bg-black border-l-4 border-yellow-400 text-white"
+            >
+              $$L = L_D + L_M + L_P + \beta L_C + \alpha L_{grad}$$
+              <div class="text-xs text-gray-300 mt-1">
+                (where <span class="math-inline">$\alpha = 1, \beta = 1$</span>)
+              </div>
+            </div>
+            <div class="bg-blue-900 bg-opacity-40 rounded p-2 mt-2">
+              <p class="text-xs text-blue-100 leading-relaxed mb-1">
+                <strong>Student:</strong> Multi-view depth + rays + pose (mixed
+                real+synthetic data)
+              </p>
+              <p class="text-xs text-yellow-100 leading-relaxed">
+                <strong>Teacher:</strong>
+                <span class="math-inline"
+                  >$L_T = L_{grad} + L_{gl} + 0.5 L_N + L_{sky} + L_{obj}$</span
+                >
+                (monocular, synthetic only)
+              </p>
+            </div>
+          </div>
+          <!-- Loss Components -->
+          <div class="section-card flex-1">
+            <h2
+              class="text-base font-bold mb-3 flex items-center gap-2 text-gray-800"
+            >
+              <i class="fas fa-list-ul text-blue-500"></i> Student Loss
+              Components
+            </h2>
+            <!-- Loss Components List -->
+            <div class="grid grid-cols-1 gap-2">
+              <div class="mb-2">
+                <p class="text-sm font-semibold text-gray-800 mb-1">
+                  1. Confidence-Aware Depth Loss (<span class="math-inline"
+                    >$L_D$</span
+                  >)
+                </p>
+                <p class="text-xs text-gray-600">
+                  Weighted L1 loss with learned uncertainty
+                  <span class="math-inline">$D_{c,p}$</span> that down-weights
+                  ambiguous regions.
+                </p>
+              </div>
+              <div class="mb-2">
+                <p class="text-sm font-semibold text-gray-800 mb-1">
+                  2. Ray Map Loss (<span class="math-inline">$L_M$</span>)
+                </p>
+                <p class="text-xs text-gray-600">
+                  L1 loss on ray vectors
+                  <span class="math-inline">$M=(t,d)$</span> for direction
+                  consistency.
+                </p>
+              </div>
+              <div class="mb-2">
+                <p class="text-sm font-semibold text-gray-800 mb-1">
+                  3. Point Consistency (<span class="math-inline">$L_P$</span>)
+                </p>
+                <p class="text-xs text-gray-600">
+                  Loss on 3D points
+                  <span class="math-inline">$P = t + \hat{D} \odot d$</span> to
+                  enforce geometric validity.
+                </p>
+              </div>
+              <div class="mb-2">
+                <p class="text-sm font-semibold text-gray-800 mb-1">
+                  4. Camera Head (<span class="math-inline">$L_C$</span>)
+                </p>
+                <p class="text-xs text-gray-600">
+                  Supervision for pose predictions
+                  <span class="math-inline">$(f,q,t)$</span> from camera head.
+                </p>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-gray-800 mb-1">
+                  5. Gradient Loss (<span class="math-inline">$L_{grad}$</span>)
+                </p>
+                <p class="text-xs text-gray-600">
+                  Edge-aware smoothness (shared with teacher).
+                </p>
+              </div>
+            </div>
+
+            <!-- Teacher Losses Note -->
+            <div
+              class="bg-yellow-50 border-l-4 border-yellow-500 rounded-r px-2 py-1.5 mt-2"
+            >
+              <p class="text-xs font-bold text-yellow-900 mb-0.5">
+                Teacher Losses (monocular)
+              </p>
+              <p class="text-[10px] text-yellow-800">
+                ROE, surface normals, sky/object masks
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // ECharts for Data Distribution
+      var chartDom = document.getElementById("dataChart");
+      var myChart = echarts.init(chartDom);
+      var option;
+
+      option = {
+        animation: false,
+        tooltip: {
+          trigger: "item",
+        },
+        legend: {
+          top: "5%",
+          left: "center",
+          textStyle: { fontSize: 10 },
+        },
+        series: [
+          {
+            name: "Data Sources",
+            type: "pie",
+            radius: ["40%", "70%"],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 5,
+              borderColor: "#fff",
+              borderWidth: 2,
+            },
+            label: {
+              show: false,
+              position: "center",
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: "12",
+                fontWeight: "bold",
+              },
+            },
+            labelLine: {
+              show: false,
+            },
+            data: [
+              { value: 40, name: "Synthetic", itemStyle: { color: "#8B5CF6" } },
+              {
+                value: 30,
+                name: "Real (ScanNet++)",
+                itemStyle: { color: "#10B981" },
+              },
+              {
+                value: 30,
+                name: "Recon (DL3DV)",
+                itemStyle: { color: "#3B82F6" },
+              },
+            ],
+          },
+        ],
+      };
+
+      option && myChart.setOption(option);
+    </script>
+    <script>
+      // Initialize KaTeX auto-render
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+          throwOnError: false,
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en" data-theme="light" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Summary &amp; Interview Prep</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #fafafa;
+      }
+      .header-bar {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .main-content {
+        flex: 1;
+        display: flex;
+        padding: 20px 40px;
+        gap: 28px;
+        overflow: hidden;
+      }
+      .column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .card {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e5e7eb;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #f3f4f6;
+      }
+      .card-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+      .takeaway-header {
+        border-color: #d1fae5;
+      }
+      .question-header {
+        border-color: #ffedd5;
+      }
+
+      .takeaway-title {
+        color: #059669;
+      }
+      .question-title {
+        color: #c2410c;
+      }
+
+      .list-item {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .icon-box {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 1.2rem;
+      }
+      .takeaway-icon {
+        background: #ecfdf5;
+        color: #059669;
+      }
+      .question-icon {
+        background: #fff7ed;
+        color: #ea580c;
+      }
+      .item-content {
+        flex: 1;
+      }
+      .item-title {
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 4px;
+        display: block;
+        font-size: 1.05rem;
+      }
+      .item-desc {
+        font-size: 0.95rem;
+        color: #4b5563;
+        line-height: 1.5;
+      }
+      .bottom-banner {
+        background: #111827;
+        color: white;
+        border-radius: 12px;
+        padding: 20px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: auto;
+      }
+      .rationale-tag {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 99px;
+        margin-left: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .tag-blue {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .tag-orange {
+        background: #ffedd5;
+        color: #9a3412;
+      }
+          @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+      @media print {
+        body, .slide-container {
+          width: 1280px !important;
+          height: 720px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="">
+    <div class="slide-container">
+      <!-- Header -->
+      <div class="header-bar">
+        <div class="flex items-center gap-4">
+          <div
+            class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center font-bold font-mono text-xl shadow-md"
+          >
+            13
+          </div>
+          <h1 class="text-2xl font-bold text-gray-900 font-poppins">Summary</h1>
+        </div>
+        <div
+          class="ml-auto flex items-center gap-2 text-gray-500 text-sm"
+        ></div>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Left Column: Key Takeaways & Rationale -->
+        <div class="column">
+          <div
+            class="card"\n            style=\"\n              padding-top: 10px;\n              position: relative;\n            \"\n          >
+            <div class="card-header takeaway-header">
+              <div
+                class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600"
+              >
+                <i class="fas fa-bullseye text-xl"></i>
+              </div>
+              <h2 class="card-title takeaway-title">
+                Core Contributions &amp; Rationale
+              </h2>
+            </div>
+            <div class="list-item">
+              <div class="icon-box takeaway-icon">
+                <i class="fas fa-layer-group"></i>
+              </div>
+              <div class="item-content">
+                <span class="item-title"
+                  >Minimalism Suffices
+                  <span class="rationale-tag tag-blue">Architecture</span></span
+                >
+                <p class="item-desc">
+                  A single plain ViT (DINOv2) + minimal Depth-Ray targets are
+                  sufficient for any-view geometry. No complex multi-task
+                  bundles or bespoke 3D modules needed.
+                </p>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="icon-box takeaway-icon">
+                <i class="fas fa-vector-square"></i>
+              </div>
+              <div class="item-content">
+                <span class="item-title"
+                  >Implicit Pose via Rays
+                  <span class="rationale-tag tag-blue">Formulation</span></span
+                >
+                <p class="item-desc">
+                  Predicting dense rays avoids difficult orthogonality
+                  constraints of rotation matrices (SO3). Pose emerges naturally
+                  from ray convergence.
+                </p>
+              </div>
+            </div>
+            <div class="list-item">
+              <div class="icon-box takeaway-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="item-content">
+                <span class="item-title"
+                  >Empirical Dominance
+                  <span class="rationale-tag tag-blue">Results</span></span
+                >
+                <p class="item-desc">
+                  +35.7% Pose AUC vs. VGGT. Validates that scale-invariant depth
+                  + ray maps is the optimal minimal set for foundation geometry.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right Column: Anticipated Expert Questions -->
+      </div>
+      <!-- Bottom Banner -->
+      <div class="mx-16 mb-10 bottom-banner shadow-lg">
+        <div class="flex items-center gap-4">
+          <div>
+            <p class="text-sm text-gray-300">
+              DepthAnything3 proves that
+              <span class="text-white font-semibold">generalist scaling</span>
+              beats
+              <span class="text-white font-semibold"
+                >specialized engineering</span
+              >
+              for 3D visual geometry.
+            </p>
+          </div>
+        </div>
+        <div class="text-right"></div>
+      </div>
+    </div>
+  </body>
+</html>

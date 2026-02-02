@@ -1,0 +1,561 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CNR Research — Timeline & Gear</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f3f4f6;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        position: relative;
+      }
+
+      /* Header */
+      header {
+        background-color: #0f172a;
+        padding: 14px 24px;
+      }
+
+      /* Main split layout: timeline left, role/gear right */
+      .main-content {
+        display: grid;
+        grid-template-columns: 65% 35%;
+        gap: 0;
+        padding: 0;
+        box-sizing: border-box;
+        position: relative;
+        flex: 1;
+      }
+
+      /* Timeline column */
+      .timeline-col {
+        grid-column: 1;
+        position: relative;
+        padding: 10px 20px;
+      }
+      .timeline-line {
+        position: absolute;
+        left: 50%;
+        top: 20px;
+        bottom: 20px;
+        width: 4px;
+        background-color: #e2e8f0;
+        transform: translateX(-50%);
+        border-radius: 2px;
+      }
+      .items-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      .timeline-item {
+        position: relative;
+        width: 50%;
+        padding: 0 35px;
+        box-sizing: border-box;
+        margin-bottom: 12px;
+        display: flex;
+        flex-direction: column;
+      }
+      .timeline-item.left {
+        left: 0;
+        align-items: flex-end;
+        text-align: right;
+      }
+      .timeline-item.right {
+        left: 50%;
+        align-items: flex-start;
+        text-align: left;
+      }
+      .timeline-dot {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        background-color: #2563eb;
+        border: 3px solid #bfdbfe;
+        border-radius: 50%;
+        z-index: 10;
+      }
+      .left .timeline-dot {
+        right: -10px;
+      }
+      .right .timeline-dot {
+        left: -10px;
+      }
+      .timeline-item .card {
+        background: white;
+        padding: 10px 16px;
+        border-radius: 8px;
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        width: 85%;
+        transition: transform 0.2s;
+      }
+      .left .card {
+        border-right: 4px solid #2563eb;
+      }
+      .right .card {
+        border-left: 4px solid #2563eb;
+      }
+      .timeline-date {
+        font-weight: 700;
+        color: #2563eb;
+        margin-bottom: 2px;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .timeline-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #1f2937;
+        margin-bottom: 1px;
+        line-height: 1.2;
+      }
+      .timeline-subtitle {
+        font-size: 0.9rem;
+        color: #4b5563;
+        font-style: italic;
+      }
+
+      /* Right column: Role and Gear */
+      .side-col {
+        grid-column: 2;
+        padding: 20px 20px 20px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        justify-content: flex-start;
+        align-self: flex-start;
+        border-left: 1px solid #e2e8f0;
+        background-color: #fafbfc;
+      }
+      .role-card {
+        background: linear-gradient(to bottom, #ffffff, #fefefe);
+        border: 1px solid #e2e8f0;
+        border-left: 3px solid #f59e0b; /* amber border to match timeline current role */
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+        padding: 14px;
+        border-radius: 6px;
+      }
+      .gear-section {
+        background-color: #f8fafc;
+        border: 1px solid #e6eef8;
+        border-radius: 12px;
+        padding: 12px;
+      }
+      .gear-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        padding: 8px;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #edf2f7;
+        box-shadow: 0 1px 2px rgba(2, 6, 23, 0.04);
+      }
+      .icon-box {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eff6ff;
+        color: #1e3a8a;
+        border-radius: 8px;
+        margin-right: 12px;
+      }
+      .icon-box-small {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eff6ff;
+        color: #1e3a8a;
+        border-radius: 6px;
+        font-size: 12px;
+        margin-right: 10px;
+      }
+      .sub-item {
+        position: relative;
+        padding-left: 20px;
+        margin-top: 8px;
+        color: #475569;
+      }
+      .sub-item::before {
+        content: "";
+        position: absolute;
+        left: 6px;
+        top: 10px;
+        width: 6px;
+        height: 6px;
+        background: #93c5fd;
+        border-radius: 50%;
+      }
+
+      /* Current role highlight */
+      .card.current-role {
+        background-color: #eff6ff;
+      }
+      .right .card.current-role {
+        border-left-color: #f59e0b !important;
+      }
+      .left .card.current-role {
+        border-right-color: #f59e0b !important;
+      }
+      .current-dot {
+        background-color: #f59e0b !important;
+        border-color: #fcd34d !important;
+      }
+      .current-text {
+        color: #f59e0b !important;
+      }
+
+      /* Connector between timeline and profile card */
+      /* connector removed to simplify visual link */
+
+      /* Footer */
+      .slide-footer {
+        position: absolute;
+        bottom: 10px;
+        right: 16px;
+        color: #9aa4b2;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <!-- Header -->
+      <header class="text-white flex items-center shadow-lg z-20">
+        <div class="flex-1">
+          <h1 class="text-2xl font-bold tracking-tight">Background</h1>
+          <p
+            class="text-blue-200 text-xs mt-1 uppercase tracking-wider font-semibold"
+          >
+            Timeline, Current Position & PhD Motivation
+          </p>
+        </div>
+      </header>
+
+      <!-- Main split area -->
+      <main class="main-content">
+        <!-- Timeline Column -->
+        <section class="timeline-col">
+          <div class="timeline-line"></div>
+          <div class="items-wrapper">
+            <!-- BSc -->
+            <div class="timeline-item left">
+              <div class="timeline-dot"></div>
+              <div class="card">
+                <p class="timeline-date">
+                  <i class="far fa-calendar-alt mr-2"></i>Aug 2014 - Jun 2018
+                </p>
+                <h3 class="timeline-title">BSc Robotics and Mechatronics</h3>
+                <p class="timeline-subtitle">Nazarbayev University</p>
+              </div>
+            </div>
+            <!-- ALARIS -->
+            <div class="timeline-item right">
+              <div class="timeline-dot"></div>
+              <div class="card">
+                <p class="timeline-date">
+                  <i class="far fa-calendar-alt mr-2"></i>Jun 2017 - May 2018
+                </p>
+                <h3 class="timeline-title">Robotics Research Assistant</h3>
+                <p class="timeline-subtitle">ALARIS (Robotics Lab in NU)</p>
+              </div>
+            </div>
+            <!-- MSc -->
+            <div class="timeline-item left">
+              <div class="timeline-dot"></div>
+              <div class="card">
+                <p class="timeline-date">
+                  <i class="far fa-calendar-alt mr-2"></i>Sept 2018 - Jul 2023
+                </p>
+                <h3 class="timeline-title">MSc AI and Robotics</h3>
+                <p class="timeline-subtitle">Sapienza University of Rome</p>
+              </div>
+            </div>
+            <!-- Baker Hughes -->
+            <div class="timeline-item right">
+              <div class="timeline-dot"></div>
+              <div class="card">
+                <p class="timeline-date">
+                  <i class="far fa-calendar-alt mr-2"></i>Nov 2020 - Jul 2021
+                </p>
+                <h3 class="timeline-title">AI and Robotics Intern</h3>
+                <p class="timeline-subtitle">Baker Hughes R&amp;D Team</p>
+              </div>
+            </div>
+            <!-- botshelf.ai -->
+            <div class="timeline-item left">
+              <div class="timeline-dot"></div>
+              <div class="card">
+                <p class="timeline-date">
+                  <i class="far fa-calendar-alt mr-2"></i>Sept 2022 – Sept 2023
+                </p>
+                <h3 class="timeline-title">AI Engineer</h3>
+                <p class="timeline-subtitle">botshelf.ai (AI Startup)</p>
+              </div>
+            </div>
+            <!-- ISTC CNR (current) -->
+            <div class="timeline-item right">
+              <div class="timeline-dot current-dot"></div>
+              <div class="card current-role">
+                <p class="timeline-date current-text">
+                  <i class="far fa-calendar-check mr-2"></i>Jan 2024 – Present
+                </p>
+                <h3 class="timeline-title">Research Fellow</h3>
+                <p class="timeline-subtitle">ISTC CNR</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Side column: PhD Motivation & Current Position -->
+        <aside class="side-col">
+          <!-- PhD Motivation Card (Primary) -->
+          <div
+            style="
+              background: #fffbeb;
+              border-left: 4px solid #f59e0b;
+              border-radius: 8px;
+              padding: 14px 16px;
+              box-shadow:
+                0 4px 6px rgba(0, 0, 0, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.06);
+              margin-bottom: 12px;
+            "
+          >
+            <h3
+              style="
+                font-size: 1.05rem;
+                font-weight: 700;
+                color: #78350f;
+                margin: 0 0 2px 0;
+                line-height: 1.2;
+              "
+            >
+              Why PhD?
+            </h3>
+            <p
+              style="
+                font-size: 0.72rem;
+                color: #b45309;
+                font-style: italic;
+                margin: 0 0 8px 0;
+              "
+            >
+              The path from practice to research
+            </p>
+
+            <div style="margin-bottom: 6px">
+              <p
+                style="
+                  font-size: 0.7rem;
+                  font-weight: 700;
+                  color: #92400e;
+                  margin: 0 0 2px 0;
+                  text-transform: uppercase;
+                  letter-spacing: 0.05em;
+                "
+              >
+                From Field to Theory + Nature's Blueprint
+              </p>
+              <p
+                style="
+                  font-size: 0.82rem;
+                  color: #78350f;
+                  margin: 0;
+                  line-height: 1.4;
+                "
+              >
+                Deploying autonomous systems exposed hard constraints: energy
+                budgets, sensor degradation, real-time uncertainty. Traditional
+                methods hit fundamental bounds. Optimization alone cannot
+                overcome architectural constraints. Insects navigate complex
+                environments with minimal power and computation, showing a
+                different computational paradigm.
+              </p>
+            </div>
+
+            <div>
+              <p
+                style="
+                  font-size: 0.7rem;
+                  font-weight: 700;
+                  color: #92400e;
+                  margin: 0 0 2px 0;
+                  text-transform: uppercase;
+                  letter-spacing: 0.05em;
+                "
+              >
+                Next Step
+              </p>
+              <p
+                style="
+                  font-size: 0.82rem;
+                  color: #78350f;
+                  margin: 0;
+                  line-height: 1.4;
+                "
+              >
+                Neuromorphic computing for efficient, robust autonomy
+              </p>
+            </div>
+          </div>
+
+          <!-- Current Position Card -->
+          <div
+            style="
+              background: #ffffff;
+              border-left: 4px solid #2563eb;
+              border-radius: 8px;
+              padding: 12px 14px;
+              box-shadow:
+                0 4px 6px rgba(0, 0, 0, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.06);
+            "
+          >
+            <p
+              style="
+                font-size: 0.85rem;
+                font-weight: 700;
+                color: #2563eb;
+                margin: 0 0 2px 0;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+              "
+            >
+              <i class="far fa-calendar-check" style="margin-right: 6px"></i>Jan
+              2024 – Present
+            </p>
+            <h3
+              style="
+                font-size: 1.05rem;
+                font-weight: 700;
+                color: #1f2937;
+                line-height: 1.2;
+                margin: 0 0 2px 0;
+              "
+            >
+              Research Fellow
+            </h3>
+            <p
+              style="
+                font-size: 0.9rem;
+                color: #4b5563;
+                font-style: italic;
+                margin: 0 0 8px 0;
+              "
+            >
+              ISTC CNR
+            </p>
+
+            <p
+              style="
+                font-size: 0.82rem;
+                color: #374151;
+                line-height: 1.4;
+                margin: 0 0 8px 0;
+              "
+            >
+              Multi-UAV systems for agricultural robotics. Developing perception
+              and planning algorithms for field deployment.
+            </p>
+
+            <div>
+              <p
+                style="
+                  font-size: 0.72rem;
+                  font-weight: 700;
+                  color: #1e3a8a;
+                  margin: 0 0 4px 0;
+                  text-transform: uppercase;
+                  letter-spacing: 0.03em;
+                "
+              >
+                Key Focus
+              </p>
+              <ul
+                style="
+                  font-size: 0.76rem;
+                  color: #475569;
+                  line-height: 1.35;
+                  margin: 0;
+                  padding-left: 18px;
+                  list-style: none;
+                "
+              >
+                <li
+                  style="
+                    margin-bottom: 3px;
+                    position: relative;
+                    padding-left: 8px;
+                  "
+                >
+                  <span style="position: absolute; left: -8px; color: #2563eb"
+                    >•</span
+                  >
+                  Perception & planning for swarm systems
+                </li>
+                <li
+                  style="
+                    margin-bottom: 3px;
+                    position: relative;
+                    padding-left: 8px;
+                  "
+                >
+                  <span style="position: absolute; left: -8px; color: #2563eb"
+                    >•</span
+                  >
+                  Field experiment design & data pipelines
+                </li>
+                <li style="position: relative; padding-left: 8px">
+                  <span style="position: absolute; left: -8px; color: #2563eb"
+                    >•</span
+                  >
+                  <strong>Hardware:</strong> DJI Mini 3, UviFy (Jetson NX)
+                </li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+      </main>
+
+      <!-- Footer removed -->
+    </div>
+  </body>
+</html>

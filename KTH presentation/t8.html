@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en" data-theme="light" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>EDOPT Empirical Results</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f3f4f6;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        position: relative;
+      }
+      /* Consistent Header Style */
+      .header-bg {
+        background-color: #1e3a8a; /* blue-900 */
+      }
+
+      /* Layout Grid */
+      .grid-layout {
+        display: grid;
+        grid-template-columns: 1.4fr 0.8fr;
+        grid-template-rows: auto 1fr;
+        gap: 24px;
+        height: 100%;
+      }
+
+      /* Section Cards */
+      .content-card {
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        padding: 20px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+      }
+      .content-card.primary {
+        border-left: 4px solid #1e3a8a; /* blue-900 */
+        grid-row: 1 / span 2;
+      }
+      .content-card.secondary {
+        border-left: 4px solid #d97706; /* amber-600 */
+        background-color: #fffbeb; /* amber-50 */
+      }
+      .content-card.tertiary {
+        border-left: 4px solid #10b981; /* emerald-500 */
+        background-color: #ecfdf5; /* emerald-50 */
+      }
+
+      /* Typography */
+      .section-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #111827; /* gray-900 */
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+      }
+      .section-title i {
+        margin-right: 10px;
+        width: 24px;
+        text-align: center;
+      }
+
+      /* Comparison Table */
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 16px;
+      }
+      .comparison-table th {
+        text-align: left;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        color: #6b7280;
+        font-weight: 500;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .comparison-table td {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .comparison-table .highlight-row {
+        background-color: #eff6ff; /* blue-50 */
+        font-weight: 700;
+        color: #1e3a8a;
+      }
+      .comparison-table .metric-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+      .badge-green {
+        background-color: #d1fae5;
+        color: #065f46;
+      }
+      .badge-gray {
+        background-color: #f3f4f6;
+        color: #4b5563;
+      }
+
+      /* Lists */
+      .bullet-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .bullet-list li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 6px;
+        color: #374151; /* gray-700 */
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+      .bullet-list li::before {
+        content: "•";
+        color: #1e3a8a;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+        font-size: 1.2em;
+        line-height: 1.2;
+      }
+    </style>
+  </head>
+  <body style="">
+    <div class="slide-container">
+      <!-- Header -->
+      <header
+        class="header-bg text-white px-10 py-6 flex items-center shadow-lg z-20"
+      >
+        <div class="flex-1">
+          <h1 class="text-3xl font-bold tracking-tight">Empirical Results</h1>
+          <p
+            class="text-blue-200 text-sm mt-1 uppercase tracking-wider font-semibold"
+          >
+            Performance Comparison &amp; Real-world Validation
+          </p>
+        </div>
+        <div class="text-right opacity-80">
+          <div class="text-xl font-bold font-mono">Task3</div>
+        </div>
+      </header>
+      <!-- Main Content -->
+      <main class="flex-1 px-10 py-8 overflow-hidden">
+        <div class="grid-layout">
+          <!-- Primary Column: Detailed Experiments -->
+          <div class="content-card primary">
+            <!-- Experiment 1 -->
+            <div class="mb-6">
+              <h3 class="section-title">
+                <i class="fas fa-chart-bar text-blue-800"></i> Exp 1: Baseline
+                Comparison (vs RGB-D-E)
+              </h3>
+              <p class="text-sm text-gray-600 mb-3">
+                Synthetic dataset (Unreal Engine) with ground-truth pose.
+                Comparing against state-of-the-art DNN baseline.
+              </p>
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Pos Error (cm)</th>
+                    <th>Rot Error (deg)</th>
+                    <th>Frequency</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="highlight-row">
+                    <td>EDOPT (Ours)</td>
+                    <td>
+                      0.70
+                      <i class="fas fa-check text-green-500 text-xs ml-1"></i>
+                    </td>
+                    <td>
+                      2.30°
+                      <i class="fas fa-check text-green-500 text-xs ml-1"></i>
+                    </td>
+                    <td><span class="badge-green">300 Hz</span></td>
+                  </tr>
+                  <tr>
+                    <td>RGB-D-E (Baseline)</td>
+                    <td>0.73</td>
+                    <td>2.44°</td>
+                    <td><span class="badge-gray">5 Hz</span></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                class="bg-blue-50 border border-blue-100 p-3 rounded text-sm text-blue-800"
+              >
+                <i class="fas fa-info-circle mr-1"></i>
+                <strong>Result:</strong> Matches accuracy but runs
+                <strong>60x faster</strong>.
+              </div>
+            </div>
+            <!-- Experiment 2 -->
+            <div>
+              <h3 class="section-title">
+                <i class="fas fa-cubes text-blue-800"></i> Exp 2: Generalization
+                Ability
+              </h3>
+              <p class="text-sm text-gray-600 mb-3">
+                Testing on objects not seen during any training phase.
+              </p>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                  <div class="text-xs font-bold text-gray-500 uppercase mb-1">
+                    EDOPT Performance
+                  </div>
+                  <p class="text-sm font-bold text-gray-800">
+                    Median Error &lt; 1 cm,&nbsp; Median Angle &lt; 6°
+                  </p>
+                </div>
+                <div
+                  class="bg-gray-50 p-3 rounded border border-gray-200 flex items-center"
+                  style="
+                    position: relative;
+                    transform: translate(-363.271px, 72.4529px);
+                  "
+                >
+                  <p class="text-sm text-gray-600">
+                    <i class="fas fa-times-circle text-red-500 mr-1"></i>
+                    <strong>RGB-D-E fails</strong> completely as the DNN cannot
+                    generalize to new objects without retraining.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Secondary Column Top: Live Tracking -->
+          <div class="content-card secondary">
+            <h3 class="section-title text-amber-900 border-amber-200">
+              <i class="fas fa-video text-amber-600"></i> Exp 3: Live Online
+              Tracking
+            </h3>
+            <ul class="bullet-list mb-4">
+              <li><strong>Setup:</strong>&nbsp; ATIS camera (640×480)</li>
+              <li>
+                <strong>Target:</strong> Hand-held toy car with free 6-DoF
+                motion
+              </li>
+            </ul>
+            <div class="bg-white p-3 rounded border border-amber-100">
+              <p class="text-sm font-bold text-amber-800 mb-1">
+                Qualitative Results:
+              </p>
+              <p class="text-sm text-gray-700">
+                Visually consistent tracking with no frame jumps and smooth
+                updates, validating real-time performance.
+              </p>
+            </div>
+          </div>
+          <!-- Secondary Column Bottom: Summary -->
+          <div class="content-card tertiary">
+            <h3 class="section-title text-emerald-900 border-emerald-200">
+              <i class="fas fa-flag-checkered text-emerald-600"></i> Comparison
+              Summary
+            </h3>
+            <p class="text-emerald-900 font-medium text-lg leading-snug mb-2">
+              High Frequency + Generalization
+            </p>
+            <p class="text-sm text-gray-700">
+              EDOPT achieves State-of-the-Art accuracy at
+              <strong>&gt;300 Hz</strong> (vs 5Hz) while working on any object
+              with a mesh, eliminating the need for object-specific retraining.
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en" data-theme="light" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Introduction &amp; Motivation</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #fafafa;
+      }
+      .header-bar {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 40px 16px;
+        gap: 20px;
+        overflow: hidden;
+      }
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        flex: 1;
+      }
+      .section-card {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        border: 1px solid #e5e7eb;
+      }
+      .bullet-point {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 10px;
+        align-items: flex-start;
+      }
+      .bullet-icon {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eff6ff;
+        color: #2563eb;
+        border-radius: 6px;
+        flex-shrink: 0;
+        margin-top: 2px;
+        font-size: 12px;
+      }
+      .insight-box {
+        background: #1e3a8a; /* Dark blue */
+        color: white;
+        border-radius: 12px;
+        padding: 16px;
+        position: relative;
+        overflow: hidden;
+      }
+      .insight-box::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 150px;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        transform: skewX(-20deg);
+      }
+      .math-block {
+        font-family: "Roboto Mono", monospace;
+        background: #f8fafc;
+        border-left: 4px solid #2563eb;
+        padding: 16px 20px;
+        border-radius: 0 8px 8px 0;
+        color: #334155;
+        font-size: 0.95rem;
+        margin-top: 12px;
+      }
+      .placeholder-fig {
+        width: 100%;
+        height: 100%;
+        background: #f3f4f6;
+        border-radius: 12px;
+        border: 2px dashed #d1d5db;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #6b7280;
+        position: relative;
+        overflow: hidden;
+      }
+      .fig-caption {
+        font-size: 0.85rem;
+        color: #64748b;
+        text-align: center;
+        margin-top: 12px;
+        font-style: italic;
+      }
+      .limitations-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .limit-item {
+        background: #fef2f2;
+        border-left: 3px solid #ef4444;
+        padding: 12px 16px;
+        border-radius: 0 6px 6px 0;
+      }
+      h2 {
+        font-family: "Poppins", sans-serif;
+        color: #111827;
+      }
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+      @media print {
+        body,
+        .slide-container {
+          width: 1280px !important;
+          height: 720px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open%20Sans:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google%20Sans:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto%20Sans%20JP:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body style="">
+    <div class="slide-container">
+      <!-- Header -->
+      <div class="header-bar">
+        <div class="flex items-center gap-4">
+          <div
+            class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center font-bold font-mono text-xl shadow-md"
+          >
+            2
+          </div>
+          <h1 class="text-2xl font-bold text-gray-900 font-poppins">
+            Introduction &amp; Motivation
+          </h1>
+        </div>
+        <div
+          class="ml-auto flex items-center gap-2 text-gray-500 text-sm"
+        ></div>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Problem Statement - Full Width -->
+        <div class="section-card">
+          <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
+            <i class="fas fa-bullseye text-blue-600"></i> The Core Problem
+          </h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-gray-700 text-sm leading-relaxed mb-3">
+                <strong>Existing foundation models require:</strong>
+              </p>
+              <ul class="text-sm text-gray-700 space-y-1.5 ml-4 mb-3">
+                <li>
+                  ❌ <strong>VGGT:</strong> Redundant multi-task targets (point
+                  maps + depth + pose) + multi-stage architecture
+                </li>
+                <li>
+                  ❌ <strong>DUSt3R:</strong> Point maps insufficient for metric
+                  consistency
+                </li>
+                <li>
+                  ❌ <strong>Traditional SfM/MVS:</strong> Brittle under
+                  textureless regions, specularities
+                </li>
+              </ul>
+            </div>
+            <div class="flex flex-col justify-center">
+              <div
+                class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded-r mb-3"
+              >
+                <p class="text-sm text-blue-900 font-semibold mb-1">
+                  Central Question:
+                </p>
+                <p class="text-sm text-blue-800">
+                  Can a <strong>SINGLE PLAIN ViT</strong> with
+                  <strong>MINIMAL TARGETS</strong> (depth + rays only) suffice
+                  for unified 3D reconstruction?
+                </p>
+              </div>
+              <p class="text-base text-green-700 font-semibold mb-2">
+                <i class="fas fa-check-circle text-green-600 mr-1"></i>
+                YES → DepthAnything3
+              </p>
+              <div class="bg-green-50 border-l-4 border-green-500 p-2">
+                <p class="text-xs text-green-800">
+                  <i class="fas fa-trophy mr-1"></i>
+                  <strong>Key Achievement:</strong> DA3 reaches SOTA performance
+                  using <strong>only public academic datasets</strong>, without
+                  proprietary data.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Two Column Grid for Limitations and DA3 Solution -->
+        <div class="content-grid">
+          <!-- Limitations of Prior Work -->
+          <div class="section-card">
+            <h2 class="text-base font-bold mb-3 flex items-center gap-2">
+              <i class="fas fa-exclamation-triangle text-red-500"></i>
+              Limitations of Prior Work
+            </h2>
+            <div class="space-y-3">
+              <div class="limit-item">
+                <p class="text-sm text-red-900 font-semibold mb-1">
+                  Traditional Pipelines (SfM / MVS / SLAM)
+                </p>
+                <p class="text-xs text-red-800">
+                  Modular systems are brittle under textureless regions,
+                  specularities, or large baselines.
+                </p>
+              </div>
+              <div class="limit-item">
+                <p class="text-sm text-red-900 font-semibold mb-1">
+                  Early Deep Learning Approaches
+                </p>
+                <p class="text-xs text-red-800">
+                  Fixed input cardinality, complex architectures, and limited
+                  scalability.
+                </p>
+              </div>
+              <div class="limit-item">
+                <p class="text-sm text-red-900 font-semibold mb-1">
+                  Current Foundation Models (e.g., VGGT)
+                </p>
+                <p class="text-xs text-red-800">
+                  Rely on multi-head task bundles, redundant targets, and heavy
+                  design overhead.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- DA3 Solution Highlights -->
+          <div class="section-card">
+            <h2 class="text-base font-bold mb-3 flex items-center gap-2">
+              <i class="fas fa-lightbulb text-yellow-500"></i>
+              DA3 Solution Highlights
+            </h2>
+            <div class="space-y-3">
+              <div class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded-r">
+                <p class="text-sm text-blue-900 font-semibold mb-1">
+                  <i class="fas fa-cube mr-1"></i> Unified Representation
+                </p>
+                <p class="text-xs text-blue-800">
+                  Depth + Ray formulation handles arbitrary inputs (single
+                  image, stereo, video) in one model.
+                </p>
+              </div>
+              <div
+                class="bg-green-50 border-l-4 border-green-500 p-3 rounded-r"
+              >
+                <p class="text-sm text-green-900 font-semibold mb-1">
+                  <i class="fas fa-brain mr-1"></i> Minimal Architecture
+                </p>
+                <p class="text-xs text-green-800">
+                  Single plain ViT backbone—no complex multi-stage pipelines or
+                  redundant heads.
+                </p>
+              </div>
+              <div
+                class="bg-purple-50 border-l-4 border-purple-500 p-3 rounded-r"
+              >
+                <p class="text-sm text-purple-900 font-semibold mb-1">
+                  <i class="fas fa-chart-line mr-1"></i> SOTA Performance
+                </p>
+                <p class="text-xs text-purple-800">
+                  +35.7% pose accuracy improvement, trained only on public
+                  datasets.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

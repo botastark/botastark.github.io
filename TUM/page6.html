@@ -1,0 +1,458 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Architecture II: Dual-DPT Head &amp; Camera Head</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+      integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+      integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+      integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #fafafa;
+      }
+      .header-bar {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 40px 12px;
+        gap: 16px;
+        overflow: hidden;
+      }
+      .visual-area {
+        flex: 0.85;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        display: flex;
+        padding: 12px;
+        gap: 12px;
+        position: relative;
+        overflow: hidden;
+      }
+      .content-split {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .column {
+        background: white;
+        border-radius: 8px;
+        padding: 12px;
+        border: 1px solid #e5e7eb;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .section-title {
+        font-family: "Poppins", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #1e3a8a;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 6px;
+        border-bottom: 2px solid #eff6ff;
+      }
+      .bullet-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .bullet-item {
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+      }
+      .bullet-dot {
+        width: 5px;
+        height: 5px;
+        background: #2563eb;
+        border-radius: 50%;
+        margin-top: 8px;
+        flex-shrink: 0;
+      }
+      .math-badge {
+        font-family: "Roboto Mono", monospace;
+        background: #eff6ff;
+        color: #1e40af;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        border: 1px solid #dbeafe;
+      }
+      .pipeline-flow {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      .feature-block {
+        background: #eff6ff;
+        border: 1px dashed #93c5fd;
+        border-radius: 6px;
+        padding: 8px;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #1e40af;
+        font-weight: 600;
+      }
+      .reassembly-block {
+        background: #f0fdf4;
+        border: 1px solid #86efac;
+        border-radius: 6px;
+        padding: 8px;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #166534;
+        font-weight: 600;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+      .fusion-block {
+        background: #fff7ed;
+        border: 1px solid #fdba74;
+        border-radius: 6px;
+        padding: 10px;
+        text-align: center;
+        font-size: 0.85rem;
+        color: #c2410c;
+        font-weight: 600;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+      .output-block {
+        border-radius: 6px;
+        padding: 8px;
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: 700;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .output-depth {
+        background: #1e40af;
+        color: white;
+      }
+      .output-ray {
+        background: #0f766e;
+        color: white;
+      }
+      .arrow-down {
+        width: 2px;
+        background: #cbd5e1;
+        margin: 0 auto;
+      }
+      .branch-connector {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        width: 60%;
+        height: 20px;
+        border-top: 2px solid #cbd5e1;
+        border-left: 2px solid #cbd5e1;
+        border-right: 2px solid #cbd5e1;
+        transform: translate(-50%, 0);
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+      .camera-head-box {
+        width: 100%;
+        background: #fffbeb;
+        border: 1px solid #fcd34d;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        margin-bottom: 10px;
+      }
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+      @media print {
+        body,
+        .slide-container {
+          width: 1280px !important;
+          height: 720px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <!-- Header -->
+      <div class="header-bar">
+        <div class="flex items-center gap-4">
+          <div
+            class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center font-bold font-mono text-xl shadow-md"
+          >
+            6
+          </div>
+          <h1 class="text-2xl font-bold text-gray-900 font-poppins">
+            Architecture II: Dual-DPT Head &amp; Camera Head
+          </h1>
+        </div>
+        <div class="ml-auto flex items-center gap-2 text-gray-500 text-sm">
+          <i class="fas fa-network-wired"></i>
+          <span>Sec 3.2: Head Design</span>
+        </div>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Visual Area (Diagrams) -->
+        <div class="visual-area">
+          <!-- Left: Dual-DPT Architecture Diagram -->
+          <div
+            class="flex-1 flex flex-col items-center justify-center relative px-8 py-2"
+          >
+            <h3 class="absolute top-2 left-4 font-bold text-gray-700 text-sm">
+              Dual-DPT Head Flow
+            </h3>
+            <!-- Input Features -->
+            <div class="w-2/3 mb-4">
+              <div class="feature-block">
+                Backbone Features (<span class="math-inline">$L$</span> blocks)
+              </div>
+            </div>
+            <div class="h-4 w-0.5 bg-gray-300 mb-1"></div>
+            <!-- Shared Reassembly -->
+            <div class="w-2/3 mb-6 relative">
+              <div class="reassembly-block">Shared Reassembly Modules</div>
+              <div
+                class="absolute -right-32 top-1/2 transform -translate-y-1/2 text-xs text-gray-500 w-28"
+              >
+                <i class="fas fa-check-circle text-green-500 mr-1"></i>Aligned
+                features
+              </div>
+            </div>
+            <!-- Branching Logic -->
+            <div class="w-full relative h-8 mb-1">
+              <div
+                class="absolute left-1/2 top-0 w-0.5 h-full bg-gray-300 transform -translate-x-1/2"
+              ></div>
+              <div
+                class="absolute top-1/2 left-[20%] right-[20%] h-4 border-t-2 border-l-2 border-r-2 border-gray-300 rounded-t-lg"
+              ></div>
+            </div>
+            <!-- Dual Branches -->
+            <div class="w-full grid grid-cols-2 gap-8">
+              <!-- Depth Branch -->
+              <div class="flex flex-col gap-2">
+                <div
+                  class="fusion-block bg-blue-50 border-blue-200 text-blue-800"
+                >
+                  Depth Fusion
+                </div>
+                <div class="h-4 w-0.5 bg-blue-200 mx-auto"></div>
+                <div class="output-block output-depth">Depth Map $\hat{D}$</div>
+                <p class="text-[10px] text-center text-gray-500 mt-1 font-mono">
+                  $\in \mathbb{R}^{H \times W}$
+                </p>
+              </div>
+              <!-- Ray Branch -->
+              <div class="flex flex-col gap-2">
+                <div
+                  class="fusion-block bg-teal-50 border-teal-200 text-teal-800"
+                >
+                  Ray Fusion
+                </div>
+                <div class="h-4 w-0.5 bg-teal-200 mx-auto"></div>
+                <div class="output-block output-ray">Ray Map $\hat{M}$</div>
+                <p class="text-[10px] text-center text-gray-500 mt-1 font-mono">
+                  $\in \mathbb{R}^{H \times W \times 6}$
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Right: Camera Head Visualization (Smaller box) -->
+          <div
+            class="w-1/3 flex flex-col justify-center items-center relative border-l border-gray-100 pl-6"
+          >
+            <div class="camera-head-box relative w-full mb-6">
+              <div
+                class="absolute -top-3 left-4 bg-white px-2 text-xs font-bold text-yellow-600 border border-yellow-200 rounded"
+              >
+                Camera Head <span class="math-inline">$D_C$</span>
+              </div>
+              <div class="flex flex-col gap-3 mt-1">
+                <div class="flex items-center gap-2">
+                  <div
+                    class="w-8 h-8 rounded bg-yellow-100 flex items-center justify-center text-yellow-600"
+                  >
+                    <i class="fas fa-cube text-xs"></i>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="text-xs font-bold text-gray-700"
+                      >Input: Camera Token</span
+                    >
+                    <span class="text-[10px] text-gray-500"
+                      >One token per view (<span class="math-inline">$c_i$</span
+                      >)</span
+                    >
+                  </div>
+                </div>
+                <div class="h-4 w-0.5 bg-yellow-200 ml-4"></div>
+                <div
+                  class="bg-white border border-yellow-200 rounded p-2 text-center text-xs font-mono text-gray-700"
+                >
+                  Predicts: <span class="math-inline">$f, q, t$</span>
+                </div>
+              </div>
+            </div>
+            <!-- Performance Impact Note -->
+            <div class="w-full flex-1 flex flex-col">
+              <h3 class="font-bold text-gray-700 text-sm mb-2">
+                Multi-Task Efficiency
+              </h3>
+              <div
+                class="bg-blue-50 border-l-4 border-blue-500 p-3 rounded-r-lg"
+              >
+                <p class="text-xs text-blue-900 leading-snug">
+                  <i class="fas fa-check-circle text-blue-600 mr-1"></i>
+                  <strong>Dual-DPT outperforms separate heads</strong> in pose
+                  and geometry (Tables 6-7).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Text Split -->
+        <div class="content-split">
+          <!-- Left Column: Dual-DPT Head -->
+          <div class="column">
+            <div class="section-title">
+              <i class="fas fa-code-branch"></i>
+              <span>Dual-DPT Head Design</span>
+            </div>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <div class="bullet-dot"></div>
+                <p class="text-sm text-gray-700">
+                  <strong>Shared Reassembly:</strong> Upsamples and concatenates
+                  multi-scale ViT features (from different transformer layers)
+                  into dense spatial representations before task-specific fusion
+                  (from DPT architecture).
+                </p>
+              </li>
+              <li class="bullet-item">
+                <div class="bullet-dot"></div>
+                <p class="text-sm text-gray-700">
+                  <strong>Branch-Specific Fusion:</strong> Two distinct paths
+                  fuse features for depth vs. ray tasks.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <div class="bullet-dot"></div>
+                <p class="text-sm text-gray-700">
+                  <strong>Benefit:</strong> Encourages strong task interaction
+                  while minimizing redundant computation—outperforms separate
+                  heads with minimal parameter overhead.
+                </p>
+              </li>
+            </ul>
+          </div>
+          <!-- Right Column: Camera Head DC -->
+          <div class="column">
+            <div class="section-title">
+              <i class="fas fa-video"></i>
+              <span>Camera Head (<span class="math-inline">$D_C$</span>)</span>
+            </div>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <div class="bullet-dot"></div>
+                <p class="text-sm text-gray-700">
+                  Operates exclusively on <strong>camera tokens</strong> (one
+                  per view).
+                </p>
+              </li>
+              <li class="bullet-item">
+                <div class="bullet-dot"></div>
+                <p class="text-sm text-gray-700">
+                  Predicts explicit parameters: FOV $f \in \mathbb{R}^2$,
+                  quaternion $q \in \mathbb{R}^4$, translation $t \in
+                  \mathbb{R}^3$.
+                </p>
+              </li>
+              <li class="bullet-item">
+                <div class="bullet-dot"></div>
+                <p class="text-sm text-gray-700">
+                  <strong>Efficiency:</strong> Negligible computational
+                  cost—amortizes pose extraction without expensive dense ray map
+                  processing at inference.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Initialize KaTeX auto-render
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+          throwOnError: false,
+        });
+      });
+    </script>
+  </body>
+</html>

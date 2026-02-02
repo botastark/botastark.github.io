@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en" data-theme="light" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Multi-Horizon Planner Architecture</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3f4f6;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      .card-rounded {
+        border-radius: 6px;
+      }
+      /* Custom scrollbar hide */
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open%20Sans:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google%20Sans:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto%20Sans%20JP:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body style="">
+    <div class="slide-container">
+      <!-- Header -->
+      <header
+        class="bg-blue-900 text-white px-10 py-6 flex justify-between items-center shadow-md"
+      >
+        <div>
+          <h1 class="text-2xl font-extrabold tracking-tight">
+            Multi-Horizon Planner Architecture
+          </h1>
+          <p
+            class="text-xs font-bold text-blue-200 uppercase tracking-widest mt-0.5"
+          >
+            PLANNER EXTENSION: MCTS Variants • Reward Decomposition •
+            Coordination
+          </p>
+        </div>
+        <div class="text-right">AGRITECH</div>
+      </header>
+      <!-- Main Content -->
+      <main
+        class="flex-1 px-10 py-8 grid grid-cols-3 gap-6 bg-gray-50 overflow-hidden"
+      >
+        <!-- Column 1: Hierarchical MCTS (Green) -->
+        <div class="flex flex-col gap-3 h-full">
+          <div
+            class="bg-green-50 border-t-4 border-green-600 p-4 shadow-sm card-rounded flex-1 flex flex-col"
+          >
+            <div class="flex items-center mb-2 pb-2 border-b border-green-200">
+              <i class="fas fa-sitemap text-green-700 text-lg mr-2"></i>
+              <h2 class="text-base font-bold text-gray-800">
+                Hierarchical Levels
+              </h2>
+            </div>
+            <!-- HLP -->
+            <div class="mb-3">
+              <div class="flex justify-between items-center mb-1">
+                <span
+                  class="text-xs font-bold text-green-800 bg-green-200 px-1.5 py-0.5 rounded"
+                  style="font-size: 14px"
+                  >HLP (High-Level)</span
+                >
+                <span class="text-[10px] text-gray-500 font-mono"
+                  >Strategic</span
+                >
+              </div>
+              <ul class="text-[11px] text-gray-700 space-y-1 pl-1">
+                <li style="font-size: 14px">
+                  <i class="fas fa-check text-green-500 text-[10px] mr-1"></i
+                  ><strong>Method:</strong> UCB Tree Search (Full MCTS)
+                </li>
+                <li style="font-size: 14px">
+                  <i class="fas fa-check text-green-500 text-[10px] mr-1"></i
+                  ><strong>Horizon:</strong> 10 Regions (Long-term)
+                </li>
+                <li style="font-size: 14px">
+                  <i class="fas fa-check text-green-500 text-[10px] mr-1"></i
+                  ><strong>Compute:</strong> ~30 Iterations
+                </li>
+                <li class="italic text-gray-600 ml-3" style="font-size: 14px">
+                  Reuses tree across steps
+                </li>
+              </ul>
+            </div>
+            <!-- LLP -->
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span
+                  class="text-xs font-bold text-green-800 bg-green-200 px-1.5 py-0.5 rounded"
+                  style="font-size: 14px"
+                  >LLP (Low-Level)</span
+                >
+                <span class="text-[10px] text-gray-500 font-mono"
+                  >Reactive</span
+                >
+              </div>
+              <ul class="text-[11px] text-gray-700 space-y-1 pl-1">
+                <li style="font-size: 14px">
+                  <i class="fas fa-check text-green-500 text-[10px] mr-1"></i
+                  ><strong><span>Method:</span></strong
+                  ><span> Random Rollout Sampling</span>
+                </li>
+                <li style="font-size: 14px">
+                  <i class="fas fa-check text-green-500 text-[10px] mr-1"></i
+                  ><strong><span>Horizon:</span></strong
+                  ><span> 3 Steps (Short-term)</span>
+                </li>
+                <li style="font-size: 14px">
+                  <i class="fas fa-check text-green-500 text-[10px] mr-1"></i
+                  ><strong><span>Compute:</span></strong
+                  ><span> ~50 Iterations</span>
+                </li>
+                <li class="italic text-gray-600 ml-3" style="font-size: 14px">
+                  <span>Fast, no tree storage</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Column 2: Rewards & Vertical (Red/Orange) -->
+        <div class="flex flex-col gap-3 h-full">
+          <!-- Reward Decomposition -->
+          <div
+            class="bg-red-50 border-t-4 border-red-500 p-4 shadow-sm card-rounded"
+          >
+            <div class="flex items-center mb-2 pb-2 border-b border-red-200">
+              <i class="fas fa-calculator text-red-700 text-lg mr-2"></i>
+              <h2 class="text-base font-bold text-gray-800">Reward Function</h2>
+            </div>
+            <div
+              class="bg-white p-2 rounded border border-red-100 mb-2 text-center"
+            >
+              <p
+                class="font-mono text-sm font-bold text-red-800"
+                style="font-size: 18px"
+              >
+                g = g1 + g2
+              </p>
+            </div>
+            <div class="grid grid-cols-1 gap-2 text-[11px]">
+              <div class="flex items-start">
+                <span class="font-bold text-red-700 w-6" style="font-size: 14px"
+                  >g1:</span
+                >
+                <p class="text-gray-700">
+                  <strong style="font-size: 14px">Discounted IG</strong>
+                  <span style="font-size: 14px"
+                    >(Immediate Information Gain). Drives local
+                    exploration.</span
+                  >
+                </p>
+              </div>
+              <div class="flex items-start">
+                <span class="font-bold text-red-700 w-6" style="font-size: 14px"
+                  >g2:</span
+                >
+                <p class="text-gray-700" style="font-size: 14px">
+                  <strong>Mission Time Estimate.</strong> Encodes global
+                  progress &amp; completion speed.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Vertical Coordination -->
+          <div
+            class="bg-orange-50 border-t-4 border-orange-500 p-4 shadow-sm card-rounded flex-1"
+          >
+            <div class="flex items-center mb-2 pb-2 border-b border-orange-200">
+              <i class="fas fa-arrows-up-down text-orange-700 text-lg mr-2"></i>
+              <h2 class="text-base font-bold text-gray-800">Vertical Flow</h2>
+            </div>
+            <div class="space-y-3">
+              <div class="relative pl-3 border-l-2 border-orange-300">
+                <p
+                  class="text-[10px] font-bold text-orange-800 uppercase"
+                  style="font-size: 14px"
+                >
+                  Top-Down (Guidance)
+                </p>
+                <p class="text-[11px] text-gray-700 leading-tight">
+                  <span style="font-size: 14px">HLP guides via </span
+                  ><strong
+                    ><span style="font-size: 14px"
+                      >g2 conditioning</span
+                    ></strong
+                  ><span style="font-size: 14px"
+                    >. LLP optimizes local moves that align with global time
+                    reduction.</span
+                  >
+                </p>
+              </div>
+              <div class="relative pl-3 border-l-2 border-orange-300">
+                <p
+                  class="text-[10px] font-bold text-orange-800 uppercase"
+                  style="font-size: 14px"
+                >
+                  Bottom-Up (Feedback)
+                </p>
+                <p class="text-[11px] text-gray-700 leading-tight">
+                  <span style="font-size: 14px"
+                    >LLP sends true IG &amp; uncertainty updates. Triggers HLP
+                    to re-evaluate region priorities.</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Column 3: Intents & Horizontal (Blue) -->
+        <div class="flex flex-col gap-3 h-full">
+          <!-- Intent Structures -->
+          <div
+            class="bg-blue-50 border-t-4 border-blue-600 p-4 shadow-sm card-rounded"
+          >
+            <div class="flex items-center mb-2 pb-2 border-b border-blue-200">
+              <i
+                class="fas fa-envelope-open-text text-blue-700 text-lg mr-2"
+              ></i>
+              <h2 class="text-base font-bold text-gray-800">
+                Intent Structures
+              </h2>
+            </div>
+            <div class="space-y-2 text-[11px]">
+              <div class="bg-white p-2 rounded border border-blue-100">
+                <span style="color: rgb(11, 43, 107)"
+                  ><strong>HIGH </strong></span
+                ><span style="color: rgb(11, 43, 107)"
+                  ><strong>LEVEL</strong></span
+                ><span style="color: rgb(11, 43, 107)"
+                  ><strong>&nbsp;INTENT</strong></span
+                >
+                <p class="text-gray-600">
+                  <span style="font-size: 14px">Sequence of </span
+                  ><span style="font-size: 14px">Regions</span
+                  ><span style="font-size: 14px"> + ETA.</span>
+                </p>
+                <p class="text-[9px] text-gray-400 mt-0.5">
+                  <span style="font-size: 14px"
+                    >e.g., [Region 3, Region 7...]</span
+                  >
+                </p>
+              </div>
+              <div class="bg-white p-2 rounded border border-blue-100">
+                <strong
+                  ><span style="color: rgb(11, 43, 107)"
+                    >LOW LEVEL INTENT</span
+                  ></strong
+                >
+                <p class="text-gray-600">
+                  <span style="font-size: 14px">Sequence of </span
+                  ><span style="font-size: 14px">Actions</span
+                  ><span style="font-size: 14px"> + Footprints.</span>
+                </p>
+                <p
+                  class="text-[9px] text-gray-400 mt-0.5"
+                  style="font-size: 14px"
+                >
+                  <span>e.g., [Forward, Right, Up...]</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Horizontal Sharing -->
+          <div
+            class="bg-indigo-50 border-t-4 border-indigo-500 p-4 shadow-sm card-rounded flex-1"
+          >
+            <div class="flex items-center mb-2 pb-2 border-b border-indigo-200">
+              <i class="fas fa-share-nodes text-indigo-700 text-lg mr-2"></i>
+              <h2 class="text-base font-bold text-gray-800">Swarm Sharing</h2>
+            </div>
+            <ul class="text-[11px] text-gray-700 space-y-2">
+              <li class="flex items-start">
+                <span class="text-indigo-500 mr-1.5 mt-0.5 text-[10px]"
+                  ><i class="fas fa-broadcast-tower"></i
+                ></span>
+                <div>
+                  <span class="font-bold text-gray-800"
+                    >Intent Broadcasting</span
+                  >
+                  <p class="leading-tight">
+                    <span style="font-size: 14px"
+                      >Agents share intent summaries, not full plans. Low
+                      bandwidth</span
+                    >.
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-indigo-500 mr-1.5 mt-0.5 text-[10px]"
+                  ><i class="fas fa-layer-group"></i
+                ></span>
+                <div>
+                  <span class="font-bold text-gray-800">Coverage Masks</span>
+                  <p class="leading-tight">
+                    <span style="font-size: 14px"
+                      >Teammate intents create "discount masks" to prevent
+                      redundant coverage.</span
+                    >
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

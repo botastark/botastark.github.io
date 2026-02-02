@@ -1,0 +1,427 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Experiments I: Pose &amp; Geometry</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #fafafa;
+      }
+      .header-bar {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .main-content {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        padding: 18px 40px;
+        gap: 24px;
+        overflow: hidden;
+      }
+      .left-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .right-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .metrics-card {
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .card-title {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        color: #1f2937;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .stat-highlight {
+        background: #ecfdf5;
+        color: #059669;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border: 1px solid #d1fae5;
+      }
+      .table-container {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+      }
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+      }
+      .data-table th {
+        background: #f9fafb;
+        color: #4b5563;
+        font-weight: 600;
+        text-align: left;
+        padding: 10px 12px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .data-table td {
+        padding: 8px 12px;
+        color: #374151;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .data-table tr:last-child td {
+        border-bottom: none;
+      }
+      .row-highlight {
+        background: #eff6ff;
+        font-weight: 600;
+      }
+      .chart-container {
+        flex: 1;
+        width: 100%;
+        min-height: 220px;
+        position: relative;
+      }
+      .comparison-block {
+        display: flex;
+        gap: 16px;
+        margin-top: auto;
+      }
+      .metric-box {
+        flex: 1;
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 12px;
+        border: 1px solid #e2e8f0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .metric-val {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2563eb;
+        font-family: "Roboto Mono", monospace;
+      }
+      .metric-label {
+        font-size: 0.75rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 4px;
+      }
+      .pipeline-step {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        color: #4b5563;
+        background: #fff;
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+      }
+      .step-arrow {
+        color: #9ca3af;
+        font-size: 0.8rem;
+      }
+      .conclusion-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background: #1e3a8a;
+        color: white;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+      @media print {
+        body,
+        .slide-container {
+          width: 1280px !important;
+          height: 720px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <!-- Header -->
+      <div class="header-bar">
+        <div class="flex items-center gap-4">
+          <div
+            class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center font-bold font-mono text-xl shadow-md"
+          >
+            9
+          </div>
+          <h1 class="text-2xl font-bold text-gray-900 font-poppins">
+            Experiments I: Pose Accuracy &amp; Geometry
+          </h1>
+        </div>
+        <div class="ml-auto flex items-center gap-2 text-gray-500 text-sm">
+          <i class="fas fa-chart-line"></i>
+          <span>Comparison vs VGGT</span>
+        </div>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Left Panel: Quantitative Results -->
+        <div class="left-panel">
+          <!-- Pose Accuracy Table -->
+          <div class="metrics-card flex-1">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fas fa-camera text-blue-600"></i>
+                <span>Visual Geometry Benchmark (Pose AUC)</span>
+              </div>
+              <div class="stat-highlight">+35.7% Improvement</div>
+            </div>
+            <div
+              class="bg-blue-50 border-l-4 border-blue-500 p-2 rounded-r mb-3"
+            >
+              <p class="text-xs text-blue-900 leading-relaxed">
+                <strong>Baseline context:</strong> VGGT: 46.8% avg → DA3-Large:
+                <strong>67.3% avg</strong> | Relative improvement:
+                <strong>+44%</strong> | Coverage:
+                <strong>SOTA on 18/20 settings</strong> | (Perfect alignment =
+                100% AUC) | Datasets: HiRoom (synthetic), ETH3D, DTU, 7Scenes,
+                ScanNet++ (all real-world LiDAR)
+              </p>
+            </div>
+            <div class="table-container mb-4">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Setting</th>
+                    <th>HiRoom</th>
+                    <th>ScanNet++</th>
+                    <th>7Scenes</th>
+                    <th>Avg</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>DUSt3R</td>
+                    <td>Pose-Free</td>
+                    <td>38.4</td>
+                    <td>45.2</td>
+                    <td>32.1</td>
+                    <td>38.6</td>
+                  </tr>
+                  <tr>
+                    <td>VGGT</td>
+                    <td>Pose-Free</td>
+                    <td>42.1</td>
+                    <td>62.6</td>
+                    <td>35.8</td>
+                    <td>46.8</td>
+                  </tr>
+                  <tr class="row-highlight">
+                    <td class="flex items-center gap-2">
+                      <span class="text-blue-600 font-bold">DA3-Large</span>
+                      <i class="fas fa-star text-yellow-400 text-xs"></i>
+                    </td>
+                    <td>Pose-Free</td>
+                    <td><span class="font-bold">64.5</span></td>
+                    <td><span class="font-bold">85.0</span></td>
+                    <td><span class="font-bold">52.3</span></td>
+                    <td><span class="font-bold text-blue-600">67.3</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="flex items-center gap-2 mt-auto">
+              <div class="conclusion-pill">
+                <i class="fas fa-check-circle"></i> SOTA on 18/20 Settings
+              </div>
+              <p class="text-xs text-gray-500 italic ml-2">
+                * DA3 sets new state-of-the-art across diverse benchmarks
+              </p>
+            </div>
+          </div>
+          <!-- Key Metrics Summary -->
+          <div class="comparison-block">
+            <div class="metric-box">
+              <span class="metric-val">+35.7%</span>
+              <span class="metric-label">Camera Pose Accuracy</span>
+              <div class="w-full h-1 bg-green-200 mt-2 rounded overflow-hidden">
+                <div class="h-full bg-green-500" style="width: 100%"></div>
+              </div>
+            </div>
+            <div class="metric-box">
+              <span class="metric-val">+23.6%</span>
+              <span class="metric-label">Geometric Accuracy</span>
+              <div class="w-full h-1 bg-blue-200 mt-2 rounded overflow-hidden">
+                <div class="h-full bg-blue-500" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right Panel: Analysis & Visuals -->
+        <div class="right-panel">
+          <!-- Evaluation Pipeline -->
+          <div class="metrics-card">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fas fa-cogs text-gray-600"></i>
+                <span>Evaluation Pipeline</span>
+              </div>
+            </div>
+            <div
+              class="flex flex-col gap-2 bg-gray-50 p-3 rounded-lg border border-gray-100"
+            >
+              <div class="pipeline-step">
+                <i class="fas fa-forward text-blue-500"></i>
+                <span class="font-semibold">Feed-Forward:</span>
+                <span>Predict Pose + Depth</span>
+              </div>
+              <div class="flex justify-center">
+                <i class="fas fa-arrow-down step-arrow"></i>
+              </div>
+              <div class="pipeline-step">
+                <i class="fas fa-random text-purple-500"></i>
+                <span class="font-semibold">Alignment:</span>
+                <span>Robust RANSAC (inlier subset selection) + evo</span>
+              </div>
+              <div class="flex justify-center">
+                <i class="fas fa-arrow-down step-arrow"></i>
+              </div>
+              <div class="pipeline-step">
+                <i class="fas fa-cube text-green-500"></i>
+                <span class="font-semibold">Fusion:</span>
+                <span>TSDF Fusion → Point Cloud</span>
+              </div>
+            </div>
+          </div>
+          <!-- Performance Chart -->
+          <div class="metrics-card flex-1">
+            <div class="card-header">
+              <div class="card-title">
+                <i class="fas fa-chart-bar text-blue-600"></i>
+                <span>Geometric Accuracy Gap</span>
+              </div>
+            </div>
+            <div class="chart-container" id="accuracyChart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var chartDom = document.getElementById("accuracyChart");
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+          tooltip: {
+            trigger: "axis",
+            axisPointer: { type: "shadow" },
+          },
+          grid: {
+            top: "10%",
+            left: "3%",
+            right: "4%",
+            bottom: "10%",
+            containLabel: true,
+          },
+          xAxis: {
+            type: "category",
+            data: ["ETH3D", "DTU", "ScanNet++", "Average"],
+            axisLine: { show: false },
+            axisTick: { show: false },
+            axisLabel: { color: "#64748b", fontSize: 11 },
+          },
+          yAxis: {
+            type: "value",
+            name: "Accuracy (Higher is Better)",
+            nameTextStyle: { padding: [0, 0, 0, 20], fontSize: 10 },
+            splitLine: { lineStyle: { type: "dashed", color: "#e2e8f0" } },
+          },
+          series: [
+            {
+              name: "VGGT (Prior SOTA)",
+              type: "bar",
+              barGap: "20%",
+              barWidth: 20,
+              itemStyle: { borderRadius: [4, 4, 0, 0], color: "#94a3b8" },
+              data: [45, 52, 62, 53],
+            },
+            {
+              name: "DA3 (Ours)",
+              type: "bar",
+              barWidth: 20,
+              itemStyle: { borderRadius: [4, 4, 0, 0], color: "#2563EB" },
+              data: [58, 65, 85, 69],
+            },
+          ],
+        };
+
+        option && myChart.setOption(option);
+        window.addEventListener("resize", function () {
+          myChart.resize();
+        });
+      });
+    </script>
+  </body>
+</html>

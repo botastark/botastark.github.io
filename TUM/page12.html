@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en" data-theme="light" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Potential Research Extensions</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #fafafa;
+      }
+      .header-bar {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .main-content {
+        flex: 1;
+        display: flex;
+        padding: 16px 40px;
+        gap: 16px;
+        overflow: hidden;
+      }
+      .roadmap-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: relative;
+      }
+      /* Roadmap Line */
+      .roadmap-line {
+        position: absolute;
+        top: 60px;
+        left: 40px;
+        right: 40px;
+        height: 4px;
+        background: #e5e7eb;
+        z-index: 0;
+        border-radius: 2px;
+      }
+      .roadmap-progress {
+        position: absolute;
+        top: 60px;
+        left: 40px;
+        width: 25%;
+        height: 4px;
+        background: #3b82f6;
+        z-index: 1;
+        border-radius: 2px;
+      }
+      .milestone-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        position: relative;
+        z-index: 2;
+        margin-top: 12px;
+      }
+      .milestone-card {
+        background: white;
+        border-radius: 12px;
+        padding: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e5e7eb;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        transition: transform 0.2s;
+        height: 280px;
+      }
+      .milestone-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border-color: #bfdbfe;
+      }
+      .card-number {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #eff6ff;
+        color: #2563eb;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 6px;
+        border: 2px solid white;
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+        font-size: 0.85rem;
+      }
+      .active-card .card-number {
+        background: #2563eb;
+        color: white;
+      }
+      .card-title {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        color: #1f2937;
+        font-size: 0.95rem;
+        line-height: 1.2;
+      }
+      .card-desc {
+        font-size: 0.75rem;
+        color: #4b5563;
+        line-height: 1.35;
+        flex: 1;
+      }
+      .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: auto;
+      }
+      .tag {
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 4px;
+        background: #f3f4f6;
+        color: #4b5563;
+        font-weight: 500;
+      }
+      .icon-header {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: #f0fdf4;
+        color: #16a34a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        margin-bottom: 6px;
+      }
+      .phase-label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: block;
+        margin-bottom: 6px;
+      }
+      .bottom-note {
+        background: #eff6ff;
+        border-left: 4px solid #3b82f6;
+        padding: 10px;
+        border-radius: 0 8px 8px 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+      @media print {
+        body,
+        .slide-container {
+          width: 1280px !important;
+          height: 720px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="">
+    <div class="slide-container">
+      <!-- Header -->
+      <div class="header-bar">
+        <div class="flex items-center gap-4">
+          <div
+            class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center font-bold font-mono text-xl shadow-md"
+          >
+            12
+          </div>
+          <div class="flex flex-col">
+            <h1
+              class="text-xl font-bold text-gray-900 font-poppins leading-tight"
+            >
+              Research Extensions
+            </h1>
+            <p class="text-xs text-blue-600 font-medium">
+              (My Proposals Inspired by DA3)
+            </p>
+          </div>
+        </div>
+        <div class="ml-auto flex items-center gap-2 text-gray-500 text-sm">
+          <i class="fas fa-map-signs"></i>
+          <span>Extensions &amp; Opportunities</span>
+        </div>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="roadmap-container">
+          <!-- Roadmap Visual Guide -->
+          <div class="roadmap-line"></div>
+          <div class="roadmap-progress"></div>
+          <div class="milestone-grid">
+            <!-- Milestone 1 -->
+            <div
+              class="milestone-card active-card"
+              style="border-top: 4px solid #2563eb"
+            >
+              <span class="phase-label">Immediate</span>
+              <div class="card-number">1</div>
+              <div
+                class="icon-header"
+                style="background: #eff6ff; color: #2563eb"
+              >
+                <i class="fas fa-video"></i>
+              </div>
+              <h3 class="card-title">Dynamic Visual Space (4D)</h3>
+              <p class="card-desc">
+                DA3's ray formulation
+                <strong>naturally extends to MOTION RAYS</strong>:
+                <em>r(t) = (t(t), d(t))</em>. Enables per-pixel trajectory
+                encoding for scene flow.
+              </p>
+              <div class="tags-container">
+                <span class="tag">Scene Flow</span>
+                <span class="tag">Video</span>
+                <span class="tag">Dynamic Nerf</span>
+              </div>
+            </div>
+            <!-- Milestone 2 -->
+            <div class="milestone-card" style="border-top: 4px solid #10b981">
+              <span class="phase-label">Near Term</span>
+              <div class="card-number">2</div>
+              <div
+                class="icon-header"
+                style="background: #ecfdf5; color: #059669"
+              >
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h3 class="card-title">Uncertainty &amp; Calibration</h3>
+              <p class="card-desc">
+                DA3 already predicts
+                <strong>depth confidence D<sub>c</sub></strong
+                >. Extend to <strong>RAY CONFIDENCE</strong> for robust pose
+                alignment under occlusion.
+              </p>
+              <div class="tags-container">
+                <span class="tag">Probabilistic</span>
+                <span class="tag">Active Vision</span>
+                <span class="tag">Safety</span>
+              </div>
+            </div>
+            <!-- Milestone 3 -->
+            <div class="milestone-card" style="border-top: 4px solid #f59e0b">
+              <span class="phase-label">Mid Term</span>
+              <div class="card-number">3</div>
+              <div
+                class="icon-header"
+                style="background: #fffbeb; color: #d97706"
+              >
+                <i class="fas fa-rocket"></i>
+              </div>
+              <h3 class="card-title">Efficiency &amp; Real-Time</h3>
+              <p class="card-desc">
+                Address DA3's
+                <strong>O(N<sub>v</sub> · H · W)² cross-view cost</strong> with
+                token pruning and sparse attention patterns for L<sub>g</sub>
+                layers.
+              </p>
+              <div class="tags-container">
+                <span class="tag">Edge AI</span>
+                <span class="tag">Sparsity</span>
+                <span class="tag">Latency</span>
+              </div>
+            </div>
+            <!-- Milestone 4 -->
+            <div class="milestone-card" style="border-top: 4px solid #8b5cf6">
+              <span class="phase-label">Long Term</span>
+              <div class="card-number">4</div>
+              <div
+                class="icon-header"
+                style="background: #f5f3ff; color: #7c3aed"
+              >
+                <i class="fas fa-brain"></i>
+              </div>
+              <h3 class="card-title">Semantic &amp; Task Coupling</h3>
+              <p class="card-desc">
+                Integrate language priors into <strong>ray prediction</strong>.
+                Add <strong>differentiable Bundle Adjustment</strong> for
+                end-to-end refinement of DA3 outputs.
+              </p>
+              <div class="tags-container">
+                <span class="tag">Semantics</span>
+                <span class="tag">Diff. BA</span>
+                <span class="tag">Self-Supervised</span>
+              </div>
+            </div>
+          </div>
+          <!-- Bottom Insight -->
+          <div class="bottom-note">
+            <i class="fas fa-lightbulb text-blue-600 text-lg mt-1"></i>
+            <div>
+              <p class="text-xs text-gray-600">
+                <strong>Research Focus:</strong> Combine
+                <strong>Self-Supervised Cycle Consistency</strong> with
+                <strong>Uncertainty Estimation</strong> using DA3 backbone for
+                robust, label-free learning.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

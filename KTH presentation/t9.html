@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en" data-theme="light" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>EDOPT Analysis</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f3f4f6;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        position: relative;
+      }
+      /* Consistent Header Style */
+      .header-bg {
+        background-color: #1e3a8a; /* blue-900 */
+      }
+
+      /* Layout Grid */
+      .grid-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 24px;
+        height: 100%;
+      }
+
+      .column-flex {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        height: 100%;
+      }
+
+      /* Section Cards */
+      .content-card {
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        padding: 16px 20px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+      }
+      .content-card.primary {
+        border-left: 4px solid #1e3a8a; /* blue-900 */
+      }
+      .content-card.success {
+        border-left: 4px solid #10b981; /* emerald-500 */
+        background-color: #f0fdf4; /* emerald-50 */
+      }
+      .content-card.danger {
+        border-left: 4px solid #ef4444; /* red-500 */
+        background-color: #fef2f2; /* red-50 */
+      }
+
+      /* Typography */
+      .section-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+      }
+      .section-title i {
+        margin-right: 10px;
+      }
+
+      /* Lists */
+      .bullet-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .bullet-list li {
+        position: relative;
+        padding-left: 16px;
+        margin-bottom: 6px;
+        color: #374151;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+      .bullet-list li::before {
+        content: "•";
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+        font-size: 1.2em;
+        line-height: 1.2;
+      }
+      .success .bullet-list li::before {
+        color: #10b981;
+      }
+      .danger .bullet-list li::before {
+        color: #ef4444;
+      }
+      .primary .bullet-list li::before {
+        color: #1e3a8a;
+      }
+
+      /* Subheaders */
+      .sub-header {
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: 10px;
+        margin-bottom: 4px;
+      }
+
+      /* Future Box */
+      .future-box {
+        background: #eff6ff; /* blue-50 */
+        border: 1px solid #bfdbfe; /* blue-200 */
+        border-radius: 6px;
+        padding: 15px;
+        margin-top: auto;
+      }
+      .future-item {
+        display: flex;
+        align-items: flex-start;
+        font-size: 0.85rem;
+        color: #4b5563;
+        margin-bottom: 6px;
+      }
+      .future-item i {
+        margin-top: 4px;
+        margin-right: 8px;
+        font-size: 0.7rem;
+        color: #2563eb;
+      }
+    </style>
+  </head>
+  <body style="">
+    <div class="slide-container">
+      <!-- Header -->
+      <header
+        class="header-bg text-white px-10 py-6 flex items-center shadow-lg z-20"
+      >
+        <div class="flex-1">
+          <h1 class="text-3xl font-bold tracking-tight">Critical Analysis</h1>
+          <p
+            class="text-blue-200 text-sm mt-1 uppercase tracking-wider font-semibold"
+          >
+            Strengths, Weaknesses &amp; Future Outlook
+          </p>
+        </div>
+        <div class="text-right opacity-80">
+          <div class="text-xl font-bold font-mono">Task3</div>
+        </div>
+      </header>
+      <!-- Main Content -->
+      <main class="flex-1 px-10 py-8 overflow-hidden">
+        <div class="grid-layout">
+          <!-- Left Column: Strengths & Weaknesses -->
+          <div class="column-flex">
+            <!-- Strengths -->
+            <div class="content-card success flex-grow-0">
+              <h3 class="section-title text-emerald-900">
+                <i class="fas fa-thumbs-up text-emerald-600"></i> Strengths
+              </h3>
+              <ul class="bullet-list">
+                <li>
+                  <strong>First event-only solution</strong> to a 6-DoF
+                  event-based tracking problem.
+                </li>
+                <li>
+                  <strong>Simple &amp; Interpretable:</strong> Mesh projection +
+                  Jacobian; no blackbox learning.
+                </li>
+                <li>
+                  <strong>Model-based Generalization:</strong> Works on any
+                  object with a mesh without retraining.
+                </li>
+                <li>
+                  <strong>Real-time &amp; High-freq:</strong> &gt;300 Hz enables
+                  dynamic manipulation applications.
+                </li>
+                <li>
+                  <strong>Decoupled Architecture:</strong> Asynchronous loops
+                  for sensory vs. inference layers.
+                </li>
+                <li>
+                  <strong>Reproducible:</strong> Open-source code and datasets
+                  released.
+                </li>
+              </ul>
+            </div>
+            <!-- Weaknesses -->
+            <div class="content-card danger flex-grow">
+              <h3 class="section-title text-red-900">
+                <i class="fas fa-exclamation-triangle text-red-600"></i>
+                Weaknesses
+              </h3>
+              <div class="overflow-y-auto pr-2">
+                <p class="sub-header text-red-800">Intrinsic Limitations</p>
+                <ul class="bullet-list mb-3">
+                  <li>
+                    <strong>Initialization:</strong> Only tracks once pose is
+                    known; no failure recovery.
+                  </li>
+                  <li>
+                    <strong>Velocity Cap:</strong> Fixed hypothesis set limits
+                    tracking of very dynamic tasks.
+                  </li>
+                  <li>
+                    <strong>Mesh Dependency:</strong> Degrades with inaccurate
+                    meshes, wear, or reflections.
+                  </li>
+                </ul>
+                <p class="sub-header text-red-800">Experimental Gaps</p>
+                <ul class="bullet-list">
+                  <li>
+                    <strong>Limited Failure Analysis:</strong> Sensitivity to
+                    calibration/clutter is under-characterized.
+                  </li>
+                  <li>
+                    <strong>No Ablation Studies:</strong> Unclear contribution
+                    of specific parameters (EROS, kernel).
+                  </li>
+                  <li>
+                    <strong>Comparison Fairness:</strong> RGB-D-E baseline run
+                    at 5 Hz (vs potential 30 Hz).
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- Right Column: Why This Paper -->
+          <div class="column-flex">
+            <div class="content-card primary h-full">
+              <h3 class="section-title text-blue-900">
+                <i class="fas fa-lightbulb text-blue-800"></i> Why This Paper?
+              </h3>
+              <!-- Context -->
+              <div class="mb-4">
+                <p class="text-sm font-bold text-gray-800 mb-1">
+                  Context &amp; Methodology
+                </p>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                  First pure event-only 6-DoF object pose tracker relevant to
+                  dynamic robotic grasping. It presents an elegant combination
+                  of asynchronous perception, geometric modeling, and structured
+                  hypothesis competition that outperforms trained RGB-D-E
+                  baselines.
+                </p>
+              </div>
+              <!-- Significance -->
+              <div class="mb-4">
+                <p class="text-sm font-bold text-gray-800 mb-1">Significance</p>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                  Strong technical substance with clear, discussable
+                  limitations. EDOPT demonstrates that pure model-based tracking
+                  can be fast and generalizable, even if it currently lacks
+                  adaptability to realistic noise and occlusions.
+                </p>
+              </div>
+              <!-- Future Box -->
+              <div class="future-box">
+                <h4
+                  class="text-blue-900 font-bold text-sm mb-3 border-b border-blue-200 pb-2"
+                >
+                  <i class="fas fa-brain mr-2"></i>Proposed Neuromorphic Upgrade
+                </h4>
+                <p class="text-xs text-gray-600 mb-3 italic">
+                  Adding plasticity and uncertainty handling while retaining
+                  structural elegance:
+                </p>
+                <div class="future-item">
+                  <i class="fas fa-chevron-right"></i>
+                  <span
+                    ><strong>Learned Proposal Network:</strong> Spiking RNN
+                    predicting ΔX from EROS (motion priors).</span
+                  >
+                </div>
+                <div class="future-item">
+                  <i class="fas fa-chevron-right"></i>
+                  <span
+                    ><strong>Spiking Bayesian Layer:</strong> Posterior over
+                    pose in spike rates (uncertainty + recovery).</span
+                  >
+                </div>
+                <div class="future-item">
+                  <i class="fas fa-chevron-right"></i>
+                  <span
+                    ><strong>Learned Event→Gradient:</strong> Spiking
+                    convolutions replacing Sobel+DoG.</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

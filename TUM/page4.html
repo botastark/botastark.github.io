@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en" data-theme="light" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Formulation II: Camera From Ray Map</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+      integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+      integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+      integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #fafafa;
+      }
+      .header-bar {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .main-content {
+        flex: 1;
+        display: flex;
+        padding: 16px 40px 12px;
+        gap: 28px;
+        overflow: hidden;
+      }
+      .left-col {
+        flex: 1.2;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .right-col {
+        flex: 0.8;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .section-card {
+        background: white;
+        border-radius: 12px;
+        padding: 14px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        border: 1px solid #e5e7eb;
+        display: flex;
+        flex-direction: column;
+      }
+      .math-block {
+        font-family: "Roboto Mono", monospace;
+        background: #f8fafc;
+        border-left: 4px solid #2563eb;
+        padding: 12px 16px;
+        border-radius: 0 8px 8px 0;
+        color: #334155;
+        font-size: 0.9rem;
+        margin-top: 8px;
+        line-height: 1.6;
+      }
+      .process-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+      .step-number {
+        width: 24px;
+        height: 24px;
+        background: #eff6ff;
+        color: #2563eb;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .token-viz {
+        height: 200px;
+        width: 100%;
+        background: #1e293b;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .token-box {
+        background: #3b82f6;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-family: "Roboto Mono", monospace;
+        font-size: 0.8rem;
+        border: 1px solid #60a5fa;
+      }
+      .arrow-right {
+        color: #94a3b8;
+        margin: 0 12px;
+      }
+      .note-box {
+        background: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        padding: 12px 16px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        color: #92400e;
+      }
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+      @media print {
+        body,
+        .slide-container {
+          width: 1280px !important;
+          height: 720px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="margin-top: 0px; padding: 0px">
+    <div class="slide-container">
+      <!-- Header -->
+      <div class="header-bar">
+        <div class="flex items-center gap-4">
+          <div
+            class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center font-bold font-mono text-xl shadow-md"
+          >
+            4
+          </div>
+          <h1 class="text-2xl font-bold text-gray-900 font-poppins">
+            Formulation II: Camera From Ray Map
+          </h1>
+        </div>
+        <div class="ml-auto flex items-center gap-2 text-gray-500 text-sm">
+          <i class="fas fa-calculator"></i>
+          <span>DLT / RQ Decomposition &amp; Tokens</span>
+        </div>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Left Column: Math Derivation -->
+        <div class="left-col">
+          <!-- Ray to Camera Logic -->
+          <div class="section-card">
+            <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
+              <i class="fas fa-video text-blue-600"></i> Deriving Parameters
+              from Ray Map <span class="math-inline">$M$</span>
+            </h2>
+            <p class="text-sm text-gray-600 mb-3">
+              Given ray map
+              <span class="math-inline"
+                >$M \in \mathbb{R}^{H \times W \times 6}$</span
+              >
+              with origins <span class="math-inline">$M_{:3}$</span> and
+              directions <span class="math-inline">$M_{3:}$</span>:
+            </p>
+            <!-- Step 1: Center -->
+            <div class="process-step">
+              <div class="step-number">1</div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-gray-800">
+                  Estimate Camera Center <span class="math-inline">$t_c$</span>
+                </p>
+                <div class="math-block">
+                  $$t_c = \frac{1}{H \cdot W} \sum_{h,w} M(h, w, :3)$$
+                </div>
+              </div>
+            </div>
+            <!-- Step 2: Homography -->
+            <div class="process-step">
+              <div class="step-number">2</div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-gray-800">
+                  Recover <span class="math-inline">$K, R$</span> via Homography
+                </p>
+                <p class="text-xs text-gray-600 mb-2">
+                  Canonical ray
+                  <span class="math-inline">$d_I = p$</span> relates to camera
+                  ray <span class="math-inline">$d_{cam}$</span> via
+                  <span class="math-inline">$H = KR$</span>.
+                </p>
+                <div class="math-block">
+                  $$H^* = \arg\min_{||H||=1} \sum_{h,w} || (H p_{h,w}) \times
+                  M(h, w, 3:) ||$$
+                </div>
+                <div
+                  class="bg-blue-50 border-l-4 border-blue-500 p-2 rounded-r mt-2 mb-2"
+                >
+                  <p class="text-xs text-blue-900 font-semibold mb-1">
+                    <i class="fas fa-question-circle mr-1"></i>Why cross
+                    product?
+                  </p>
+                  <p class="text-xs text-blue-800">
+                    Minimizes angular error—enforces directional alignment
+                    between <span class="math-inline">$H \cdot p$</span> and
+                    predicted rays.
+                  </p>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">
+                  Solved via DLT, then decompose
+                  <span class="math-inline">$H^*$</span> using RQ decomposition
+                  → <span class="math-inline">$(K, R)$</span>.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Note Box -->
+          <div class="bg-purple-50 border-l-4 border-purple-500 rounded-r p-4">
+            <p class="font-bold flex items-center gap-2 mb-2 text-purple-900">
+              <i class="fas fa-star"></i> Lightweight Camera Head
+              <span class="math-inline">$D_C$</span>
+            </p>
+            <p class="text-sm text-purple-800 mb-2">
+              <strong>Challenge:</strong> Pose-from-rays optimization is
+              computationally expensive at inference.
+            </p>
+            <p class="text-sm text-purple-800">
+              <strong>Solution:</strong> A dedicated camera head operating on
+              camera tokens directly predicts
+              <span class="math-inline">$(f, q, t)$</span> parameters with
+              <strong>negligible overhead</strong>—bypassing expensive DLT/RQ at
+              test time.
+            </p>
+          </div>
+        </div>
+        <!-- Right Column: Camera Tokens & Viz -->
+        <div class="right-col">
+          <!-- Camera Token Logic -->
+          <div class="section-card">
+            <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
+              <i class="fas fa-microchip text-purple-600"></i> Camera
+              Conditioning Tokens
+            </h2>
+            <p class="text-sm text-gray-600 mb-4">
+              Camera information is injected via tokens prepended to each view,
+              enabling both posed and unposed inputs.
+            </p>
+            <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+              <p class="text-sm font-mono text-blue-800 mb-2">
+                <strong>If pose known:</strong>
+              </p>
+              <div
+                class="math-block"
+                style="
+                  margin-top: 0;
+                  background: white;
+                  border-left-color: #3b82f6;
+                "
+              >
+                $$c_i = E_c(f_i, q_i, t_i)$$
+              </div>
+              <p class="text-xs text-gray-500 mt-2">
+                Encoded via MLP <span class="math-inline">$E_c$</span> from FOV,
+                quaternion, translation.
+              </p>
+            </div>
+            <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mt-2">
+              <p class="text-sm font-mono text-gray-700 mb-2">
+                <strong>If pose unknown:</strong>
+              </p>
+              <p class="text-sm text-gray-600">
+                Use a shared learnable token
+                <span class="math-inline">$c_{\ell}$</span>.
+              </p>
+            </div>
+          </div>
+          <!-- Visual Diagram Placeholder -->
+          <div class="section-card flex-1">
+            <h3 class="text-sm font-bold text-gray-500 uppercase mb-2">
+              Token Integration Flow
+            </h3>
+            <div class="flex flex-col gap-2 px-2">
+              <!-- Step 1: Input -->
+              <div class="flex items-center gap-3">
+                <div
+                  class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0"
+                >
+                  1
+                </div>
+                <div class="flex items-center gap-2 flex-1">
+                  <div
+                    class="bg-gray-100 border-2 border-gray-400 rounded px-3 py-2 text-center flex-1"
+                  >
+                    <div class="text-xs font-semibold text-gray-800">
+                      Image Patches
+                    </div>
+                    <div class="text-xs text-gray-600 mt-0.5">
+                      <span class="math-inline">$I_i$</span>
+                    </div>
+                  </div>
+                  <div class="text-gray-400 font-bold">⊕</div>
+                  <div
+                    class="bg-purple-100 border-2 border-purple-400 rounded px-3 py-2 text-center flex-1"
+                  >
+                    <div class="text-xs font-semibold text-purple-800">
+                      Camera Token
+                    </div>
+                    <div class="text-xs text-purple-600 mt-0.5">
+                      <span class="math-inline">$c_i$</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Arrow -->
+              <div class="flex justify-center">
+                <i class="fas fa-arrow-down text-blue-500 text-lg"></i>
+              </div>
+
+              <!-- Step 2: Processing -->
+              <div class="flex items-center gap-3">
+                <div
+                  class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0"
+                >
+                  2
+                </div>
+                <div
+                  class="bg-blue-900 text-white rounded px-4 py-3 text-center flex-1 border-2 border-blue-700"
+                >
+                  <div class="text-xs font-semibold">ViT Backbone</div>
+                  <div class="text-xs text-blue-200 mt-0.5">
+                    Joint Processing (All Layers)
+                  </div>
+                </div>
+              </div>
+
+              <!-- Arrow -->
+              <div class="flex justify-center">
+                <i class="fas fa-arrow-down text-blue-500 text-lg"></i>
+              </div>
+
+              <!-- Step 3: Output -->
+              <div class="flex items-center gap-3">
+                <div
+                  class="bg-blue-100 text-blue-800 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold flex-shrink-0"
+                >
+                  3
+                </div>
+                <div class="flex items-center gap-2 flex-1">
+                  <div
+                    class="bg-green-100 border-2 border-green-500 rounded px-3 py-2 text-center flex-1"
+                  >
+                    <div class="text-xs font-semibold text-green-800">
+                      Geometry Features
+                    </div>
+                  </div>
+                  <div
+                    class="bg-purple-100 border-2 border-purple-500 rounded px-3 py-2 text-center flex-1"
+                  >
+                    <div class="text-xs font-semibold text-purple-800">
+                      Updated <span class="math-inline">$c_i$</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Note -->
+              <div class="bg-yellow-50 border-l-4 border-yellow-400 p-2 mt-1">
+                <p class="text-xs text-yellow-800 m-0">
+                  <i class="fas fa-info-circle mr-1"></i>
+                  <strong>Note:</strong> Camera tokens are
+                  <strong>concatenated</strong> (⊕) with patch tokens, then
+                  jointly processed.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Initialize KaTeX auto-render
+      document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+          throwOnError: false,
+        });
+      });
+    </script>
+  </body>
+</html>

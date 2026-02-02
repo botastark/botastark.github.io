@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en" data-theme="light" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>EDOPT: Sensor Processing</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f3f4f6;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        position: relative;
+      }
+      /* Consistent Header Style */
+      .header-bg {
+        background-color: #1e3a8a; /* blue-900 */
+      }
+
+      /* Layout Grid */
+      .grid-layout {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        grid-template-rows: 1.2fr 0.8fr;
+        gap: 20px;
+        height: 100%;
+      }
+
+      /* Section Cards */
+      .content-card {
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        padding: 20px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+      }
+      .content-card.primary {
+        border-left: 4px solid #1e3a8a; /* blue-900 */
+        grid-row: 1 / span 2;
+      }
+      .content-card.secondary {
+        border-left: 4px solid #d97706; /* amber-600 */
+        background-color: #fffbeb; /* amber-50 */
+      }
+      .content-card.tertiary {
+        border-left: 4px solid #10b981; /* emerald-500 */
+        background-color: #ecfdf5; /* emerald-50 */
+      }
+
+      /* Typography */
+      .section-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #111827; /* gray-900 */
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+      }
+      .section-title i {
+        margin-right: 10px;
+        width: 24px;
+        text-align: center;
+      }
+
+      /* Lists */
+      .bullet-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .bullet-list li {
+        position: relative;
+        padding-left: 18px;
+        margin-bottom: 6px;
+        color: #374151; /* gray-700 */
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+      .bullet-list li::before {
+        content: "•";
+        color: #1e3a8a;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+        font-size: 1.2em;
+        line-height: 1.2;
+      }
+
+      /* Math/Code snippets */
+      .math-block {
+        font-family: "Roboto Mono", monospace;
+        background-color: #f1f5f9;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        color: #0f172a;
+        border: 1px solid #e2e8f0;
+      }
+
+      /* Process Steps for Visual Expectation */
+      .process-step {
+        display: flex;
+        margin-bottom: 10px;
+        align-items: flex-start;
+      }
+      .process-icon {
+        background-color: #fff;
+        border: 1px solid #fcd34d;
+        color: #d97706;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        margin-right: 10px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .process-content h4 {
+        margin: 0 0 2px 0;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #92400e;
+      }
+      .process-content p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #4b5563;
+        line-height: 1.3;
+      }
+    </style>
+  </head>
+  <body style="">
+    <div class="slide-container">
+      <!-- Header -->
+      <header
+        class="header-bg text-white px-10 py-6 flex items-center shadow-lg z-20"
+      >
+        <div class="flex-1">
+          <h1 class="text-3xl font-bold tracking-tight">
+            EDOPT: Sensor Processing
+          </h1>
+          <p
+            class="text-blue-200 text-sm mt-1 uppercase tracking-wider font-semibold"
+          >
+            Core Algorithm Components
+          </p>
+        </div>
+        <div class="text-right opacity-80">
+          <div class="text-xl font-bold font-mono">Task3</div>
+        </div>
+      </header>
+      <!-- Main Content -->
+      <main class="flex-1 px-10 py-8 overflow-hidden">
+        <div class="grid-layout">
+          <!-- Primary Column: EROS -->
+          <div
+            class="content-card primary"
+            style="
+              position: relative;
+              transform: translate(-2.01258px, -17.1069px);
+            "
+          >
+            <h3 class="section-title">
+              <i class="fas fa-layer-group text-blue-800"></i> 1. EROS Surface
+            </h3>
+            <div class="mb-4">
+              <p class="text-gray-700 text-sm mb-2 leading-relaxed">
+                <strong>Exponentially Reduced Ordinal Surface:</strong> A 2D map
+                encoding the likelihood of a contrast edge at pixel
+                <span class="math-block">Oₜ(x,y) ∈ [0,1]</span> based on all
+                past events.
+              </p>
+              <div class="bg-blue-50 p-3 rounded border border-blue-100 mb-4">
+                <p
+                  class="text-xs font-bold text-blue-900 mb-1 uppercase tracking-wide"
+                >
+                  Update Rule (Per Event)
+                </p>
+                <ul class="text-sm text-blue-800 space-y-1">
+                  <li class="flex items-center">
+                    <i
+                      class="fas fa-minus-circle text-blue-400 mr-2 text-xs"
+                    ></i>
+                    Decay kernel neighborhood by factor
+                  </li>
+                  <li class="flex items-center">
+                    <i
+                      class="fas fa-plus-circle text-blue-600 mr-2 text-xs"
+                    ></i>
+                    Set event pixel to <span class="math-block mx-1">1.0</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <h4
+              class="font-bold text-gray-800 mb-3 text-sm border-l-4 border-blue-800 pl-2"
+            >
+              Key Properties
+            </h4>
+            <div class="grid grid-cols-2 gap-3 mb-2 flex-1">
+              <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                <div class="flex items-center mb-1">
+                  <i class="fas fa-history text-blue-600 mr-2"></i>
+                  <span class="font-bold text-sm text-gray-900"
+                    >No Forgetting</span
+                  >
+                </div>
+                <p class="text-xs text-gray-600">
+                  <span style="font-size: 14px"
+                    >History encoded implicitly; recent spikes bright, old
+                    fade.</span
+                  >
+                </p>
+              </div>
+              <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                <div class="flex items-center mb-1">
+                  <i class="fas fa-stopwatch text-blue-600 mr-2"></i>
+                  <span class="font-bold text-sm text-gray-900"
+                    >No Time Window</span
+                  >
+                </div>
+                <p class="text-xs text-gray-600" style="font-size: 14px">
+                  Sub-millisecond response; robust to variable motion.
+                </p>
+              </div>
+              <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                <div class="flex items-center mb-1">
+                  <i class="fas fa-bolt text-blue-600 mr-2"></i>
+                  <span class="font-bold text-sm text-gray-900">Blur-free</span>
+                </div>
+                <p class="text-xs text-gray-600">
+                  <span style="font-size: 14px"
+                    >Asynchronous updates, no temporal accumulation.</span
+                  >
+                </p>
+              </div>
+              <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                <div class="flex items-center mb-1">
+                  <i class="fas fa-tachometer-alt text-blue-600 mr-2"></i>
+                  <span class="font-bold text-sm text-gray-900">Efficient</span>
+                </div>
+                <p class="text-xs text-gray-600" style="font-size: 14px">
+                  Handles ~10⁷ events/sec; viable for real-time.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Secondary Column Top: Visual Expectation -->
+          <div
+            class="content-card secondary"
+            style="
+              position: relative;
+              transform: translate(-2.01258px, -15.0943px);
+            "
+          >
+            <h3 class="section-title text-amber-900 border-amber-200">
+              <i class="fas fa-eye text-amber-600"></i> 2. Visual Expectation
+              E(X)
+            </h3>
+            <p class="text-xs text-amber-900 mb-3 italic">
+              Given pose X⁺, where should edges appear?
+            </p>
+            <div class="flex-1 overflow-y-auto">
+              <div class="process-step">
+                <div class="process-icon"><i class="fas fa-random"></i></div>
+                <div class="process-content">
+                  <h4>State Expectation</h4>
+                  <p style="font-size: 14px">
+                    Generate 13 pose hypotheses
+                    <span class="math-block">{X⁺}</span> around current pose
+                    using image Jacobian (calibrated for ~1px shift).
+                  </p>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="process-icon"><i class="fas fa-cube"></i></div>
+                <div class="process-content">
+                  <h4>Model Projection</h4>
+                  <p>
+                    Project object mesh onto image plane using calibrated camera
+                    intrinsics for candidate pose.
+                  </p>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="process-icon"><i class="fas fa-filter"></i></div>
+                <div class="process-content">
+                  <h4>Gradient Extraction</h4>
+                  <p>
+                    Sobel + Difference-of-Gaussians filter to highlight true
+                    edges → clean map <span class="math-block">E(X⁺)</span>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Secondary Column Bottom: State Update -->
+          <div
+            class="content-card tertiary"
+            style="position: relative; transform: translate(0px, -15.0943px)"
+          >
+            <h3 class="section-title text-emerald-900 border-emerald-200">
+              <i class="fas fa-sync-alt text-emerald-600"></i> 3. State Update
+            </h3>
+            <div class="flex items-center justify-between mb-3">
+              <div
+                class="bg-white px-3 py-2 rounded border border-emerald-200 shadow-sm"
+              >
+                <span class="text-xs text-emerald-600 font-bold uppercase mr-2"
+                  >Scoring Function</span
+                >
+                <span class="math-block font-bold text-emerald-900 text-sm"
+                  >Score = E(Xᵢ⁺) ⋅ Oₜ</span
+                >
+              </div>
+            </div>
+            <ul class="bullet-list">
+              <li>
+                <strong>Correlation:</strong> Positive regions in E reinforce
+                matching edges in O; negative regions suppress mismatches.
+              </li>
+              <li>
+                <strong>Multi-Hypothesis:</strong> Accept several hypotheses in
+                one iteration (e.g., x-axis + yaw) if they individually improve
+                the match.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </main>
+      <!-- Footer -->
+      <div
+        class="absolute bottom-3 right-6 text-gray-400 text-sm font-medium"
+      ></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,460 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Experiments II: Monocular Depth &amp; Feed-Forward 3DGS</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Poppins:wght@500;600;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #fafafa;
+      }
+      .header-bar {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 16px 40px 12px;
+        gap: 16px;
+        overflow: hidden;
+      }
+      .content-row {
+        display: flex;
+        gap: 12px;
+        flex: 1;
+      }
+      .content-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .metrics-card {
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .card-title {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        color: #1f2937;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .stat-highlight {
+        background: #ecfdf5;
+        color: #059669;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border: 1px solid #d1fae5;
+      }
+      .table-container {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+      }
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+      }
+      .data-table th {
+        background: #f9fafb;
+        color: #4b5563;
+        font-weight: 600;
+        text-align: left;
+        padding: 10px 12px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .data-table td {
+        padding: 8px 12px;
+        color: #374151;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .data-table tr:last-child td {
+        border-bottom: none;
+      }
+      .row-highlight {
+        background: #eff6ff;
+        font-weight: 600;
+      }
+      .chart-container {
+        flex: 1;
+        width: 100%;
+        min-height: 150px;
+        position: relative;
+      }
+      .comparison-block {
+        display: flex;
+        gap: 16px;
+        margin-top: auto;
+      }
+      .metric-box {
+        flex: 1;
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 12px;
+        border: 1px solid #e2e8f0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .metric-val {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #2563eb;
+        font-family: "Roboto Mono", monospace;
+      }
+      .metric-label {
+        font-size: 0.75rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 4px;
+      }
+      .pipeline-step {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        color: #4b5563;
+        background: #fff;
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid #e5e7eb;
+      }
+      .step-arrow {
+        color: #9ca3af;
+        font-size: 0.8rem;
+      }
+      .conclusion-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        background: #1e3a8a;
+        color: white;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+      .badge-purple {
+        background: #f3e8ff;
+        color: #7e22ce;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        border: 1px solid #d8b4fe;
+      }
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+      @media print {
+        body,
+        .slide-container {
+          width: 1280px !important;
+          height: 720px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slide-container">
+      <!-- Header -->
+      <div class="header-bar">
+        <div class="flex items-center gap-4">
+          <div
+            class="bg-blue-600 text-white w-10 h-10 rounded flex items-center justify-center font-bold font-mono text-xl shadow-md"
+          >
+            10
+          </div>
+          <h1 class="text-2xl font-bold text-gray-900 font-poppins">
+            Experiments II: Monocular Depth &amp; Feed-Forward 3DGS
+          </h1>
+        </div>
+        <div class="ml-auto flex items-center gap-2 text-gray-500 text-sm">
+          <i class="fas fa-layer-group"></i>
+          <span>Task Generalization</span>
+        </div>
+      </div>
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Row 1: Monocular Depth & Feed-Forward 3DGS -->
+        <div class="content-row">
+          <!-- Monocular Depth Table -->
+          <div class="content-col">
+            <div class="metrics-card" style="height: 100%">
+              <div class="card-header">
+                <div class="card-title">
+                  <i class="fas fa-eye text-blue-600"></i>
+                  <span>Monocular Depth Estimation</span>
+                </div>
+                <div class="badge-purple">vs Depth Anything 2</div>
+              </div>
+              <div class="table-container mb-4">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Method</th>
+                      <th>KITTI (AbsRel ↓)</th>
+                      <th>Sintel (AbsRel ↓)</th>
+                      <th>NYUv2 (δ1 ↑)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>MiDaS v3.1</td>
+                      <td>0.076</td>
+                      <td>0.245</td>
+                      <td>0.892</td>
+                    </tr>
+                    <tr>
+                      <td>Depth Anything 2</td>
+                      <td>0.058</td>
+                      <td>0.198</td>
+                      <td>0.965</td>
+                    </tr>
+                    <tr class="row-highlight">
+                      <td class="flex items-center gap-2">
+                        <span class="text-blue-600 font-bold"
+                          >DA3-Mono (Ours)</span
+                        >
+                      </td>
+                      <td>
+                        <span class="font-bold text-blue-600">0.054</span>
+                      </td>
+                      <td>
+                        <span class="font-bold text-blue-600">0.185</span>
+                      </td>
+                      <td>
+                        <span class="font-bold text-blue-600">0.971</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div
+                class="p-3 bg-blue-50 border border-blue-100 rounded-lg text-sm text-blue-800"
+              >
+                <p class="font-semibold mb-1">
+                  <i class="fas fa-info-circle mr-2"></i>Monocular Depth: +7% on
+                  KITTI vs DA2
+                </p>
+                <p class="text-xs text-blue-700">
+                  Improvements <strong>LIKELY</strong> stem from (not
+                  individually ablated): (1)
+                  <strong>depth (not disparity) target</strong> → better for
+                  downstream 3D tasks, (2)
+                  <strong>expanded synthetic teacher data</strong> → broader
+                  geometry coverage, (3) <strong>exponential encoding</strong> →
+                  enhanced near-field discrimination.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Feed-Forward NVS Pipeline -->
+          <div class="content-col">
+            <div class="metrics-card" style="height: 100%">
+              <div class="card-header">
+                <div class="card-title">
+                  <i class="fas fa-cubes text-purple-600"></i>
+                  <span>Feed-Forward 3DGS (GS-DPT Head)</span>
+                </div>
+              </div>
+              <div class="flex flex-col gap-2">
+                <div
+                  class="flex items-center justify-between text-sm text-gray-600 mb-2"
+                >
+                  <span>Fine-tuning Strategy:</span>
+                  <span class="font-mono text-xs bg-gray-100 px-2 py-1 rounded"
+                    >Frozen DA3 Backbone</span
+                  >
+                </div>
+                <div
+                  class="flex flex-col gap-2 bg-gray-50 p-3 rounded-lg border border-gray-100"
+                >
+                  <div class="pipeline-step">
+                    <i class="fas fa-brain text-blue-500"></i>
+                    <span class="font-semibold">Input:</span>
+                    <span>Images + (Optional) Poses</span>
+                  </div>
+                  <div class="flex justify-center">
+                    <i class="fas fa-arrow-down step-arrow"></i>
+                  </div>
+                  <div class="pipeline-step">
+                    <i class="fas fa-magic text-purple-500"></i>
+                    <span class="font-semibold">GS-DPT Prediction:</span>
+                    <span>Per-pixel Gaussians (σ, q, s, c)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Row 2: NVS Performance & Findings -->
+        <div class="content-row">
+          <!-- NVS Metrics Chart -->
+          <div class="content-col">
+            <div class="metrics-card" style="height: 100%">
+              <div class="card-header">
+                <div class="card-title">
+                  <i class="fas fa-image text-green-600"></i>
+                  <span>Novel View Synthesis Quality (PSNR)</span>
+                </div>
+                <div class="stat-highlight">Pose-Adaptive</div>
+              </div>
+              <div class="chart-container" id="nvsChart"></div>
+            </div>
+          </div>
+          <!-- Key Findings Block -->
+          <div class="content-col">
+            <div class="metrics-card" style="height: 100%">
+              <div class="card-header">
+                <div class="card-title">
+                  <i class="fas fa-lightbulb text-yellow-600"></i>
+                  <span>Core Findings</span>
+                </div>
+              </div>
+              <div class="comparison-block">
+                <div class="metric-box">
+                  <span class="metric-val text-2xl">Geometry</span>
+                  <span class="metric-label"
+                    >Foundation &gt; Task-Specific</span
+                  >
+                  <p class="text-xs text-gray-500 mt-1">
+                    Generalist backbone outperforms specialized NVS models
+                  </p>
+                </div>
+                <div class="metric-box">
+                  <span class="metric-val text-2xl">Adaptivity</span>
+                  <span class="metric-label">Works w/ or w/o Pose</span>
+                  <p class="text-xs text-gray-500 mt-1">
+                    Single model handles both settings seamlessly
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var chartDom = document.getElementById("nvsChart");
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+          tooltip: {
+            trigger: "axis",
+            axisPointer: { type: "shadow" },
+          },
+          legend: {
+            data: ["Task-Specific (PixelSplat)", "DA3-Based (Ours)"],
+            bottom: 0,
+            textStyle: { fontSize: 11 },
+          },
+          grid: {
+            top: "10%",
+            left: "3%",
+            right: "4%",
+            bottom: "15%",
+            containLabel: true,
+          },
+          xAxis: {
+            type: "category",
+            data: ["RealEstate10k", "ACID", "DL3DV"],
+            axisLine: { show: false },
+            axisTick: { show: false },
+            axisLabel: { color: "#64748b", fontSize: 11 },
+          },
+          yAxis: {
+            type: "value",
+            name: "PSNR (dB)",
+            min: 20,
+            nameTextStyle: { padding: [0, 0, 0, 20], fontSize: 10 },
+            splitLine: { lineStyle: { type: "dashed", color: "#e2e8f0" } },
+          },
+          series: [
+            {
+              name: "Task-Specific (PixelSplat)",
+              type: "bar",
+              barGap: "20%",
+              barWidth: 20,
+              itemStyle: { borderRadius: [4, 4, 0, 0], color: "#94a3b8" },
+              data: [24.5, 26.8, 28.1],
+            },
+            {
+              name: "DA3-Based (Ours)",
+              type: "bar",
+              barWidth: 20,
+              itemStyle: { borderRadius: [4, 4, 0, 0], color: "#10B981" },
+              data: [26.2, 28.5, 30.4],
+            },
+          ],
+        };
+
+        option && myChart.setOption(option);
+        window.addEventListener("resize", function () {
+          myChart.resize();
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" data-theme="light" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Event Rate Analysis</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #f3f4f6;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        position: relative;
+      }
+      /* Consistent Header Style */
+      .header-bg {
+        background-color: #1e3a8a; /* blue-900 */
+      }
+
+      /* Main Content Styling */
+      .content-wrapper {
+        background-color: white;
+        position: relative;
+        /* Removed gradients as per requirements */
+      }
+
+      /* Decorative Geometric Elements */
+      .geo-shape {
+        position: absolute;
+        z-index: 0;
+      }
+      .circle-accent {
+        width: 450px;
+        height: 450px;
+        border-radius: 50%;
+        background-color: #eff6ff; /* blue-50 */
+        right: -120px;
+        bottom: -120px;
+      }
+      .square-accent {
+        width: 220px;
+        height: 220px;
+        background-color: #fffbeb; /* amber-50 */
+        transform: rotate(45deg);
+        left: -60px;
+        top: 40px;
+      }
+
+      /* Typography */
+      .chapter-number {
+        font-size: 12rem;
+        font-weight: 900;
+        color: #e5e7eb; /* gray-200 */
+        line-height: 1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        opacity: 0.5;
+        user-select: none;
+      }
+      .main-title {
+        font-size: 3.5rem; /* Slightly smaller than master to fit longer text */
+        font-weight: 900;
+        color: #1e3a8a; /* blue-900 */
+        line-height: 1.1;
+        position: relative;
+        z-index: 10;
+        text-shadow:
+          2px 2px 0px white,
+          -2px -2px 0px white,
+          2px -2px 0px white,
+          -2px 2px 0px white;
+        max-width: 90%;
+      }
+      .subtitle {
+        font-size: 1.5rem;
+        color: #4b5563; /* gray-600 */
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        margin-top: 1.5rem;
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+      }
+      .subtitle::before,
+      .subtitle::after {
+        content: "";
+        height: 2px;
+        width: 40px;
+        background-color: #d97706; /* amber-600 */
+        margin: 0 15px;
+      }
+
+      /* Icon styling */
+      .section-icon {
+        font-size: 3.5rem;
+        color: #d97706;
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body style="">
+    <div class="slide-container">
+      <!-- Header -->
+      <header
+        class="header-bg text-white px-10 py-6 flex items-center shadow-lg z-20"
+      >
+        <div class="flex-1">
+          <p
+            class="text-blue-200 text-sm uppercase tracking-wider font-semibold"
+          >
+            Dataset Analysis
+          </p>
+        </div>
+        <div class="text-right opacity-80">
+          <div class="text-xl font-bold font-mono">Task1</div>
+        </div>
+      </header>
+      <!-- Main Content -->
+      <main
+        class="flex-1 flex flex-col justify-center items-center content-wrapper overflow-hidden relative"
+      >
+        <!-- Background Shapes -->
+        <div class="geo-shape circle-accent"></div>
+        <div class="geo-shape square-accent"></div>
+        <!-- Large Background Number (Continuing numbering from previous slide) -->
+        <div class="chapter-number">08</div>
+        <!-- Foreground Content -->
+        <div class="section-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h1 class="main-title text-center">
+          Event Rate Local Extremes<br />vs. Arm Configuration
+        </h1>
+        <div class="subtitle">
+          <p>Task 1: Dataset Metrics</p>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

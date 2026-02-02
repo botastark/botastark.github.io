@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en" data-theme="light" style="">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>DepthAnything3 Presentation</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Poppins:wght@500;700&amp;family=Roboto+Mono:wght@400&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: "Inter", sans-serif;
+        background-color: #ffffff;
+      }
+      .slide-container {
+        width: 1280px;
+        height: 720px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+      .accent-bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 12px;
+        background-color: #2563eb; /* Blue-600 */
+      }
+      .content-wrapper {
+        display: flex;
+        flex: 1;
+        padding: 40px 60px 40px 72px; /* Left padding accommodates accent bar */
+        gap: 40px;
+      }
+      .text-column {
+        flex: 0 0 55%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .image-column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .title-text {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.1;
+        color: #111827; /* Gray-900 */
+      }
+      .gradient-text {
+        color: #2563eb;
+      }
+      .glass-card {
+        background: rgba(243, 244, 246, 0.8);
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+      @media print {
+        body,
+        .slide-container {
+          width: 1280px !important;
+          height: 720px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="">
+    <div class="slide-container">
+      <!-- Decorative Accent -->
+      <div class="accent-bar"></div>
+      <!-- Main Content -->
+      <div class="content-wrapper">
+        <!-- Left Column: Text -->
+        <div class="text-column">
+          <!-- Project Tag -->
+
+          <!-- Title -->
+          <div class="mb-6">
+            <h1 class="text-5xl font-bold title-text mb-2">
+              DepthAnything<span class="gradient-text">3</span>
+            </h1>
+            <h2 class="text-3xl font-medium text-gray-700 leading-tight">
+              Recovering the Visual Space from Any Views
+            </h2>
+          </div>
+          <!-- Authors -->
+          <div class="mb-8">
+            <p
+              class="text-sm text-gray-600 font-medium mb-1 uppercase tracking-wider"
+            >
+              Authors
+            </p>
+            <p class="text-sm text-gray-800 leading-relaxed">
+              Haotong Lin*, Sili Chen*, Jun Hao Liew*, Donny Y. Chen*, Zhenyu
+              Li, Guang Shi, Jiashi Feng, Bingyi Kang<sup>†</sup>
+            </p>
+            <p class="text-xs text-gray-500 mt-1 italic">ByteDance Seed</p>
+          </div>
+          <!-- Key Highlights / Claims -->
+          <div class="glass-card">
+            <h3
+              class="text-base font-bold text-gray-800 mb-2 flex items-center gap-2"
+            >
+              <i class="fas fa-star text-yellow-500"></i> Core Contributions
+            </h3>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2">
+                <div
+                  class="mt-1 w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0"
+                ></div>
+                <p class="text-xs text-gray-700 leading-tight">
+                  <span class="font-semibold text-gray-900"
+                    >Minimal Modeling:</span
+                  >
+                  Single ViT + per-pixel depth-ray targets.
+                </p>
+              </li>
+              <li class="flex items-start gap-2">
+                <div
+                  class="mt-1 w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0"
+                ></div>
+                <p class="text-xs text-gray-700 leading-tight">
+                  <span class="font-semibold text-gray-900"
+                    >SOTA Performance:</span
+                  >
+                  <span class="font-bold text-green-600">+35.7%</span> pose AUC,
+                  <span class="font-bold text-green-600">+23.6%</span> geometric
+                  accuracy vs VGGT.
+                </p>
+              </li>
+              <li class="flex items-start gap-2">
+                <div
+                  class="mt-1 w-1.5 h-1.5 rounded-full bg-blue-600 flex-shrink-0"
+                ></div>
+                <p class="text-xs text-gray-700 leading-tight">
+                  <span class="font-semibold text-gray-900">Universal:</span>
+                  Works with monocular, multi-view, or video frame sequences.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Right Column: Visual -->
+        <div class="image-column">
+          <div
+            class="relative w-full h-full flex flex-col items-center justify-center"
+          >
+            <!-- Main Figure Container -->
+            <div
+              class="w-full bg-gray-50 border border-gray-200 rounded-xl overflow-hidden shadow-lg relative"
+            >
+              <!-- Image -->
+              <div
+                class="aspect-w-16 aspect-h-12 bg-gray-100 relative overflow-hidden h-80"
+              >
+                <img
+                  alt="DepthAnything3 Overview"
+                  class="w-full h-full object-cover object-top"
+                  src="https://page.gensparksite.com/slides_images/ded58af897b2b66841d3b140ddf51357.webp"
+                  data-height-listener-added="true"
+                />
+              </div>
+              <!-- Caption -->
+              <div class="bg-white p-3 border-t border-gray-100">
+                <p class="text-xs text-gray-500 font-mono text-center">
+                  Figure 1: DA3 reconstructs visual space from any number of
+                  images
+                </p>
+              </div>
+            </div>
+            <!-- Decorative Elements below image -->
+            <div class="mt-6 w-full flex justify-between items-center px-4">
+              <div class="text-center"></div>
+              <div class="text-center">
+                <p class="text-2xl font-bold text-gray-900">Dual-DPT</p>
+                <p class="text-xs text-gray-500 uppercase tracking-wide">
+                  Novel Head
+                </p>
+              </div>
+              <div class="h-8 w-px bg-gray-300"></div>
+              <div class="text-center">
+                <p class="text-2xl font-bold text-gray-900">DINOv2</p>
+                <p class="text-xs text-gray-500 uppercase tracking-wide">
+                  Backbone
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
