@@ -120,12 +120,12 @@ h3 {
     padding: 2rem 1.5rem;
     margin: 1.5rem auto;
   }
-  
+
   .intro-card .d-flex {
     flex-direction: column;
     align-items: center !important;
   }
-  
+
   .profile-photo {
     max-width: 200px;
     min-width: 200px;
