@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bota Duisenbay | Projects</title>
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QZSG8DSLW7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QZSG8DSLW7', { 'debug_mode': true });
+    </script>
+    <script>
+      // GA network logger - logs requests/responses to google-analytics domains
+      (function () {
+        try {
+          const origFetch = window.fetch;
+          window.fetch = function (resource, init) {
+            const url =
+              typeof resource === "string"
+                ? resource
+                : resource && resource.url;
+            if (url && url.includes("google-analytics.com")) {
+              console.log("[GA LOG] fetch ->", url, init);
+              return origFetch
+                .apply(this, arguments)
+                .then((res) => {
+                  console.log("[GA LOG] fetch response", res.status, url);
+                  return res;
+                })
+                .catch((err) => {
+                  console.log("[GA LOG] fetch error", err, url);
+                  throw err;
+                });
+            }
+            return origFetch.apply(this, arguments);
+          };
+
+          const origXHROpen = XMLHttpRequest.prototype.open;
+          const origXHRSend = XMLHttpRequest.prototype.send;
+          XMLHttpRequest.prototype.open = function (method, url) {
+            this.__ga_log_url = url;
+            return origXHROpen.apply(this, arguments);
+          };
+          XMLHttpRequest.prototype.send = function (body) {
+            if (
+              this.__ga_log_url &&
+              this.__ga_log_url.includes("google-analytics.com")
+            ) {
+              this.addEventListener("load", function () {
+                console.log(
+                  "[GA LOG] XHR load",
+                  this.__ga_log_url,
+                  this.status,
+                );
+              });
+              this.addEventListener("error", function () {
+                console.log("[GA LOG] XHR error", this.__ga_log_url);
+              });
+              console.log("[GA LOG] XHR send", this.__ga_log_url, body);
+            }
+            return origXHRSend.apply(this, arguments);
+          };
+        } catch (e) {
+          console.warn("GA logger init failed", e);
+        }
+      })();
+    </script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="bg-white shadow-sm py-3 mb-4">
+      <div
+        class="container d-flex flex-column flex-md-row justify-content-between align-items-center"
+      >
+        <h1 class="h3 mb-2 mb-md-0">Bota Duisenbay</h1>
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link active">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="projects.html" class="nav-link">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a href="cv.pdf" class="nav-link" target="_blank">CV</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="publications" class="mb-5">
+        <h2>Publications</h2>
+        <ul class="news-list">
+          <li>
+            <div class="date">2025</div>
+            <div class="content">
+              <strong>B. Duisenbay</strong>, D. Ognibene, P. Toscano, M.
+              Boschetti, A. Berton, and V. Trianni.
+              <em
+                >"Information Gain-Based Informative Path Planning for UAVs in
+                Agriculture: Towards Field Deployment."</em
+              >
+              In
+              <em
+                >Proceedings of the 19th International Conference on Intelligent
+                Autonomous Systems (IAS-19)</em
+              >.
+              <!-- <br>
+              Proposed an empirically sampled sensor model integrated into an
+              IG-based UAV path planner, validated on real wheat field imagery. -->
+
+              <div class="pub-links mt-2">
+                <a
+                  href="https://github.com/AGR-o-RAMA/active_sensing"
+                  target="_blank"
+                >
+                  🔗 Code </a
+                >&nbsp;
+                <a
+                  href="https://github.com/AGR-o-RAMA/active_sensing/blob/main/IGBIPP_Towards_Field_Deployment.pdf"
+                  target="_blank"
+                >
+                  📄 PDF
+                </a>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="date">2018</div>
+            <div class="content">
+              B. Nurtay, <strong>B. Duisenbay</strong>, and T. D. Do.
+              <em
+                >"Direct-Torque Control System Design Using Maximum Torque Per
+                Ampere Method for Interior Permanent Magnet Synchronous
+                Motors."</em
+              >
+              In
+              <em
+                >Proceedings of the 12th International Conference ELEKTRO
+                2018</em
+              >, Mikulov, Czech Republic, May 21–23, 2018. Presented a combined
+              DTC and MTPA control strategy implemented and validated in
+              Simulink.
+
+              <div class="pub-links mt-2">
+                <a
+                  href="https://doi.org/10.1109/ELEKTRO.2018.8398286"
+                  target="_blank"
+                >
+                  📄 PDF
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <!-- 
+      <section id="projects" class="mb-5">
+        <h2>Projects</h2>
+
+        <article class="project">
+          <h3><a href="nlp-projects.html">Natural Language Processing
+              Projects</a></h3>
+          <p>
+            NLP coursework covering Named Entity Recognition, Semantic Role
+            Labeling, and Coreference Resolution using GloVe, BERT, and BiLSTM
+            architectures.
+          </p>
+        </article>
+
+        <article class="project">
+          <h3><a href="https://github.com/botastark/ComputerVision/tree/main"
+              target="_blank">Computer Vision Projects</a></h3>
+          <p>
+            Classical computer vision implementations using NumPy, OpenCV, and
+            SciPy. Highlights include Sobel filtering, Laplacian of Gaussian,
+            histogram equalization, and image blending via pyramids.
+          </p>
+        </article>
+
+        <article class="project">
+          <h3><a href="https://github.com/botastark/UAV-Robotics"
+              target="_blank">Robotics & UAV Projects</a></h3>
+          <p>
+            Includes autonomous drone navigation with PX4 and Jetson, real-world
+            agricultural data collection, and UR10 robot simulation with grasp
+            planning and task execution in ROS.
+          </p>
+        </article>
+
+      </section> -->
+
+      <section id="projects" class="mb-5">
+        <h2>Projects</h2>
+        <ul class="news-list">
+          <li>
+            <div class="date">NLP</div>
+            <div class="content">
+              <details>
+                <summary>NLP Coursework Projects</summary>
+                <ul>
+                  <li>
+                    Named Entity Recognition: BiLSTM-based NER with GloVe
+                    embeddings; best F1: 0.5387 using 2-layer BiLSTM (300d).
+                    <a
+                      href="https://github.com/botastark/NLP/tree/main/duisenbay_1849680_hw1"
+                      target="_blank"
+                      >🔗 Code</a
+                    >
+                    <a
+                      href="https://github.com/botastark/NLP/blob/main/duisenbay_1849680_hw1/report.pdf"
+                      target="_blank"
+                      >📄 Report</a
+                    >
+                  </li>
+                  <li>
+                    Semantic Role Labeling: Predicate-aware SRL using GloVe and
+                    BERT+BiLSTM; best F1: 0.8558 (ALBERT).
+
+                    <a
+                      href="https://github.com/botastark/NLP/tree/main/duisenbay_1849680_hw2"
+                      target="_blank"
+                      >🔗 Code</a
+                    >
+                    <a
+                      href="https://github.com/botastark/NLP/blob/main/duisenbay_1849680_hw2/report.pdf"
+                      target="_blank"
+                      >📄 Report</a
+                    >
+                  </li>
+                  <li>
+                    Coreference resolution: Pronoun resolution via ProBERT with
+                    mention tags; best accuracy: 86.56% (RoBERTa).
+                    <a
+                      href="https://github.com/botastark/NLP/tree/main/duisenbay_1849680_hw3"
+                      target="_blank"
+                      >🔗 Code</a
+                    >
+                    <a
+                      href="https://github.com/botastark/NLP/blob/main/duisenbay_1849680_hw3/NLP_HW3_report.pdf"
+                      target="_blank"
+                      >📄 Report</a
+                    >
+                  </li>
+                </ul>
+              </details>
+              <!-- 
+              <a href="nlp-projects.html">Natural Language Processing
+                Projects</a><br>
+              Named Entity Recognition, Semantic Role Labeling, Coreference
+              Resolution using GloVe, BERT, BiLSTM. -->
+            </div>
+          </li>
+
+          <li>
+            <div class="date">CV</div>
+            <div class="content">
+              <a
+                href="https://github.com/botastark/ComputerVision/tree/main"
+                target="_blank"
+                >Computer Vision Projects</a
+              >
+              <br />
+              Classical vision: Sobel, LoG, histogram equalization, and image
+              blending with pyramids.
+              <br />
+              Image classification: Kaokore dataset
+            </div>
+          </li>
+          <li>
+            <div class="date">UR10</div>
+            <div class="content">
+              <a href="alaris-project.html" target="_blank"
+                >Autonomous Robotic Pick & Place System</a
+              ><br />
+              UR10 simulation with grasp planning for an antropomorphic hand.
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="text-center py-4">
+      <p class="mb-0">&copy; 2025 Bota Duisenbay. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
