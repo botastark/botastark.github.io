@@ -1,423 +1,763 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <title>Bota Duisenbay | Projects</title>
-                <!-- Google Analytics 4 -->
-                <script async src="https://www.googletagmanager.com/gtag/js?id=G-QZSG8DSLW7"></script>
-                <script>
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);} 
-                    gtag('js', new Date());
-                    gtag('config', 'G-QZSG8DSLW7', { 'debug_mode': true });
-                </script>
-                                <script>
-                                    // GA network logger - logs requests/responses to google-analytics domains
-                                    (function () {
-                                        try {
-                                            const origFetch = window.fetch;
-                                            window.fetch = function (resource, init) {
-                                                const url = typeof resource === 'string' ? resource : resource && resource.url;
-                                                if (url && url.includes('google-analytics.com')) {
-                                                    console.log('[GA LOG] fetch ->', url, init);
-                                                    return origFetch.apply(this, arguments).then((res) => {
-                                                        console.log('[GA LOG] fetch response', res.status, url);
-                                                        return res;
-                                                    }).catch((err) => {
-                                                        console.log('[GA LOG] fetch error', err, url);
-                                                        throw err;
-                                                    });
-                                                }
-                                                return origFetch.apply(this, arguments);
-                                            };
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autonomous Robotic Pick & Place System — Bota Duisenbay</title>
+  <meta name="description" content="UR-10 robotic arm integration with vision-based object detection, point cloud processing, and autonomous manipulation.">
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="icons/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QZSG8DSLW7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QZSG8DSLW7');
+  </script>
+  
+  <!-- Preload critical gallery images -->
+  <link rel="preload" as="image" href="images/protfolio-00.png">
+  <link rel="preload" as="image" href="images/protfolio-01.png">
+  <link rel="preload" as="image" href="images/protfolio-02.png">
+  
+  <style>
+    /* ─── Design Tokens (same as projects.html) ─────────────── */
+    :root, [data-theme="light"] {
+      --color-bg:              #f6f4ef;
+      --color-surface:         #faf9f6;
+      --color-surface-2:       #ffffff;
+      --color-surface-offset:  #eeebe4;
+      --color-divider:         #dedad2;
+      --color-border:          #d3cfc7;
 
-                                            const origXHROpen = XMLHttpRequest.prototype.open;
-                                            const origXHRSend = XMLHttpRequest.prototype.send;
-                                            XMLHttpRequest.prototype.open = function (method, url) {
-                                                this.__ga_log_url = url;
-                                                return origXHROpen.apply(this, arguments);
-                                            };
-                                            XMLHttpRequest.prototype.send = function (body) {
-                                                if (this.__ga_log_url && this.__ga_log_url.includes('google-analytics.com')) {
-                                                    this.addEventListener('load', function () { console.log('[GA LOG] XHR load', this.__ga_log_url, this.status); });
-                                                    this.addEventListener('error', function () { console.log('[GA LOG] XHR error', this.__ga_log_url); });
-                                                    console.log('[GA LOG] XHR send', this.__ga_log_url, body);
-                                                }
-                                                return origXHRSend.apply(this, arguments);
-                                            };
-                                        } catch (e) {
-                                            console.warn('GA logger init failed', e);
-                                        }
-                                    })();
-                                </script>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-            rel="stylesheet">
+      --color-text:            #1b1914;
+      --color-text-muted:      #6a6760;
+      --color-text-faint:      #b0ada8;
+      --color-text-inverse:    #f9f8f4;
 
-        <link rel="stylesheet" href="style.css" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
-            rel="stylesheet">
-        <!-- Preload critical gallery images -->
-        <link rel="preload" as="image" href="images/protfolio-00.png">
-        <link rel="preload" as="image" href="images/protfolio-01.png">
-        <link rel="preload" as="image" href="images/protfolio-02.png">
-    </head>
-    <body>
-        <header class="bg-white shadow-sm py-3 mb-4">
-            <div
-                class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <h1 class="h3 mb-2 mb-md-0">Bota Duisenbay</h1>
-                <nav>
-                    <ul class="nav">
-                        <li class="nav-item"><a href="index.html"
-                                class="nav-link active">Home</a></li>
-                        <li class="nav-item"><a href="projects.html"
-                                class="nav-link">Projects</a></li>
-                        <li class="nav-item"><a href="cv.pdf" class="nav-link"
-                                target="_blank">CV</a></li>
+      --color-primary:         #00797f;
+      --color-primary-hover:   #005f64;
+      --color-primary-active:  #004347;
+      --color-primary-hl:      #d0e8e9;
 
-                    </ul>
-                </nav>
+      --radius-sm:   0.375rem;
+      --radius-md:   0.5rem;
+      --radius-lg:   0.75rem;
+      --radius-full: 9999px;
+
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+      --shadow-sm: 0 1px 2px oklch(0.15 0.01 75 / 0.06);
+      --shadow-md: 0 4px 14px oklch(0.15 0.01 75 / 0.09);
+
+      --content: 760px;
+      --content-wide: 1040px;
+
+      --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+      --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+      --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+      --text-lg:   clamp(1.125rem, 1rem    + 0.6vw,  1.375rem);
+      --text-xl:   clamp(1.4rem,   1.1rem  + 1.1vw,  2rem);
+      --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.25rem);
+      --text-hero: clamp(2.8rem,   1rem    + 5vw,    5.5rem);
+
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body:    'Satoshi', 'DM Sans', system-ui, sans-serif;
+
+      --space-1: 0.25rem; --space-2: 0.5rem;  --space-3: 0.75rem;
+      --space-4: 1rem;    --space-5: 1.25rem; --space-6: 1.5rem;
+      --space-8: 2rem;    --space-10: 2.5rem; --space-12: 3rem;
+      --space-16: 4rem;   --space-20: 5rem;   --space-24: 6rem;
+    }
+
+    [data-theme="dark"] {
+      --color-bg:              #141210;
+      --color-surface:         #1c1a17;
+      --color-surface-2:       #222019;
+      --color-surface-offset:  #1a1815;
+      --color-divider:         #2b2926;
+      --color-border:          #393631;
+      --color-text:             #d8d4ce;
+      --color-text-muted:      #7d7a74;
+      --color-text-faint:      #504d49;
+      --color-text-inverse:    #1c1a17;
+      --color-primary:         #4fa8ae;
+      --color-primary-hover:   #2d8f96;
+      --color-primary-active:  #1a7078;
+      --color-primary-hl:      #2a3d3e;
+      --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.22);
+      --shadow-md: 0 4px 14px oklch(0 0 0 / 0.32);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme]) {
+        --color-bg:              #141210;
+        --color-surface:         #1c1a17;
+        --color-surface-2:       #222019;
+        --color-surface-offset:  #1a1815;
+        --color-divider:         #2b2926;
+        --color-border:          #393631;
+        --color-text:             #d8d4ce;
+        --color-text-muted:      #7d7a74;
+        --color-text-faint:      #504d49;
+        --color-text-inverse:    #1c1a17;
+        --color-primary:         #4fa8ae;
+        --color-primary-hover:   #2d8f96;
+        --color-primary-active:  #1a7078;
+        --color-primary-hl:      #2a3d3e;
+        --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.22);
+        --shadow-md: 0 4px 14px oklch(0 0 0 / 0.32);
+      }
+    }
+
+    /* ─── Base ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      scroll-behavior: smooth;
+      scroll-padding-top: 5rem;
+    }
+    body {
+      min-height: 100dvh;
+      line-height: 1.65;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      background-color: var(--color-bg);
+    }
+    img, svg { display: block; max-width: 100%; }
+    h1,h2,h3,h4 { text-wrap: balance; line-height: 1.18; }
+    p, li { text-wrap: pretty; }
+    button { cursor: pointer; background: none; border: none; color: inherit; font: inherit; }
+    a { color: var(--color-primary); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--color-primary-hover); }
+    ::selection { background: oklch(from var(--color-primary) l c h / 0.18); color: var(--color-text); }
+    :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; border-radius: var(--radius-sm); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ─── Layout Utility ────────────────────────────────────── */
+    .wrap {
+      max-width: var(--content-wide);
+      margin-inline: auto;
+      padding-inline: clamp(var(--space-4), 4vw, var(--space-12));
+    }
+
+    /* ─── Skip Link ─────────────────────────────────────────── */
+    .skip-link {
+      position: absolute; top: -100px; left: var(--space-4);
+      background: var(--color-primary); color: var(--color-text-inverse);
+      padding: var(--space-2) var(--space-4); border-radius: var(--radius-md);
+      font-size: var(--text-sm); font-weight: 600; z-index: 9999;
+      transition: top var(--transition);
+    }
+    .skip-link:focus { top: var(--space-4); }
+
+    /* ─── Header / Nav ──────────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: color-mix(in oklab, var(--color-bg) 85%, transparent);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      padding-block: var(--space-4);
+    }
+    .site-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      text-decoration: none;
+      color: var(--color-text);
+      transition: opacity var(--transition);
+    }
+    .site-logo:hover { opacity: 0.75; color: var(--color-text); }
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+    }
+    .logo-name {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+    }
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+    }
+    .nav-link {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-text-muted);
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-md);
+      transition: color var(--transition), background var(--transition);
+      text-decoration: none;
+    }
+    .nav-link:hover { color: var(--color-text); background: var(--color-surface-offset); }
+    .nav-link.active { color: var(--color-text); }
+    .nav-link.nav-cta {
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary-hl);
+    }
+    .nav-link.nav-cta:hover { background: var(--color-primary-hl); color: var(--color-primary-hover); }
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      color: var(--color-text-muted);
+      transition: color var(--transition), background var(--transition);
+      margin-left: var(--space-2);
+    }
+    .theme-btn:hover { color: var(--color-text); background: var(--color-surface-offset); }
+
+    /* ─── Page Header ───────────────────────────────────────── */
+    .page-header {
+      padding-block: clamp(var(--space-12), 8vw, var(--space-16));
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .page-title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 400;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-3);
+    }
+    .page-description {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+      max-width: 62ch;
+    }
+    .page-meta {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      margin-top: var(--space-2);
+    }
+
+    /* ─── Section Base ──────────────────────────────────────── */
+    .section {
+      padding-block: clamp(var(--space-12), 7vw, var(--space-20));
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .section:last-of-type { border-bottom: none; }
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 400;
+      color: var(--color-text);
+      margin-bottom: var(--space-6);
+    }
+
+    /* ─── Project Content ───────────────────────────────────── */
+    .project-content {
+      max-width: var(--content);
+    }
+    .project-content p {
+      margin-bottom: var(--space-4);
+      color: var(--color-text);
+    }
+    .project-content ul {
+      list-style: none;
+      margin: var(--space-4) 0;
+      padding-left: 0;
+    }
+    .project-content li {
+      margin-bottom: var(--space-3);
+      color: var(--color-text-muted);
+      padding-left: var(--space-5);
+      position: relative;
+    }
+    .project-content li::before {
+      content: '•';
+      color: var(--color-primary);
+      font-weight: bold;
+      position: absolute;
+      left: var(--space-3);
+    }
+    .project-content strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    /* ─── Gallery ───────────────────────────────────────────── */
+    .gallery-container {
+      margin-block: var(--space-8);
+    }
+    .horizontal-gallery {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: var(--space-4);
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: var(--space-4);
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+    .horizontal-gallery::-webkit-scrollbar {
+      height: 8px;
+    }
+    .horizontal-gallery::-webkit-scrollbar-track {
+      background: var(--color-surface-offset);
+      border-radius: var(--radius-full);
+    }
+    .horizontal-gallery::-webkit-scrollbar-thumb {
+      background: var(--color-border);
+      border-radius: var(--radius-full);
+    }
+    .horizontal-gallery::-webkit-scrollbar-thumb:hover {
+      background: var(--color-text-faint);
+    }
+    .gallery-item {
+      flex: 0 0 auto;
+      width: 300px;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .gallery-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .gallery-thumb {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+    }
+
+    /* ─── Modal ─────────────────────────────────────────────── */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: oklch(0 0 0 / 0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .modal.active {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-md);
+    }
+    .modal-close {
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-3);
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: var(--color-surface-offset);
+      color: var(--color-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition);
+      z-index: 10;
+    }
+    .modal-close:hover {
+      background: var(--color-border);
+    }
+    .modal-image {
+      max-width: 100%;
+      max-height: 75vh;
+      border-radius: var(--radius-md);
+    }
+    .modal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: var(--space-4);
+      gap: var(--space-4);
+    }
+    .modal-nav-btn {
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-surface-offset);
+      border-radius: var(--radius-md);
+      color: var(--color-text);
+      font-weight: 500;
+      transition: background var(--transition);
+    }
+    .modal-nav-btn:hover {
+      background: var(--color-border);
+    }
+    .modal-counter {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+
+    /* ─── Video Grid ────────────────────────────────────────── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+      gap: var(--space-6);
+      margin-block: var(--space-8);
+    }
+    .video-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 */
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .video-caption {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    /* ─── Footer ────────────────────────────────────────────── */
+    .site-footer {
+      padding-block: var(--space-10);
+      border-top: 1px solid var(--color-divider);
+    }
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+    .footer-copy {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+    }
+    .footer-links {
+      display: flex;
+      gap: var(--space-5);
+    }
+    .footer-links a {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--color-text-muted); }
+
+    /* ─── Responsive ────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .logo-name { display: none; }
+      .gallery-item {
+        width: 250px;
+      }
+    }
+    @media (max-width: 480px) {
+      .site-nav .nav-link:not(.nav-cta):not(.active) { display: none; }
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ─── Header ──────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="index.html" class="site-logo" aria-label="Bota Duisenbay — Home">
+        <svg class="logo-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+          <rect width="34" height="34" rx="8" fill="var(--color-primary)"/>
+          <text x="5" y="24" font-family="'Instrument Serif', Georgia, serif" font-size="18" font-weight="400" fill="white" letter-spacing="-0.5">BD</text>
+        </svg>
+        <span class="logo-name">Bota Duisenbay</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="projects.html" class="nav-link active">Projects</a>
+        <a href="cv.pdf" class="nav-link nav-cta" target="_blank" rel="noopener">CV ↗</a>
+        <button class="theme-btn" data-theme-toggle aria-label="Switch to dark mode">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ─── Page Header ───────────────────────────────────── -->
+    <section class="page-header">
+      <div class="wrap">
+        <h1 class="page-title">Autonomous Robotic Pick &amp; Place System</h1>
+        <p class="page-meta">ALARIS Lab, Nazarbayev University</p>
+        <p class="page-description">
+          Integration of vision-based object detection with UR-10 robotic arm control. Applied point cloud processing, camera-to-robot frame transformation, and inverse kinematics using MoveIt.
+        </p>
+      </div>
+    </section>
+
+    <!-- ─── Project Details ───────────────────────────────── -->
+    <section class="section">
+      <div class="wrap">
+        <div class="project-content">
+          <p><strong>Technologies:</strong> UR-10, ROS, MoveIt, OpenCV, PCL</p>
+          <p>
+            This project developed an autonomous robotic pick-and-place setup integrating vision-based object detection with UR-10 robotic arm control. Applied point cloud processing, camera-to-robot frame transformation, and inverse kinematics using MoveIt.
+          </p>
+          <ul>
+            <li>Object detection with voxel grid filtering and cluster extraction</li>
+            <li>Trajectory planning using inverse kinematics</li>
+            <li>Teleoperation of a robotic hand using flex-sensor glove</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Gallery ────────────────────────────────────────── -->
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-heading">Gallery</h2>
+        <div class="gallery-container">
+          <div class="horizontal-gallery" id="gallery">
+            <div class="gallery-item" data-index="0">
+              <img src="images/protfolio-00.png" alt="Autonomous Robotic Pick & Place — detail 1" class="gallery-thumb" loading="eager" decoding="async">
             </div>
-        </header>
-
-        <main class="container">
-
-            <div class="container py-5">
-                <div class="row mb-4">
-                    <div class="col-md-12">
-                        <h2 class="text-primary">Autonomous Robotic Pick & Place
-                            System</h2>
-                        <p class="text-muted">Lab: ALARIS Lab, Nazarbayev
-                            University</p>
-                        <p><strong>Technologies:</strong> UR-10, ROS, MoveIt,
-                            OpenCV, PCL</p>
-                        <p>
-                            Developed an autonomous robotic pick-and-place setup
-                            integrating vision-based object detection
-                            with UR-10 robotic arm control. Applied point cloud
-                            processing, camera-to-robot frame
-                            transformation, and inverse kinematics using MoveIt.
-                        </p>
-                        <ul>
-                            <li>Object detection with voxel grid filtering and
-                                cluster extraction</li>
-                            <li>Trajectory planning using inverse
-                                kinematics</li>
-                            <li>Teleoperation of a robotic hand using
-                                flex-sensor
-                                glove</li>
-                        </ul>
-                        
-                        <!-- Gallery -->
-                         <h5 class="mt-4">Gallery</h5>
-
-                        <div class="horizontal-gallery" id="projectGallery">
-                        <!-- Repeat these 10 times, index 0..9 -->
-                        <div class="gallery-item">
-                            <button
-                            type="button"
-                            class="btn p-0 w-100 gallery-btn"
-                            data-bs-toggle="modal"
-                            data-bs-target="#galleryModal"
-                            data-index="0"
-                            aria-label="Open image 1"
-                            >
-                            <img
-                                src="images/protfolio-00.png"
-                                alt="Autonomous Robotic Pick & Place — detail 1"
-                                class="img-fluid gallery-thumb"
-                                loading="eager"
-                                decoding="async"
-                                width="300"
-                                height="220"
-                            />
-                            </button>
-                        </div>
-
-                        <div class="gallery-item">
-                            <button type="button" class="btn p-0 w-100 gallery-btn"
-                            data-bs-toggle="modal" data-bs-target="#galleryModal" data-index="1"
-                            aria-label="Open image 2">
-                            <img src="images/protfolio-01.png" alt="Autonomous Robotic Pick & Place — detail 2"
-                                class="img-fluid gallery-thumb" loading="eager" decoding="async"
-                                width="300" height="220" />
-                            </button>
-                        </div>
-                        <div class="gallery-item">
-                            <button type="button" class="btn p-0 w-100 gallery-btn"
-                            data-bs-toggle="modal" data-bs-target="#galleryModal" data-index=""
-                            aria-label="Open image 3">
-                            <img src="images/protfolio-02.png" alt="Autonomous Robotic Pick & Place — detail 3"
-                                class="img-fluid gallery-thumb" loading="eager" decoding="async"
-                                width="300" height="220" />
-                            </button>
-                        </div>
-                        <div class="gallery-item">
-                            <button type="button" class="btn p-0 w-100 gallery-btn"
-                            data-bs-toggle="modal" data-bs-target="#galleryModal" data-index="3"
-                            aria-label="Open image 4">
-                            <img src="images/protfolio-03.png" alt="Autonomous Robotic Pick & Place — detail 4"
-                                class="img-fluid gallery-thumb" loading="lazy" decoding="async"
-                                width="300" height="220" />
-                            </button>
-                        </div>
-                        <div class="gallery-item">
-                            <button type="button" class="btn p-0 w-100 gallery-btn"
-                            data-bs-toggle="modal" data-bs-target="#galleryModal" data-index="4"
-                            aria-label="Open image 5">
-                            <img src="images/protfolio-04.png" alt="Autonomous Robotic Pick & Place — detail 5"
-                                class="img-fluid gallery-thumb" loading="lazy" decoding="async"
-                                width="300" height="220" />
-                            </button>
-                        </div>
-                        <div class="gallery-item">
-                            <button type="button" class="btn p-0 w-100 gallery-btn"
-                            data-bs-toggle="modal" data-bs-target="#galleryModal" data-index="5"
-                            aria-label="Open image 6">
-                            <img src="images/protfolio-05.png" alt="Autonomous Robotic Pick & Place — detail 6"
-                                class="img-fluid gallery-thumb" loading="lazy" decoding="async"
-                                width="300" height="220" />
-                            </button>
-                        </div>
-                        <div class="gallery-item">
-                            <button type="button" class="btn p-0 w-100 gallery-btn"
-                            data-bs-toggle="modal" data-bs-target="#galleryModal" data-index="6"
-                            aria-label="Open image 7">
-                            <img src="images/protfolio-06.png" alt="Autonomous Robotic Pick & Place — detail 7"
-                                class="img-fluid gallery-thumb" loading="lazy" decoding="async"
-                                width="300" height="220" />
-                            </button>
-                        </div>
-                        <div class="gallery-item">
-                            <button type="button" class="btn p-0 w-100 gallery-btn"
-                            data-bs-toggle="modal" data-bs-target="#galleryModal" data-index="7"
-                            aria-label="Open image 8">
-                            <img src="images/protfolio-07.png" alt="Autonomous Robotic Pick & Place — detail 8"
-                                class="img-fluid gallery-thumb" loading="lazy" decoding="async"
-                                width="300" height="220" />
-                            </button>
-                        </div>
-                        <div class="gallery-item">
-                            <button type="button" class="btn p-0 w-100 gallery-btn"
-                            data-bs-toggle="modal" data-bs-target="#galleryModal" data-index="8"
-                            aria-label="Open image 9">
-                            <img src="images/protfolio-08.png" alt="Autonomous Robotic Pick & Place — detail 9"
-                                class="img-fluid gallery-thumb" loading="lazy" decoding="async"
-                                width="300" height="220" />
-                            </button>
-                        </div>
-                        <div class="gallery-item">
-                            <button type="button" class="btn p-0 w-100 gallery-btn"         
-                            data-bs-toggle="modal" data-bs-target="#galleryModal" data-index="9"
-                            aria-label="Open image 10">
-                            <img src="images/protfolio-09.png" alt="Autonomous Robotic Pick & Place — detail 10"
-                                class="img-fluid gallery-thumb" loading="lazy" decoding="async"
-                                width="300" height="220" />
-                            </button>
-                        </div>  
-
-                        </div>
-
-                        <p>&nbsp;</p>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="ratio ratio-16x9">
-                                    <iframe
-                                        src="https://drive.google.com/file/d/1B5HVGSLh5elwqPgV4OSwX8VHz8pkl29u/preview"
-                                        allow="autoplay"></iframe>
-                                </div>
-                                <div
-                                    class="small text-muted mt-2 text-center">Object
-                                    Detection &amp; UR-10 Control</div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="ratio ratio-16x9">
-                                    <iframe
-                                        src="https://drive.google.com/file/d/1G1kFXK_wREX5yWOYoN6fHP5-V4pkx0Ad/preview"
-                                        allow="autoplay"></iframe>
-                                </div>
-                                <div
-                                    class="small text-muted mt-2 text-center">Anthropomorphic
-                                    Hand Teleoperation</div>
-                            </div>
-
-                        </div>
-
-
-                    </div>
-                    
-                </div>
-            </main>
-            <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-content">
-                <div class="modal-body p-2">
-                    <div id="galleryCarousel" class="carousel slide" data-bs-keyboard="true">
-                    <div class="carousel-inner">
-
-                        <!-- 10 slides (full-res). We lazy-load full images via data-full -->
-                        <div class="carousel-item active">
-                        <img class="d-block w-100 gallery-full"
-                            src="images/protfolio-00.png"
-                            data-full="images/protfolio-00.png"
-                            alt="Autonomous Robotic Pick & Place — full image 1">
-                        </div>
-
-                        <div class="carousel-item">
-                        <img class="d-block w-100 gallery-full"
-                            src="images/protfolio-01.png"
-                            data-full="images/protfolio-01.png"
-                            alt="Autonomous Robotic Pick & Place — full image 2">
-                        </div>
-                        <div class="carousel-item">
-                        <img class="d-block w-100 gallery-full"
-                            src="images/protfolio-02.png"
-                            data-full="images/protfolio-02.png"
-                            alt="Autonomous Robotic Pick & Place — full image 3">
-                        </div> 
-                        <div class="carousel-item active">
-                        <img class="d-block w-100 gallery-full"
-                            src="images/protfolio-03.png"
-                            data-full="images/protfolio-03.png"
-                            alt="Autonomous Robotic Pick & Place — full image 4">
-                        </div>
-
-                        <div class="carousel-item">
-                        <img class="d-block w-100 gallery-full"
-                            src="images/protfolio-04.png"
-                            data-full="images/protfolio-04.png"
-                            alt="Autonomous Robotic Pick & Place — full image 5">
-                        </div>
-                        <div class="carousel-item">
-                        <img class="d-block w-100 gallery-full"
-                            src="images/protfolio-05.png"
-                            data-full="images/protfolio-05.png"
-                            alt="Autonomous Robotic Pick & Place — full image 6">
-                        </div>  
-                        <div class="carousel-item">
-                        <img class="d-block w-100 gallery-full"
-                            src="images/protfolio-06.png"
-                            data-full="images/protfolio-06.png"
-                            alt="Autonomous Robotic Pick & Place — full image 7">  
-                        </div>
-                        <div class="carousel-item">
-                        <img class="d-block w-100 gallery-full"
-                            src="images/protfolio-07.png"
-                            data-full="images/protfolio-07.png"
-                            alt="Autonomous Robotic Pick & Place — full image 8">      
-                        </div>
-                        <div class="carousel-item">
-                        <img class="d-block w-100 gallery-full"
-                            src="images/protfolio-08.png"
-                            data-full="images/protfolio-08.png"
-                            alt="Autonomous Robotic Pick & Place — full image 9">
-                        </div>
-                        <div class="carousel-item">
-                        <img class="d-block w-100 gallery-full"
-                            src="images/protfolio-09.png"
-                            data-full="images/protfolio-09.png"
-                            alt="Autonomous Robotic Pick & Place — full image 10">
-                        </div>
-
-                    
-
-                    </div>
-
-                    <button class="carousel-control-prev" type="button"
-                            data-bs-target="#galleryCarousel" data-bs-slide="prev"
-                            aria-label="Previous image">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    </button>
-
-                    <button class="carousel-control-next" type="button"
-                            data-bs-target="#galleryCarousel" data-bs-slide="next"
-                            aria-label="Next image">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    </button>
-                    </div>
-                </div>
-
-                <div class="modal-footer py-2">
-                    <div class="me-auto small text-muted" id="galleryCounter">1 / 10</div>
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-dismiss="modal">
-                    Close
-                    </button>
-                </div>
-                </div>
+            <div class="gallery-item" data-index="1">
+              <img src="images/protfolio-01.png" alt="Autonomous Robotic Pick & Place — detail 2" class="gallery-thumb" loading="eager" decoding="async">
             </div>
+            <div class="gallery-item" data-index="2">
+              <img src="images/protfolio-02.png" alt="Autonomous Robotic Pick & Place — detail 3" class="gallery-thumb" loading="eager" decoding="async">
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <div class="gallery-item" data-index="3">
+              <img src="images/protfolio-03.png" alt="Autonomous Robotic Pick & Place — detail 4" class="gallery-thumb" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item" data-index="4">
+              <img src="images/protfolio-04.png" alt="Autonomous Robotic Pick & Place — detail 5" class="gallery-thumb" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item" data-index="5">
+              <img src="images/protfolio-05.png" alt="Autonomous Robotic Pick & Place — detail 6" class="gallery-thumb" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item" data-index="6">
+              <img src="images/protfolio-06.png" alt="Autonomous Robotic Pick & Place — detail 7" class="gallery-thumb" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item" data-index="7">
+              <img src="images/protfolio-07.png" alt="Autonomous Robotic Pick & Place — detail 8" class="gallery-thumb" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item" data-index="8">
+              <img src="images/protfolio-08.png" alt="Autonomous Robotic Pick & Place — detail 9" class="gallery-thumb" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item" data-index="9">
+              <img src="images/protfolio-09.png" alt="Autonomous Robotic Pick & Place — detail 10" class="gallery-thumb" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <script>
-            const modalEl = document.getElementById("galleryModal");
-            const carouselEl = document.getElementById("galleryCarousel");
-            const counterEl = document.getElementById("galleryCounter");
+    <!-- ─── Videos ─────────────────────────────────────────── -->
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-heading">Videos</h2>
+        <div class="video-grid">
+          <div class="video-item">
+            <div class="video-wrapper">
+              <iframe src="https://drive.google.com/file/d/1B5HVGSLh5elwqPgV4OSwX8VHz8pkl29u/preview" allow="autoplay" loading="lazy"></iframe>
+            </div>
+            <p class="video-caption">Object Detection &amp; UR-10 Control</p>
+          </div>
+          <div class="video-item">
+            <div class="video-wrapper">
+              <iframe src="https://drive.google.com/file/d/1G1kFXK_wREX5yWOYoN6fHP5-V4pkx0Ad/preview" allow="autoplay" loading="lazy"></iframe>
+            </div>
+            <p class="video-caption">Anthropomorphic Hand Teleoperation</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            const carousel = new bootstrap.Carousel(carouselEl, {
-                interval: false,
-                ride: false,
-                keyboard: true,
-                touch: true
-            });
+  </main>
 
-            const slides = Array.from(carouselEl.querySelectorAll(".carousel-item"));
-            const fullImgs = Array.from(carouselEl.querySelectorAll("img.gallery-full"));
+  <!-- ─── Image Modal ─────────────────────────────────────── -->
+  <div class="modal" id="imageModal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">✕</button>
+      <img src="" alt="" class="modal-image" id="modalImage">
+      <div class="modal-nav">
+        <button class="modal-nav-btn" id="prevBtn">← Previous</button>
+        <span class="modal-counter" id="modalCounter">1 / 10</span>
+        <button class="modal-nav-btn" id="nextBtn">Next →</button>
+      </div>
+    </div>
+  </div>
 
-            function ensureLoaded(index) {
-                const img = fullImgs[index];
-                if (!img) return;
-                if (!img.src) img.src = img.dataset.full; // load full-res only when needed
-            }
+  <!-- ─── Footer ────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p class="footer-copy">© 2026 Bota Duisenbay · Stockholm, Sweden</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
+        <a href="https://github.com/botastark" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:bota.duisenbay@gmail.com">Email</a>
+      </nav>
+    </div>
+  </footer>
 
-            function setCounter(index) {
-                counterEl.textContent = `${index + 1} / ${slides.length}`;
-            }
+  <!-- ─── Scripts ───────────────────────────────────────── -->
+  <script>
+    // Dark mode toggle
+    (function(){
+      const t = document.querySelector('[data-theme-toggle]');
+      const r = document.documentElement;
+      let d = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      r.setAttribute('data-theme', d);
+      function setIcon(mode) {
+        if (!t) return;
+        t.setAttribute('aria-label', 'Switch to ' + (mode === 'dark' ? 'light' : 'dark') + ' mode');
+        t.innerHTML = mode === 'dark'
+          ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+          : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+      }
+      setIcon(d);
+      t && t.addEventListener('click', () => {
+        d = d === 'dark' ? 'light' : 'dark';
+        r.setAttribute('data-theme', d);
+        setIcon(d);
+      });
+    })();
+  </script>
 
-            // Open modal at the clicked thumbnail index
-            modalEl.addEventListener("show.bs.modal", (event) => {
-                const btn = event.relatedTarget;
-                const index = Number(btn?.getAttribute("data-index") || 0);
+  <script>
+    // Gallery modal
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalCounter = document.getElementById('modalCounter');
+    const modalClose = document.getElementById('modalClose');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    const images = [
+      'images/protfolio-00.png',
+      'images/protfolio-01.png',
+      'images/protfolio-02.png',
+      'images/protfolio-03.png',
+      'images/protfolio-04.png',
+      'images/protfolio-05.png',
+      'images/protfolio-06.png',
+      'images/protfolio-07.png',
+      'images/protfolio-08.png',
+      'images/protfolio-09.png'
+    ];
+    
+    let currentIndex = 0;
+    
+    function showImage(index) {
+      currentIndex = index;
+      modalImage.src = images[index];
+      modalImage.alt = `Autonomous Robotic Pick & Place — full image ${index + 1}`;
+      modalCounter.textContent = `${index + 1} / ${images.length}`;
+    }
+    
+    function openModal(index) {
+      showImage(index);
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    // Gallery item clicks
+    galleryItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const index = parseInt(item.dataset.index);
+        openModal(index);
+      });
+    });
+    
+    // Modal controls
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+    
+    prevBtn.addEventListener('click', () => {
+      const newIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage(newIndex);
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      const newIndex = (currentIndex + 1) % images.length;
+      showImage(newIndex);
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('active')) return;
+      if (e.key === 'Escape') closeModal();
+      if (e.key === 'ArrowLeft') prevBtn.click();
+      if (e.key === 'ArrowRight') nextBtn.click();
+    });
+  </script>
 
-                carousel.to(index);
-                ensureLoaded(index);
-                // Preload neighbors for smooth browsing
-                ensureLoaded(Math.max(0, index - 1));
-                ensureLoaded(Math.min(slides.length - 1, index + 1));
-                setCounter(index);
-            });
-
-            // When slide changes, lazy-load that full-res image + neighbors
-            carouselEl.addEventListener("slid.bs.carousel", () => {
-                const activeIndex = slides.findIndex(s => s.classList.contains("active"));
-                ensureLoaded(activeIndex);
-                ensureLoaded(Math.max(0, activeIndex - 1));
-                ensureLoaded(Math.min(slides.length - 1, activeIndex + 1));
-                setCounter(activeIndex);
-            });
-
-            // Make sure arrow keys always work even if focus is on the modal buttons
-            modalEl.addEventListener("keydown", (e) => {
-                if (e.key === "ArrowLeft") carousel.prev();
-                if (e.key === "ArrowRight") carousel.next();
-            });
-
-            // Optional: clear full-res src when closing to free memory
-            modalEl.addEventListener("hidden.bs.modal", () => {
-                fullImgs.forEach(img => img.removeAttribute("src"));
-                setCounter(0);
-            });
-            </script>
-
-
-
-            <footer class="text-center py-4">
-                <p class="mb-0">&copy; 2025 Bota Duisenbay. All rights
-                    reserved.</p>
-            </footer>
-
-        </body>
-    </html>
+  <script>
+    // Init Lucide icons
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  </script>
+</body>
+</html>
