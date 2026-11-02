@@ -4,6 +4,7 @@ title: Art
 description: "TODO(Bota): Add a one-line introduction."
 nav: art
 permalink: /art.html
+published: false
 ---
 <section class="section"><div class="wrap"><div class="art-grid">{% for artwork in site.data.art %}<figure><img src="{{ artwork.image | relative_url }}" alt="{{ artwork.alt }}"><figcaption>{{ artwork.title }}, {{ artwork.year }} · {{ artwork.medium }} · {{ artwork.size }}</figcaption></figure>{% endfor %}</div></div></section>
 <div class="modal" id="artModal" aria-modal="true" role="dialog" aria-label="Artwork"><div class="modal-content"><button class="modal-close" id="artClose" aria-label="Close artwork">×</button><img src="" alt="" class="modal-image" id="artImage"><div class="modal-nav"><button id="artPrevious">← Previous</button><span id="artCounter"></span><button id="artNext">Next →</button></div></div></div>
