@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
-  <rect width="100%" height="100%" rx="12" fill="#0d6efd" />
-  <text x="50%" y="50%" font-family="Inter, sans-serif" font-size="28" fill="#fff" dominant-baseline="middle" text-anchor="middle">BD</text>
+  <rect width="64" height="64" rx="18" fill="#00797f"/>
+  <path d="M14 23h13l6 9h17M14 41h13l6-9h17M27 23v18" fill="none" stroke="#f9f8f4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="14" cy="23" r="4" fill="#ffb347"/><circle cx="14" cy="41" r="4" fill="#e76f51"/><circle cx="50" cy="32" r="4" fill="#bde3e1"/><circle cx="33" cy="32" r="5" fill="#ffb347"/>
 </svg>

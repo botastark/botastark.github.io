@@ -1,0 +1,11 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="page-header"><div class="wrap"><h1 class="page-title">{{ page.title }}</h1></div></header>
+  <div class="wrap section-grid post-grid">
+    <aside class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time><span>{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>{% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% endfor %}</aside>
+    <div class="post-content">{{ content }}</div>
+  </div>
+  <nav class="post-pagination wrap" aria-label="Post navigation">{% if page.previous %}<a href="{{ page.previous.url | relative_url }}">← {{ page.previous.title }}</a>{% endif %}{% if page.next %}<a href="{{ page.next.url | relative_url }}">{{ page.next.title }} →</a>{% endif %}</nav>
+</article>

@@ -1,0 +1,13 @@
+title: Bota Duisenbay — Neuromorphic Vision & Robotics
+description: PhD student in neuromorphic vision & robotics at KTH — event-based vision, autonomous drones, perception.
+url: https://botastark.github.io
+lang: en
+permalink: /blog/:year/:title/
+plugins: [jekyll-feed, jekyll-seo-tag, jekyll-sitemap]
+feed:
+  path: blog/feed.xml
+collections:
+  art:
+    output: false
+exclude: [Gemfile, Gemfile.lock, README.md, "*.backup", .vscode, website-update-brief.md]
+highlighter: rouge

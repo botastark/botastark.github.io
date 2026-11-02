@@ -1,0 +1,14 @@
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p class="footer-copy">© 2026 Bota Duisenbay · Stockholm, Sweden</p>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="{{ '/projects.html' | relative_url }}">Projects</a>
+      {% if site.posts.size > 0 %}<a href="{{ '/blog/' | relative_url }}">Blog</a>{% endif %}
+      {% if site.data.art.size >= 3 %}<a href="{{ '/art.html' | relative_url }}">Art</a>{% endif %}
+      <a href="{{ '/cv.pdf' | relative_url }}" target="_blank" rel="noopener">CV</a>
+      <a href="https://github.com/botastark" target="_blank" rel="noopener">GitHub</a>
+      <!-- TODO(Bota): Add Google Scholar link when its URL is available (Q5). -->
+      <a href="{{ '/#contact' | relative_url }}">Contact</a>
+    </nav>
+  </div>
+</footer>

@@ -1,0 +1,7 @@
+---
+layout: page
+title: Notes on neuromorphic vision & robotics
+description: Notes on event-based vision, spiking neural networks, and field robotics.
+nav: blog
+---
+<section class="section"><div class="wrap section-grid"><h2 class="section-label">Posts</h2><div>{% if site.posts.size > 0 %}{% for post in site.posts %}<article><p class="news-date">{{ post.date | date: "%-d %b %Y" }}</p><h2 class="section-heading"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2><p class="project-desc">{{ post.description }}</p></article>{% endfor %}{% else %}<p class="project-desc">No posts published yet.</p>{% endif %}<p><a href="{{ '/blog/feed.xml' | relative_url }}">RSS feed</a></p></div></div></section>

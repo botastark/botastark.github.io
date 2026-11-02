@@ -1,0 +1,21 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var toggle = document.querySelector('[data-theme-toggle]');
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch (error) {}
+      });
+    }
+    if (window.lucide) window.lucide.createIcons({ icons: window.lucide.icons });
+    var news = document.querySelector('[data-news-scroll]');
+    if (news) {
+      var updateNewsMask = function () {
+        news.classList.toggle('is-at-end', news.scrollTop + news.clientHeight >= news.scrollHeight - 2);
+      };
+      news.addEventListener('scroll', updateNewsMask, { passive: true });
+      updateNewsMask();
+    }
+  });
+</script>

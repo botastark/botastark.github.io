@@ -1,0 +1,12 @@
+---
+layout: page
+title: Art
+description: "TODO(Bota): Add a one-line introduction."
+nav: art
+permalink: /art.html
+---
+<section class="section"><div class="wrap"><div class="art-grid">{% for artwork in site.data.art %}<figure><img src="{{ artwork.image | relative_url }}" alt="{{ artwork.alt }}"><figcaption>{{ artwork.title }}, {{ artwork.year }} · {{ artwork.medium }} · {{ artwork.size }}</figcaption></figure>{% endfor %}</div></div></section>
+<div class="modal" id="artModal" aria-modal="true" role="dialog" aria-label="Artwork"><div class="modal-content"><button class="modal-close" id="artClose" aria-label="Close artwork">×</button><img src="" alt="" class="modal-image" id="artImage"><div class="modal-nav"><button id="artPrevious">← Previous</button><span id="artCounter"></span><button id="artNext">Next →</button></div></div></div>
+<script>
+document.addEventListener('DOMContentLoaded',function(){const items=[...document.querySelectorAll('.art-grid figure')],modal=document.querySelector('#artModal'),image=document.querySelector('#artImage'),counter=document.querySelector('#artCounter');let index=0;function show(i){if(!items.length)return;index=(i+items.length)%items.length;const source=items[index].querySelector('img');image.src=source.src;image.alt=source.alt;counter.textContent=(index+1)+' / '+items.length}function open(i){show(i);modal.classList.add('active')}function close(){modal.classList.remove('active')}items.forEach((item,i)=>{item.tabIndex=0;item.addEventListener('click',()=>open(i));item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(i)}})});document.querySelector('#artClose').addEventListener('click',close);document.querySelector('#artPrevious').addEventListener('click',()=>show(index-1));document.querySelector('#artNext').addEventListener('click',()=>show(index+1));document.addEventListener('keydown',e=>{if(!modal.classList.contains('active'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(index-1);if(e.key==='ArrowRight')show(index+1)});modal.addEventListener('click',e=>{if(e.target===modal)close()})});
+</script>

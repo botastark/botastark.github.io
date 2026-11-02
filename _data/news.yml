@@ -1,0 +1,48 @@
+- date: 2027-01
+  display_date: Jan 2027
+  title: Research visit — Neuromorphic Computing group, ZHAW · Zurich, Switzerland
+  badge: Upcoming
+  upcoming: true
+  desc: "Neuromorphic computing visit and hackathon. <!-- TODO(Bota): hackathon name + exact dates (Q4) -->"
+- date: 2026-11
+  display_date: Nov 2026
+  title: Research visit — Bio-Inspired Circuits and Systems group, University of Groningen · Groningen, Netherlands
+  badge: Upcoming
+  upcoming: true
+  desc: "Visiting Prof. Elisabetta Chicca's group."
+- date: 2026-09
+  display_date: Sep 2026
+  title: ECCV 2026 Workshops · Malmö, Sweden
+  badge: Event
+  desc: "Workshops, 8–9 September. <!-- TODO(Bota): name the workshops attended -->"
+- date: 2026-05
+  display_date: May 2026
+  title: Event-Driven Vision Summer School, IIT · Arenzano, Italy
+  badge: Summer school
+  desc: Event-driven vision school, 17–23 May.
+- date: 2026-05
+  display_date: May 2026
+  title: PhD at the Neuro Computing Systems Lab, KTH · Stockholm, Sweden
+  badge: Update
+  desc: Joined the NCS Lab through the ELEVATE doctoral network.
+- date: 2026-02
+  display_date: Feb 2026
+  title: Reviewer recognition · Nature Communications Engineering
+  url: https://www.nature.com/commseng/referees/reviewer-of-the-month
+  badge: Recognition
+  desc: Nominated with Vito Trianni.
+- date: 2025-11
+  display_date: Nov 2025
+  title: Research visit — UAS Center, University of Southern Denmark · Odense, Denmark
+  badge: Visit
+  desc: Visit and seminar on agricultural drones.
+- date: 2025-08
+  display_date: Aug 2025
+  title: IEEE RAS Summer School on Multi-Robot Systems · Prague, Czech Republic
+  badge: Summer school
+  desc: Multi-robot systems summer school.
+- date: 2025-07
+  display_date: Jul 2025
+  title: IAS-19 · Genoa, Italy
+  badge: Talk
+  desc: "Oral presentation on agricultural UAV path planning. <!-- TODO(Bota): add IAS-19 DOI or proceedings link (Q9) -->"
