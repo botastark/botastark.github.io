@@ -1,5 +1,35 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    var cookieName = 'bota_analytics_consent';
+    var getCookie = function (name) {
+      return document.cookie.split('; ').reduce(function (value, item) {
+        var parts = item.split('=');
+        return parts.shift() === name ? decodeURIComponent(parts.join('=')) : value;
+      }, '');
+    };
+    var setConsent = function (value) {
+      document.cookie = cookieName + '=' + encodeURIComponent(value) + '; Max-Age=15552000; Path=/; SameSite=Lax; Secure';
+      try { localStorage.setItem(cookieName, value); } catch (error) {}
+    };
+    var consent = getCookie(cookieName);
+    if (!consent) {
+      try { consent = localStorage.getItem(cookieName) || ''; } catch (error) {}
+    }
+    var banner = document.querySelector('[data-cookie-banner]');
+    if (consent === 'accepted') {
+      window.enableAnalytics();
+    } else if (banner) {
+      banner.hidden = false;
+      banner.querySelector('[data-cookie-accept]').addEventListener('click', function () {
+        setConsent('accepted');
+        window.enableAnalytics();
+        banner.hidden = true;
+      });
+      banner.querySelector('[data-cookie-decline]').addEventListener('click', function () {
+        setConsent('declined');
+        banner.hidden = true;
+      });
+    }
     var toggle = document.querySelector('[data-theme-toggle]');
     if (toggle) {
       toggle.addEventListener('click', function () {

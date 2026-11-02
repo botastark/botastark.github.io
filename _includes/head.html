@@ -22,7 +22,20 @@
 {% for stylesheet in page.extra_css %}
 <link rel="stylesheet" href="{{ '/assets/css/' | append: stylesheet | append: '.css' | relative_url }}">
 {% endfor %}
-<!-- Analytics is disabled until a GDPR-compliant consent flow is implemented. -->
+<script>
+  window.enableAnalytics = function () {
+    if (window.__analyticsEnabled) return;
+    window.__analyticsEnabled = true;
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-QZSG8DSLW7';
+    document.head.appendChild(script);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', 'G-QZSG8DSLW7');
+  };
+</script>
 <script src="https://unpkg.com/lucide@1.66.0/dist/umd/lucide.min.js" defer></script>
 {% if page.math %}
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>

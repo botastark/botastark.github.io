@@ -6,6 +6,14 @@
   {% include header.html %}
   <main id="main">{{ content }}</main>
   {% include footer.html %}
+  <aside class="cookie-banner" data-cookie-banner hidden aria-label="Analytics cookie consent">
+    <p>This site uses Google Analytics to understand anonymous visitor activity. You can accept or decline analytics cookies.</p>
+    <div class="cookie-actions">
+      <button type="button" class="btn-secondary cookie-decline" data-cookie-decline>Decline</button>
+      <button type="button" class="btn-primary cookie-accept" data-cookie-accept>Accept analytics</button>
+    </div>
+    <a href="{{ '/privacy.html' | relative_url }}">Privacy details</a>
+  </aside>
   {% include site-scripts.html %}
 </body>
 </html>
