@@ -5,17 +5,23 @@ nav: home
 ---
 <section class="hero" aria-labelledby="hero-name">
   <div class="wrap hero-grid">
-    <div>
-      <p class="hero-label">PhD Student @ KTH · Neuromorphic Vision &amp; Robotics · Stockholm</p>
-      <h1 class="hero-name" id="hero-name">Bota Duisenbay</h1>
+    <div class="hero-copy">
+      <p class="hero-label">PhD Student @ KTH · Neuromorphic Vision &amp; Robotics</p>
+      <h1 class="hero-name" id="hero-name">Bota <em>Duisenbay</em></h1>
       <p class="hero-tagline">PhD student at the KTH Neuro Computing Systems Lab and part of the ELEVATE doctoral network, working with event-based vision and neuromorphic computing for robots. Previously, I worked on autonomous drones for precision agriculture at CNR Rome.</p>
+      <ul class="hero-chips" aria-label="Research topics">
+        <li>Event-based vision</li><li>Spiking neural networks</li><li>Autonomous drones</li><li>Field robotics</li>
+      </ul>Hara, Ryosei, et al. "EventEgoHands++: Event-based Egocentric 3D Hand Mesh Reconstruction with Real Dataset." IEEE Access (2026).
+
       <div class="hero-meta">
         <span class="hero-meta-item"><i data-lucide="map-pin" width="15" height="15"></i>Stockholm, Sweden</span>
-        <span class="hero-meta-item">bota.duisenbay [at] gmail [dot] com</span>
+        <span class="hero-meta-item"><i data-lucide="mail" width="15" height="15"></i>bota.duisenbay [at] gmail [dot] com</span>
       </div>
     </div>
     <div class="hero-avatar-wrap">
-      <img src="{{ '/photo.png' | relative_url }}" alt="Bota Duisenbay" class="hero-avatar" width="200" height="200" loading="eager">
+      <div class="hero-portrait">
+        <img src="{{ '/photo.png' | relative_url }}" alt="Bota Duisenbay" class="hero-avatar" width="280" height="280" loading="eager">
+      </div>
       <div class="hero-social-links" aria-label="Social links">
         <a href="https://github.com/botastark" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><img src="{{ '/icons/github.svg' | relative_url }}" alt="" width="17" height="17"></a>
         <a href="#contact" class="social-link" aria-label="Contact"><img src="{{ '/icons/gmail.svg' | relative_url }}" alt="" width="17" height="17"></a>
@@ -29,16 +35,21 @@ nav: home
 <section class="section" aria-labelledby="about-heading">
   <div class="wrap section-grid">
     <h2 class="section-label" id="about-heading">About</h2>
-    <div class="about-text">
-      <p>Salem! I'm a PhD student in the <strong>Neuro Computing Systems Lab at KTH</strong> and part of the <strong>ELEVATE doctoral network</strong>, exploring how event-based cameras and spiking neural networks can support fast, low-power robot perception.</p>
-      <p>Before Stockholm I was a <strong>Research Fellow at ISTC-CNR</strong> in Rome, working on autonomous drone missions for precision agriculture, including information-gain path planning, Jetson + PX4 integration, and RGB/LiDAR mapping. Earlier roles included document-understanding work at <strong>Botshelf.ai</strong>, industrial OCR and UR10 motion planning at <strong>Baker Hughes</strong>, and robotic manipulation research at <strong>Nazarbayev University</strong>.</p>
-      <p>I'm happy to talk about event vision, field robotics or collaborations. <a href="#contact">Get in touch</a>.</p>
-      {% if site.data.art.size >= 3 %}<p><a href="{{ '/art.html' | relative_url }}">I also paint →</a></p>{% endif %}
-      <ul class="edu-list" aria-label="Education">
-        <li class="edu-item"><p class="edu-title">PhD, KTH Royal Institute of Technology, 2026–</p></li>
-        <li class="edu-item"><p class="edu-title">MSc AI &amp; Robotics, Sapienza, 2023</p></li>
-        <li class="edu-item"><p class="edu-title">BSc Robotics &amp; Mechatronics, Nazarbayev University, 2018</p></li>
-      </ul>
+    <div class="about-layout">
+      <div class="about-text">
+        <p class="about-lead">Salem! I'm a PhD student in the <strong>Neuro Computing Systems Lab at KTH</strong> and part of the <strong>ELEVATE doctoral network</strong>, exploring how event-based cameras and spiking neural networks can support fast, low-power robot perception.</p>
+        <p>Before Stockholm I was a <strong>Research Fellow at ISTC-CNR</strong> in Rome, working on autonomous drone missions for precision agriculture, including information-gain path planning, Jetson + PX4 integration, and RGB/LiDAR mapping. Earlier roles included document-understanding work at <strong>Botshelf.ai</strong>, industrial OCR and UR10 motion planning at <strong>Baker Hughes</strong>, and robotic manipulation research at <strong>Nazarbayev University</strong>.</p>
+        <p>I'm happy to talk about event vision, field robotics or collaborations. <a href="#contact">Get in touch →</a></p>
+        {% if site.data.art.size >= 3 %}<p><a href="{{ '/art.html' | relative_url }}">I also paint →</a></p>{% endif %}
+      </div>
+      <aside class="about-card" aria-label="Education">
+        <p class="card-kicker">Education</p>
+        <ul class="edu-list">
+          <li class="edu-item"><p class="edu-title">PhD</p><p class="edu-sub">KTH Royal Institute of Technology · 2026–</p></li>
+          <li class="edu-item"><p class="edu-title">MSc AI &amp; Robotics</p><p class="edu-sub">Sapienza University of Rome · 2023</p></li>
+          <li class="edu-item"><p class="edu-title">BSc Robotics &amp; Mechatronics</p><p class="edu-sub">Nazarbayev University · 2018</p></li>
+        </ul>
+      </aside>
     </div>
   </div>
 </section>
@@ -66,7 +77,7 @@ nav: home
           {% for item in site.data.news %}
           <li class="news-item{% if item.upcoming %} is-upcoming{% endif %}">
             <time class="news-date"{% if item.date != "" %} datetime="{{ item.date }}"{% endif %}>{{ item.display_date }}</time>
-            <div><h3 class="news-title">{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}{% if item.badge %} <span class="badge">{{ item.badge }}</span>{% endif %}</h3><p class="news-desc">{{ item.desc }}</p></div>
+            <div class="news-body"><h3 class="news-title">{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}{% if item.badge %} <span class="badge">{{ item.badge }}</span>{% endif %}</h3><p class="news-desc">{{ item.desc }}</p></div>
           </li>
           {% endfor %}
         </ul>
@@ -79,16 +90,20 @@ nav: home
 <section class="section" id="contact" aria-labelledby="contact-heading">
   <div class="wrap section-grid">
     <h2 class="section-label" id="contact-heading">Contact</h2>
-    <div>
-      <h2 class="section-heading">Let's connect</h2>
-      <p class="project-content">Open to research collaborations, project conversations, and opportunities in robotics, computer vision, and autonomous systems.</p>
-      <p class="contact-address">bota.duisenbay [at] gmail [dot] com</p>
-      <form action="https://formspree.io/f/mnnvjpre" method="POST" id="contact-form" class="contact-form">
-        <div class="form-group"><label for="email" class="form-label">Your email</label><input type="email" name="email" id="email" class="form-input" required placeholder="your@email.com"></div>
-        <div class="form-group"><label for="message" class="form-label">Your message</label><textarea name="message" id="message" class="form-textarea" required placeholder="Tell me about your project or collaboration idea..."></textarea></div>
-        <button type="submit" class="btn-primary">Send message</button>
-      </form>
-      <div id="form-status"></div>
+    <div class="contact-layout">
+      <div class="contact-intro">
+        <p class="contact-lead">Let's <em>connect.</em></p>
+        <p>Open to research collaborations, project conversations, and opportunities in robotics, computer vision, and autonomous systems.</p>
+        <p class="contact-address"><i data-lucide="mail" width="16" height="16"></i>bota.duisenbay [at] gmail [dot] com</p>
+      </div>
+      <div class="contact-card">
+        <form action="https://formspree.io/f/mnnvjpre" method="POST" id="contact-form" class="contact-form">
+          <div class="form-group"><label for="email" class="form-label">Your email</label><input type="email" name="email" id="email" class="form-input" required placeholder="your@email.com"></div>
+          <div class="form-group"><label for="message" class="form-label">Your message</label><textarea name="message" id="message" class="form-textarea" required placeholder="Tell me about your project or collaboration idea..."></textarea></div>
+          <button type="submit" class="btn-primary">Send message <i data-lucide="arrow-right" width="16" height="16"></i></button>
+        </form>
+        <div id="form-status"></div>
+      </div>
     </div>
   </div>
 </section>

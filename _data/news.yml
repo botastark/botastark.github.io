@@ -7,9 +7,8 @@
 - date: 2026-11
   display_date: Nov 2026
   title: Research visit — Bio-Inspired Circuits and Systems group, University of Groningen · Groningen, Netherlands
-  badge: Upcoming
-  upcoming: true
-  desc: "Visiting Prof. Elisabetta Chicca's group."
+  badge: Visit
+  desc: "Visited Prof. Elisabetta Chicca's group."
 - date: 2026-09
   display_date: Sep 2026
   title: ECCV 2026 Workshops · Malmö, Sweden
