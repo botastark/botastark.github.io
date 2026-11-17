@@ -31,18 +31,19 @@ nav: home
     <div class="bento-wrap">
       <div class="bento">
         <article class="tile tile-feature">
-          <div class="tile-icon"><i data-lucide="brain-circuit" width="26" height="26"></i></div>
+          {% include visual-raster.html %}
+          <div class="tile-icon">{% include icon.html name="events" size=26 %}</div>
           <p class="tile-kicker">Current focus · PhD</p>
           <h3 class="tile-title">Event-based Vision</h3>
           <p class="tile-desc">Spiking neural networks, event cameras, and low-latency perception for robots.</p>
           <ul class="tile-chips"><li>Event cameras</li><li>SNNs</li><li>Neuromorphic hardware</li></ul>
         </article>
-        <article class="tile"><div class="tile-icon"><i data-lucide="navigation" width="22" height="22"></i></div><h3 class="tile-title">Autonomous Drones</h3><p class="tile-desc">Informative path planning, mission planning, PX4/Jetson integration, and field deployment.</p></article>
-        <article class="tile"><div class="tile-icon"><i data-lucide="scan-eye" width="22" height="22"></i></div><h3 class="tile-title">Computer Vision</h3><p class="tile-desc">Detection, segmentation, depth, and point clouds from RGB, depth, and LiDAR.</p></article>
-        <article class="tile"><div class="tile-icon"><i data-lucide="bot" width="22" height="22"></i></div><h3 class="tile-title">Robotic Manipulation</h3><p class="tile-desc">Grasp planning, MoveIt, and perception-driven pick-and-place on the UR10.</p></article>
-        <article class="tile"><div class="tile-icon"><i data-lucide="file-search" width="22" height="22"></i></div><h3 class="tile-title">Document Intelligence</h3><p class="tile-desc">OCR, layout analysis, and LLM-based extraction in production.</p></article>
+        <article class="tile"><div class="tile-icon">{% include icon.html name="drone" %}</div><h3 class="tile-title">Autonomous Drones</h3><p class="tile-desc">Informative path planning, mission planning, PX4/Jetson integration, and field deployment.</p></article>
+        <article class="tile"><div class="tile-icon">{% include icon.html name="pointcloud" %}</div><h3 class="tile-title">Computer Vision</h3><p class="tile-desc">Detection, segmentation, depth, and point clouds from RGB, depth, and LiDAR.</p></article>
+        <article class="tile"><div class="tile-icon">{% include icon.html name="arm" %}</div><h3 class="tile-title">Robotic Manipulation</h3><p class="tile-desc">Grasp planning, MoveIt, and perception-driven pick-and-place on the UR10.</p></article>
+        <article class="tile"><div class="tile-icon">{% include icon.html name="document" %}</div><h3 class="tile-title">Document Intelligence</h3><p class="tile-desc">OCR, layout analysis, and LLM-based extraction in production.</p></article>
         <article class="tile tile-tools">
-          <p class="tile-kicker"><i data-lucide="code-2" width="16" height="16"></i>Tools</p>
+          <p class="tile-kicker">{% include icon.html name="code" size=16 %}Tools</p>
           <ul class="tile-chips"><li>Python</li><li>C++</li><li>PyTorch</li><li>ROS / ROS2</li><li>OpenCV</li><li>PCL</li><li>PX4</li><li>NVIDIA Jetson</li><li>Docker</li><li>Linux</li></ul>
         </article>
       </div>
