@@ -3,12 +3,40 @@ layout: default
 title: Bota Duisenbay — Neuromorphic Vision & Robotics
 nav: home
 ---
-<section class="section" id="about" aria-labelledby="about-heading">
-  <div class="wrap">
+<section class="hero" aria-labelledby="hero-name">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="hero-label">PhD Student @ KTH · Neuromorphic Vision &amp; Robotics</p>
+      <h1 class="hero-name" id="hero-name">Bota <em>Duisenbay</em></h1>
+      <p class="hero-tagline">PhD student at the KTH Neuro Computing Systems Lab and part of the ELEVATE doctoral network, working with event-based vision and neuromorphic computing for robots. Previously, I worked on autonomous drones for precision agriculture at CNR Rome.</p>
+      <ul class="hero-chips" aria-label="Research topics">
+        <li>Event-based vision</li><li>Spiking neural networks</li><li>Autonomous drones</li><li>Field robotics</li>
+      </ul>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><i data-lucide="map-pin" width="15" height="15"></i>Stockholm, Sweden</span>
+        <span class="hero-meta-item"><i data-lucide="mail" width="15" height="15"></i>bota.duisenbay [at] gmail [dot] com</span>
+      </div>
+    </div>
+    <div class="hero-avatar-wrap">
+      <div class="hero-portrait">
+        <img src="{{ '/photo.png' | relative_url }}" alt="Bota Duisenbay" class="hero-avatar" width="280" height="280" loading="eager">
+      </div>
+      <div class="hero-social-links" aria-label="Social links">
+        <a href="https://github.com/botastark" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><img src="{{ '/icons/github.svg' | relative_url }}" alt="" width="17" height="17"></a>
+        <a href="#contact" class="social-link" aria-label="Contact"><img src="{{ '/icons/gmail.svg' | relative_url }}" alt="" width="17" height="17"></a>
+        <a href="https://linkedin.com/in/botad" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="{{ '/icons/linkedin.svg' | relative_url }}" alt="" width="17" height="17"></a>
+        <!-- TODO(Bota): Add Google Scholar and ORCID icons when URLs are available (Q5). -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="about-heading">
+  <div class="wrap section-grid">
     <h2 class="section-label" id="about-heading">About</h2>
-    <p class="intro-lead">Salem! I'm a PhD student in the <em>Neuro Computing Systems Lab at KTH</em> and part of the <em>ELEVATE doctoral network</em>, exploring how event-based cameras and spiking neural networks can support fast, low-power robot perception.</p>
     <div class="about-layout">
       <div class="about-text">
+        <p class="about-lead">Salem! I'm a PhD student in the <strong>Neuro Computing Systems Lab at KTH</strong> and part of the <strong>ELEVATE doctoral network</strong>, exploring how event-based cameras and spiking neural networks can support fast, low-power robot perception.</p>
         <p>Before Stockholm I was a <strong>Research Fellow at ISTC-CNR</strong> in Rome, working on autonomous drone missions for precision agriculture, including information-gain path planning, Jetson + PX4 integration, and RGB/LiDAR mapping. Earlier roles included document-understanding work at <strong>Botshelf.ai</strong>, industrial OCR and UR10 motion planning at <strong>Baker Hughes</strong>, and robotic manipulation research at <strong>Nazarbayev University</strong>.</p>
         <p>I'm happy to talk about event vision, field robotics or collaborations. <a href="#contact">Get in touch →</a></p>
         {% if site.data.art.size >= 3 %}<p><a href="{{ '/art.html' | relative_url }}">I also paint →</a></p>{% endif %}
@@ -25,45 +53,30 @@ nav: home
   </div>
 </section>
 
-<section class="section" id="research" aria-labelledby="research-heading">
-  <div class="wrap">
-    <h2 class="section-label" id="research-heading">Research &amp; Experience</h2>
-    <div class="bento-wrap">
-      <div class="bento">
-        <article class="tile tile-feature">
-          <div class="tile-icon"><i data-lucide="brain-circuit" width="26" height="26"></i></div>
-          <p class="tile-kicker">Current focus · PhD</p>
-          <h3 class="tile-title">Event-based Vision</h3>
-          <p class="tile-desc">Spiking neural networks, event cameras, and low-latency perception for robots.</p>
-          <ul class="tile-chips"><li>Event cameras</li><li>SNNs</li><li>Neuromorphic hardware</li></ul>
-        </article>
-        <article class="tile"><div class="tile-icon"><i data-lucide="navigation" width="22" height="22"></i></div><h3 class="tile-title">Autonomous Drones</h3><p class="tile-desc">Informative path planning, mission planning, PX4/Jetson integration, and field deployment.</p></article>
-        <article class="tile"><div class="tile-icon"><i data-lucide="scan-eye" width="22" height="22"></i></div><h3 class="tile-title">Computer Vision</h3><p class="tile-desc">Detection, segmentation, depth, and point clouds from RGB, depth, and LiDAR.</p></article>
-        <article class="tile"><div class="tile-icon"><i data-lucide="bot" width="22" height="22"></i></div><h3 class="tile-title">Robotic Manipulation</h3><p class="tile-desc">Grasp planning, MoveIt, and perception-driven pick-and-place on the UR10.</p></article>
-        <article class="tile"><div class="tile-icon"><i data-lucide="file-search" width="22" height="22"></i></div><h3 class="tile-title">Document Intelligence</h3><p class="tile-desc">OCR, layout analysis, and LLM-based extraction in production.</p></article>
-        <article class="tile tile-tools">
-          <p class="tile-kicker"><i data-lucide="code-2" width="16" height="16"></i>Tools</p>
-          <ul class="tile-chips"><li>Python</li><li>C++</li><li>PyTorch</li><li>ROS / ROS2</li><li>OpenCV</li><li>PCL</li><li>PX4</li><li>NVIDIA Jetson</li><li>Docker</li><li>Linux</li></ul>
-        </article>
-      </div>
+<section class="section" aria-labelledby="research-heading">
+  <div class="wrap section-grid">
+    <h2 class="section-label" id="research-heading">Experience &amp; Interests</h2>
+    <div class="interests-grid">
+      <article class="interest-card"><div class="interest-icon"><i data-lucide="brain-circuit" width="22" height="22"></i></div><h3 class="interest-title">Event-based Vision</h3><p class="interest-desc">Spiking neural networks, event cameras, and low-latency perception for the current PhD focus.</p></article>
+      <article class="interest-card"><div class="interest-icon"><i data-lucide="navigation" width="22" height="22"></i></div><h3 class="interest-title">Autonomous Drones</h3><p class="interest-desc">Informative path planning, mission planning, PX4/Jetson integration, and field deployment.</p></article>
+      <article class="interest-card"><div class="interest-icon"><i data-lucide="scan-eye" width="22" height="22"></i></div><h3 class="interest-title">Computer Vision</h3><p class="interest-desc">Detection, segmentation, depth, and point clouds from RGB, depth, and LiDAR.</p></article>
+      <article class="interest-card"><div class="interest-icon"><i data-lucide="bot" width="22" height="22"></i></div><h3 class="interest-title">Robotic Manipulation</h3><p class="interest-desc">Grasp planning, MoveIt, and perception-driven pick-and-place on the UR10.</p></article>
+      <article class="interest-card"><div class="interest-icon"><i data-lucide="file-search" width="22" height="22"></i></div><h3 class="interest-title">Document Intelligence</h3><p class="interest-desc">OCR, layout analysis, and LLM-based extraction in production.</p></article>
+      <article class="interest-card"><div class="interest-icon"><i data-lucide="code-2" width="22" height="22"></i></div><h3 class="interest-title">Tools</h3><p class="interest-desc">Python, C++, PyTorch, ROS/ROS2, OpenCV, PCL, PX4, NVIDIA Jetson, Docker, and Linux.</p></article>
     </div>
   </div>
 </section>
 
 <section class="section" id="news" aria-labelledby="news-heading">
-  <div class="wrap">
+  <div class="wrap section-grid">
     <h2 class="section-label" id="news-heading">News</h2>
     <div>
       <div class="news-scroll" data-news-scroll role="region" aria-label="News" tabindex="0">
         <ul class="news-list" role="list">
-          {% assign now_month = site.time | date: "%Y-%m" %}{% assign now_day = site.time | date: "%Y-%m-%d" %}
           {% for item in site.data.news %}
-          {% capture item_date %}{{ item.date }}{% endcapture %}
-          {% assign is_upcoming = false %}
-          {% if item_date.size == 7 %}{% if item_date > now_month %}{% assign is_upcoming = true %}{% endif %}{% elsif item_date >= now_day %}{% assign is_upcoming = true %}{% endif %}
-          <li class="news-item{% if is_upcoming %} is-upcoming{% endif %}" data-news-date="{{ item_date }}">
-            <time class="news-date" datetime="{{ item_date }}">{{ item.display_date }}</time>
-            <div class="news-body"><h3 class="news-title">{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %} <span class="badge" data-badge-past="{{ item.badge }}"{% unless is_upcoming or item.badge %} hidden{% endunless %}>{% if is_upcoming %}Upcoming{% else %}{{ item.badge }}{% endif %}</span></h3><p class="news-desc">{{ item.desc }}</p></div>
+          <li class="news-item{% if item.upcoming %} is-upcoming{% endif %}">
+            <time class="news-date"{% if item.date != "" %} datetime="{{ item.date }}"{% endif %}>{{ item.display_date }}</time>
+            <div class="news-body"><h3 class="news-title">{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}{% if item.badge %} <span class="badge">{{ item.badge }}</span>{% endif %}</h3><p class="news-desc">{{ item.desc }}</p></div>
           </li>
           {% endfor %}
         </ul>
@@ -74,7 +87,7 @@ nav: home
 </section>
 
 <section class="section" id="contact" aria-labelledby="contact-heading">
-  <div class="wrap">
+  <div class="wrap section-grid">
     <h2 class="section-label" id="contact-heading">Contact</h2>
     <div class="contact-layout">
       <div class="contact-intro">
@@ -127,5 +140,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 {% if site.posts.size > 0 %}
-<section class="section"><div class="wrap"><h2 class="section-label">Latest from the blog</h2><div>{% for post in site.posts limit:3 %}<p><a href="{{ post.url | relative_url }}">{{ post.title }}</a></p>{% endfor %}</div></div></section>
+<section class="section"><div class="wrap section-grid"><h2 class="section-label">Latest from the blog</h2><div>{% for post in site.posts limit:3 %}<p><a href="{{ post.url | relative_url }}">{{ post.title }}</a></p>{% endfor %}</div></div></section>
 {% endif %}
