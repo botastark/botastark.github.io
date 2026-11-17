@@ -74,10 +74,14 @@ nav: home
     <div>
       <div class="news-scroll" data-news-scroll role="region" aria-label="News" tabindex="0">
         <ul class="news-list" role="list">
+          {% assign now_month = site.time | date: "%Y-%m" %}{% assign now_day = site.time | date: "%Y-%m-%d" %}
           {% for item in site.data.news %}
-          <li class="news-item{% if item.upcoming %} is-upcoming{% endif %}">
-            <time class="news-date"{% if item.date != "" %} datetime="{{ item.date }}"{% endif %}>{{ item.display_date }}</time>
-            <div class="news-body"><h3 class="news-title">{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}{% if item.badge %} <span class="badge">{{ item.badge }}</span>{% endif %}</h3><p class="news-desc">{{ item.desc }}</p></div>
+          {% capture item_date %}{{ item.date }}{% endcapture %}
+          {% assign is_upcoming = false %}
+          {% if item_date.size == 7 %}{% if item_date > now_month %}{% assign is_upcoming = true %}{% endif %}{% elsif item_date >= now_day %}{% assign is_upcoming = true %}{% endif %}
+          <li class="news-item{% if is_upcoming %} is-upcoming{% endif %}" data-news-date="{{ item_date }}">
+            <time class="news-date" datetime="{{ item_date }}">{{ item.display_date }}</time>
+            <div class="news-body"><h3 class="news-title">{% if item.url %}<a href="{{ item.url }}" target="_blank" rel="noopener">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %} <span class="badge" data-badge-past="{{ item.badge }}"{% unless is_upcoming or item.badge %} hidden{% endunless %}>{% if is_upcoming %}Upcoming{% else %}{{ item.badge }}{% endif %}</span></h3><p class="news-desc">{{ item.desc }}</p></div>
           </li>
           {% endfor %}
         </ul>

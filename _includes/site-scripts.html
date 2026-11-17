@@ -39,6 +39,23 @@
       });
     }
     if (window.lucide) window.lucide.createIcons({ icons: window.lucide.icons });
+    // Upcoming vs past news: "YYYY-MM" stays upcoming until that month starts;
+    // "YYYY-MM-DD" (e.g. an event's last day) stays upcoming through that day.
+    var pad = function (n) { return String(n).padStart(2, '0'); };
+    var today = new Date();
+    var nowMonth = today.getFullYear() + '-' + pad(today.getMonth() + 1);
+    var nowDay = nowMonth + '-' + pad(today.getDate());
+    document.querySelectorAll('[data-news-date]').forEach(function (item) {
+      var date = item.dataset.newsDate;
+      if (!date) return;
+      var upcoming = date.length === 7 ? date > nowMonth : date >= nowDay;
+      item.classList.toggle('is-upcoming', upcoming);
+      var badge = item.querySelector('.badge');
+      if (!badge) return;
+      var past = badge.dataset.badgePast || '';
+      badge.textContent = upcoming ? 'Upcoming' : past;
+      badge.hidden = !upcoming && !past;
+    });
     var news = document.querySelector('[data-news-scroll]');
     if (news) {
       var updateNewsMask = function () {

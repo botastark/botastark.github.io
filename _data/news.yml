@@ -1,8 +1,7 @@
 - date: 2027-01
   display_date: Jan 2027
   title: Research visit — Neuromorphic Computing group, ZHAW · Zurich, Switzerland
-  badge: Upcoming
-  upcoming: true
+  badge: Visit
   desc: "Neuromorphic computing visit and hackathon. <!-- TODO(Bota): hackathon name + exact dates (Q4) -->"
 - date: 2026-11
   display_date: Nov 2026
