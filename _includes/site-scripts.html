@@ -30,15 +30,28 @@
         banner.hidden = true;
       });
     }
-    var toggle = document.querySelector('[data-theme-toggle]');
-    if (toggle) {
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (toggle) {
       toggle.addEventListener('click', function () {
         var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
         document.documentElement.dataset.theme = next;
         try { localStorage.setItem('theme', next); } catch (error) {}
       });
-    }
+    });
     if (window.lucide) window.lucide.createIcons({ icons: window.lucide.icons });
+    // Highlight the sidebar link of the section in view (home page only).
+    var spyLinks = document.querySelectorAll('[data-spy]');
+    if (spyLinks.length && 'IntersectionObserver' in window) {
+      var setActive = function (id) {
+        spyLinks.forEach(function (link) { link.classList.toggle('is-active', link.dataset.spy === id); });
+      };
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) { if (entry.isIntersecting) setActive(entry.target.id); });
+      }, { rootMargin: '-35% 0px -60% 0px' });
+      spyLinks.forEach(function (link) {
+        var target = document.getElementById(link.dataset.spy);
+        if (target) observer.observe(target);
+      });
+    }
     // Upcoming vs past news: "YYYY-MM" stays upcoming until that month starts;
     // "YYYY-MM-DD" (e.g. an event's last day) stays upcoming through that day.
     var pad = function (n) { return String(n).padStart(2, '0'); };

@@ -1,0 +1,37 @@
+<aside class="sidebar" aria-label="Profile">
+  <div class="sidebar-inner">
+    <div class="sidebar-top">
+      <a href="{{ '/' | relative_url }}" class="sidebar-portrait" aria-label="Bota Duisenbay — Home">
+        <img src="{{ '/photo.png' | relative_url }}" alt="Bota Duisenbay" width="200" height="200" loading="eager">
+      </a>
+      <p class="sidebar-role"><span class="pulse-dot" aria-hidden="true"></span>PhD Student @ KTH · Stockholm</p>
+      {% if page.nav == 'home' %}<h1 class="sidebar-name">Bota <em>Duisenbay</em></h1>{% else %}<p class="sidebar-name">Bota <em>Duisenbay</em></p>{% endif %}
+      <p class="sidebar-tagline">Event-based vision and neuromorphic computing for robots, at the KTH Neuro Computing Systems Lab and the ELEVATE doctoral network.</p>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Primary navigation">
+      <ol>
+        <li><a href="{{ '/#about' | relative_url }}" data-spy="about"><span class="nav-num">01</span><span class="nav-line"></span>About</a></li>
+        <li><a href="{{ '/#research' | relative_url }}" data-spy="research"><span class="nav-num">02</span><span class="nav-line"></span>Research</a></li>
+        <li><a href="{{ '/#news' | relative_url }}" data-spy="news"><span class="nav-num">03</span><span class="nav-line"></span>News</a></li>
+        <li><a href="{{ '/#contact' | relative_url }}" data-spy="contact"><span class="nav-num">04</span><span class="nav-line"></span>Contact</a></li>
+      </ol>
+      <div class="sidebar-pages">
+        <a href="{{ '/projects.html' | relative_url }}"{% if page.nav == 'projects' %} class="is-active" aria-current="page"{% endif %}>Projects &amp; publications <span aria-hidden="true">→</span></a>
+        {% if site.posts.size > 0 %}<a href="{{ '/blog/' | relative_url }}"{% if page.nav == 'blog' %} class="is-active" aria-current="page"{% endif %}>Blog <span aria-hidden="true">→</span></a>{% endif %}
+      </div>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="sidebar-social" aria-label="Social links">
+        <a href="https://github.com/botastark" class="social-link" target="_blank" rel="noopener" aria-label="GitHub"><img src="{{ '/icons/github.svg' | relative_url }}" alt="" width="17" height="17"></a>
+        <a href="{{ '/#contact' | relative_url }}" class="social-link" aria-label="Contact"><img src="{{ '/icons/gmail.svg' | relative_url }}" alt="" width="17" height="17"></a>
+        <a href="https://linkedin.com/in/botad" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="{{ '/icons/linkedin.svg' | relative_url }}" alt="" width="17" height="17"></a>
+        <!-- TODO(Bota): Add Google Scholar and ORCID icons when URLs are available (Q5). -->
+        <a href="{{ '/cv.pdf' | relative_url }}" class="sidebar-cv" target="_blank" rel="noopener">CV ↗</a>
+        <button class="theme-btn sidebar-theme" data-theme-toggle aria-label="Switch theme"><i data-lucide="moon" width="17" height="17"></i></button>
+      </div>
+      <p class="sidebar-meta"><i data-lucide="map-pin" width="14" height="14"></i>Stockholm, Sweden</p>
+    </div>
+  </div>
+</aside>
